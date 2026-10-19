@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0;font-family:system-ui,sans-serif}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Tech-Ökosystem Verwaltung</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Schichtenplan wie ein Architektur-Querschnitt; links die Ebenen, rechts die Detailtafel. Prinzipien und Abläufe legen sich als Linsen darüber. */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --ink:#15202e; --muted:#5b6778; --line:#d6dce5;
+  --accent:#1f4fd1; --accent-soft:#e3eafc;
+  --l1:#e6eefc; --l2:#e8f3ee; --l3:#f6efe3; --l4:#efe9f8; --l5:#e4f2f5; --l6:#f2ece9; --leu:#e9edf6;
+  --ok:#17824f; --warn:#b86e00; --pilot:#2862c9; --plan:#7a4fc0; --legacy:#8a5a44; --open:#8b95a3; --rule:#3d5a80;
+  --f-display:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Source Sans 3",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --wip1:#f2b705; --wip2:#1a1a1a; --wipbg:#1a1a1a; --wipfg:#ffd23f;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141c; --surface:#171e29; --ink:#e6ebf2; --muted:#9aa6b6; --line:#2a3443;
+  --accent:#7ea2ff; --accent-soft:#1d2a47;
+  --l1:#17233a; --l2:#162a24; --l3:#2a2418; --l4:#221d33; --l5:#14282d; --l6:#2a201c; --leu:#1b2232;
+  --ok:#4cc58a; --warn:#e0a43c; --pilot:#7ea2ff; --plan:#b393ee; --legacy:#c99a82; --open:#7c8796; --rule:#8fb0d8;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141c; --surface:#171e29; --ink:#e6ebf2; --muted:#9aa6b6; --line:#2a3443;
+  --accent:#7ea2ff; --accent-soft:#1d2a47;
+  --l1:#17233a; --l2:#162a24; --l3:#2a2418; --l4:#221d33; --l5:#14282d; --l6:#2a201c; --leu:#1b2232;
+  --ok:#4cc58a; --warn:#e0a43c; --pilot:#7ea2ff; --plan:#b393ee; --legacy:#c99a82; --open:#7c8796; --rule:#8fb0d8;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:1360px;margin:0 auto;padding-block:28px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,4vw,42px);line-height:1.05;margin:4px 0 6px;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:62ch;margin:0}
+.countdown{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;font:inherit;color:inherit;text-align:left}
+.countdown:hover{border-color:var(--accent)}
+.countdown b{font-family:var(--f-display);font-size:30px;line-height:1;font-variant-numeric:tabular-nums;color:var(--accent)}
+.countdown span{font-size:14px;color:var(--muted);line-height:1.3}
+
+/* Steuerleiste */
+.controls{display:flex;flex-wrap:wrap;gap:10px 28px;margin-bottom:16px;align-items:flex-start}
+.group{display:flex;flex-direction:column;gap:6px;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 14px/1 var(--f-body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.chip .n{font-family:var(--f-mono);font-weight:500;font-size:12px;opacity:.75}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;align-items:start}
+@media (max-width:1040px){.layout{grid-template-columns:minmax(0,1fr)}}
+
+/* Schichtenplan */
+.map{display:flex;flex-direction:column;gap:8px;min-width:0}
+.persona{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:6px 2px;font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.persona .who{background:var(--surface);border:1px dashed var(--line);border-radius:6px;padding:4px 10px;color:var(--ink)}
+.layer{display:grid;grid-template-columns:150px minmax(0,1fr);border-radius:10px;background:var(--lc);border:1px solid var(--line);overflow:hidden}
+.layer .lab{padding:12px 14px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.layer .lab .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.layer .lab .t{font-family:var(--f-display);font-weight:700;font-size:15px;line-height:1.2}
+.layer .lab .d{font-size:13px;color:var(--muted);line-height:1.3}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;padding:10px;align-content:flex-start}
+@media (max-width:640px){.layer{grid-template-columns:minmax(0,1fr)}.layer .lab{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;flex-wrap:wrap;gap:4px 10px;align-items:baseline}}
+.tile{position:relative;font:inherit;color:var(--ink);text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px 8px 10px;cursor:pointer;display:flex;gap:8px;align-items:center;transition:opacity .2s,transform .15s,border-color .15s,box-shadow .15s;min-width:0}
+.tile:hover{border-color:var(--accent);transform:translateY(-1px)}
+.tile .dot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--sc)}
+.tile .dot.hollow{background:transparent;border:2px dashed var(--sc)}
+.tile .nm{font-weight:700;font-size:15px;line-height:1.2}
+.tile .fn{display:block;font-size:12.5px;color:var(--muted);font-weight:400;line-height:1.25}
+.tile.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.tile.dim{opacity:.28}
+.tile .step{position:absolute;top:-9px;left:-7px;min-width:22px;height:22px;border-radius:11px;background:var(--accent);color:var(--surface);font:500 12px/22px var(--f-mono);text-align:center;padding:0 5px}
+.tile .step.done{background:var(--muted)}
+.gov{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--surface)}
+.gov .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:var(--muted);margin-right:4px;text-transform:uppercase}
+.actor{font:600 13.5px/1 var(--f-body);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:6px;padding:7px 10px;cursor:pointer}
+.actor:hover,.actor.sel{border-color:var(--accent);color:var(--accent)}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);padding:4px 2px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--sc)}
+.legend i.hollow{background:transparent;border:2px dashed var(--sc)}
+
+/* Ablauf-Leiste */
+.flowbar{display:flex;gap:12px;align-items:center;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:10px 12px;flex-wrap:wrap}
+.flowbar .cap{flex:1 1 260px;min-width:0}
+.flowbar .cap b{font-family:var(--f-display);display:block;font-size:15px}
+.flowbar .cap span{font-size:14.5px}
+.flowbar .nav{display:flex;gap:6px;align-items:center;font-family:var(--f-mono);font-size:13px}
+.btn{font:600 14px/1 var(--f-body);border:1px solid var(--accent);background:var(--surface);color:var(--accent);border-radius:8px;padding:8px 12px;cursor:pointer}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.primary{background:var(--accent);color:var(--surface)}
+
+/* Detailtafel */
+.panel{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;max-height:calc(100vh - 32px);overflow:auto;min-width:0}
+@media (max-width:1040px){.panel{position:static;max-height:none}}
+.panel h2{font-family:var(--f-display);font-weight:800;font-size:24px;line-height:1.15;margin:4px 0 6px;text-wrap:balance}
+.panel h3{font-family:var(--f-mono);font-weight:500;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+.panel p{margin:0 0 8px}
+.panel ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.panel a{color:var(--accent);word-break:break-word}
+.status{display:inline-flex;align-items:center;gap:6px;font:600 13px/1 var(--f-body);padding:6px 10px;border-radius:999px;border:1px solid var(--sc);color:var(--sc)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--sc)}
+.when{font-family:var(--f-mono);font-size:13.5px;background:var(--bg);border-radius:8px;padding:10px 12px;margin-top:6px}
+.quote{border-left:3px solid var(--warn);padding:4px 0 4px 12px;color:var(--muted);font-style:italic;margin:8px 0}
+.path{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:13.5px}
+.path span{background:var(--bg);border-radius:6px;padding:3px 8px}
+.path em{font-style:normal;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:500 12px/1 var(--f-mono);padding:5px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);border:0;cursor:pointer}
+.gap{background:var(--bg);border:1px dashed var(--open);border-radius:8px;padding:12px;color:var(--muted);font-size:14.5px}
+.rel{display:flex;flex-wrap:wrap;gap:6px}
+.rel button{font:600 13px/1 var(--f-body);border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:6px 9px;cursor:pointer}
+.rel button:hover{border-color:var(--accent)}
+table.roles{width:100%;border-collapse:collapse;font-size:14px}
+table.roles td{border-top:1px solid var(--line);padding:6px 4px;vertical-align:top}
+table.roles td:first-child{font-weight:700;width:42%}
+.foot{margin-top:28px;font-size:13px;color:var(--muted)}
+.wip{background:repeating-linear-gradient(-45deg,var(--wip1) 0 18px,var(--wip2) 18px 36px);padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wip-in{max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;background:var(--wipbg);color:var(--wipfg);border-radius:8px;padding:12px 16px}
+.wip-badge{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,28px);text-transform:uppercase;letter-spacing:.04em;line-height:1}
+.wip-txt{font-size:15px;font-weight:600;flex:1 1 280px;min-width:0}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
+</style>
+
+<div class="wip" role="note"><div class="wip-in"><span class="wip-badge">Work in Progress</span><span class="wip-txt">Diese Übersicht ist ein Entwurf und wird noch geprüft. Inhalte können unvollständig oder fehlerhaft sein, bitte nicht als verbindliche Quelle verwenden.</span></div></div>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Regelungsbegleitung · Stand Oktober 2026</div>
+      <h1>Tech-Ökosystem der Verwaltung</h1>
+      <p class="lede">Welche Bausteine gibt es, wofür sind sie gut, was können sie noch nicht und ab wann sind sie nutzbar? Klick auf eine Komponente, ein Prinzip oder spiel einen Ablauf durch.</p>
+    </div>
+    <button class="countdown" id="cd" type="button" aria-label="NOOTS 1.0 öffnen">
+      <b id="cdDays">–</b><span>Tage bis zum Flächenrollout<br><strong>NOOTS 1.0</strong> am 30.11.2026</span>
+    </button>
+  </header>
+
+  <div class="controls">
+    <div class="group">
+      <div class="eyebrow">Abläufe durchspielen</div>
+      <div class="chips" id="flowChips"></div>
+    </div>
+    <div class="group">
+      <div class="eyebrow">Leitprinzipien</div>
+      <div class="chips" id="prinChips"></div>
+    </div>
+    <div class="group">
+      <div class="eyebrow">Filter</div>
+      <div class="chips" id="filterChips"></div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="map" id="map"></div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+
+  <p class="foot">Quelle: Konfluenz-Seite „Tech-Ökosystem – Regelungsbegleitung“ (v7, 19.10.2026). Was der Deutschland-Stack am Ende umfasst, ist noch in Abstimmung. Gestrichelte Punkte markieren Komponenten, die in der Sammlung noch nicht beschrieben sind.</p>
+</div>
+
+<script>
+const STATUS={
+  live:{l:"In Betrieb",c:"--ok"},
+  partial:{l:"In Betrieb, mit Lücken",c:"--warn"},
+  pilot:{l:"Pilot / MVP",c:"--pilot"},
+  plan:{l:"Strategie, in Planung",c:"--plan"},
+  legacy:{l:"In Betrieb, soll abgelöst werden",c:"--legacy"},
+  rule:{l:"Rechtsrahmen",c:"--rule"},
+  open:{l:"Noch nicht beschrieben",c:"--open"}
+};
+const LAYERS=[
+  {id:"zugang",k:"Ebene 1",t:"Zugang",d:"Wo Menschen Leistungen finden",c:"--l1"},
+  {id:"id",k:"Ebene 2",t:"Identität & Konten",d:"Anmelden bei Onlinediensten",c:"--l2"},
+  {id:"quer",k:"Ebene 3",t:"Querschnittsdienste",d:"Bezahlen, Postfach, Feedback",c:"--l3"},
+  {id:"transport",k:"Ebene 4",t:"Transport & Austausch",d:"Antrag zur Fachbehörde bringen",c:"--l4"},
+  {id:"daten",k:"Ebene 5",t:"Nachweise & Register",d:"Once-Only umsetzen",c:"--l5"},
+  {id:"bau",k:"Ebene 6",t:"Bausteine & Nachnutzung",d:"Nicht alles neu bauen",c:"--l6"},
+  {id:"eu",k:"EU",t:"EU-Interoperabilität",d:"Grenzüberschreitend",c:"--leu"}
+];
+const C=[
+ {id:"bundesportal",n:"Bundesportal",layer:"zugang",fn:"„Amt für alles“",s:"partial",
+  w:"Zentraler Zugangspunkt zu den Verwaltungsleistungen von Bund, Ländern und Kommunen. One-Stop-Shop für Behördengänge, inklusive E-Payment. Herausgeber ist das BMDS.",
+  g:["Leistungen sind unvollständig zusammengeführt: oft nur Wegweiser zu anderen Seiten statt durchgängiger Antrag.","Komplizierte Authentifizierungsprozesse.","Viele Anträge sind online auffindbar, werden in der Behörde aber ausgedruckt und händisch weiterverarbeitet (fehlende Ende-zu-Ende-Digitalisierung)."],
+  link:"https://verwaltung.bund.de/portal/DE/info-pages/leistungen",p:[]},
+ {id:"dapp",n:"Deutschland-App",layer:"zugang",fn:"Bürgerdienste mobil",s:"pilot",
+  w:"Soll die Interaktion mit dem Staat mobil und einfacher machen. Entwickelt im Auftrag der Bundesregierung von SAP und Deutscher Telekom. KI soll bürokratische Prozesse im Dialog lösen. Dient als Speicherort für digitale Identitäten und Nachweise (z. B. Führerschein, Ausweis).",
+  g:["Rund 11.000 Kommunen mit eigener Software und eigenen Prozessen müssen zusammengeführt werden.","Hängt ebenfalls an der Registermodernisierung.","Schlechter Ruf, weil Telekom- und SAP-Projekt."],
+  when:"Tests mit echten Nutzenden in Pilotkommunen (u. a. Dortmund, Hamburg, Dresden) laufen im Laufe des Jahres.",
+  link:"https://www.deutschland.de/de/app",p:[]},
+ {id:"pvog",n:"PVOG",layer:"zugang",fn:"Portalverbund-Online-Gateway",s:"open",link:"https://www.digitale-verwaltung.de/Webs/DV/DE/onlinezugangsgesetz/ozg-foederal/portalverbund/portalverbund-node.html",p:[]},
+ {id:"xzufi",n:"XZuFi",layer:"zugang",fn:"Zuständigkeitsfinder",s:"open",link:"https://tsa.de/kompetenzen/standardisierung-xzufi/",p:[]},
+
+ {id:"bundid",n:"BundID",layer:"id",fn:"Konto für Privatpersonen",s:"live",
+  w:"Online-Konto, um sich bei Verwaltungsleistungen online anzumelden. Funktioniert zusammen mit der AusweisApp, die den Online-Ausweis, elektronische Aufenthaltstitel oder EU-IDs ausliest. Wird gesetzlich und praktisch zunehmend zum zentralen Nutzerkonto.",
+  path:["Online-Dienst nutzen","Weiterleitung zu BundID","AusweisApp öffnen oder installieren","Ausweis scannen","PIN eingeben (falls bekannt)","Angemeldet"],
+  quote:"Obwohl die Teilnehmer die notwendige Technik samt PIN zur Hand hatten, schafften es nur zwei von ihnen, binnen einer Stunde ein BundID-Konto einzurichten.",
+  g:["Hohe Einstiegshürde in der Praxis (siehe Zitat).","Konkurriert mit ELSTER, eine Integration ist wohl nicht möglich."],p:[]},
+ {id:"elster",n:"ELSTER",layer:"id",fn:"Konto für die Finanzverwaltung",s:"live",
+  w:"Zugang für Privatpersonen, wenn sie mit der Finanzverwaltung zu tun haben.",
+  g:["Konkurriert mit BundID; eine Integration ist wohl nicht möglich.","Erschwert ein allgemeines Identitätsmanagement.","Angeblich hält das BMF den Zugang zu ELSTER eng."],p:[]},
+ {id:"muk",n:"Mein Unternehmenskonto",layer:"id",fn:"Konto für Unternehmen",s:"live",
+  w:"Deutschlandweit einheitlicher Zugang für Unternehmen zu digitalen Verwaltungsleistungen verschiedenster Behörden. Basiert auf ELSTER und hat ein integriertes Postfach für Mitteilungen und Bescheide.",
+  link:"https://info.mein-unternehmenskonto.de/",p:[]},
+ {id:"orgakonto",n:"Organisationskonto",layer:"id",fn:"",s:"open",p:[]},
+ {id:"fink",n:"FINK",layer:"id",fn:"Föderiertes Identitätsmanagement",s:"partial",
+  w:"Föderiertes Identitätsmanagement interoperabler Nutzerkonten: Bürger:innen nutzen Leistungen von Bund und Ländern mit nur einem persönlichen Konto.",
+  g:["Noch nicht alle Landeskonten sind vollständig interoperabel angebunden.","Muss laufend an verschärfte BSI-Richtlinien und die IT-Sicherheitsverordnung des Portalverbunds angepasst werden.","Der Fokus verschiebt sich zur BundID. Die Herausforderung: Landes-Infrastrukturen über FINK synchron zur BundID-Zentralisierung betreiben."],
+  link:"https://www.fitko.de/produktmanagement/fink",p:["efa"]},
+
+ {id:"epaybl",n:"ePayBL",layer:"quer",fn:"Bezahlplattform",s:"live",
+  w:"Bezahlplattform der Entwicklergemeinschaft aus Bund und 12 von 16 Ländern. 2025: über 650.000 Transaktionen mit mehr als 10 Mio. Euro Umsatz. Wird auf aktuelle Frameworks (z. B. Spring Boot) umgestellt.",
+  g:["Umsetzung liegt bei den landeseigenen IT-Dienstleistern, die Entwicklungsstände driften auseinander.","Migration bestehender Kunden und Spezialfunktionen (z. B. automatische Stornos, Lastschriftrückgaben) dauert teils mehrere Jahre (Kritik u. a. vom Bayerischen Obersten Rechnungshof)."],
+  when:"Die FITKO prüft die offizielle Tauglichkeit für den Deutschland-Stack.",
+  link:"https://www.epaybl.de/",p:["efa"]},
+ {id:"xbezahl",n:"XBezahldienste",layer:"quer",fn:"Standard-Schnittstelle Bezahlen",s:"live",
+  w:"Standardisierte Schnittstelle, die zentrale EfA-Onlinedienste mit dezentralen Bezahldiensten verknüpft. Angebunden sind 13 Länder: BW, BY, BB, HB, HH, NW, RP, SN, ST, SH, TH, NI und SL.",
+  g:["Auf föderaler Ebene gibt es verschiedene Bezahldienste mit unterschiedlichen Schnittstellen. Deshalb gibt es diesen Standard überhaupt.","Noch nicht angebunden laut Liste: Berlin, Hessen, Mecklenburg-Vorpommern."],
+  link:"https://www.digitale-verwaltung.de/Webs/DV/DE/onlinezugangsgesetz/rahmenarchitektur/basisdienste-basiskomponenten/xbezahldienste/xbezahldienste-node.html",p:["api","efa"]},
+ {id:"postfach",n:"Zentrales Bürgerpostfach",layer:"quer",fn:"Bescheide empfangen",s:"open",p:[]},
+ {id:"statusmonitor",n:"Statusmonitor",layer:"quer",fn:"Bearbeitungsstand",s:"open",p:[]},
+ {id:"dsc",n:"Datenschutzcockpit",layer:"quer",fn:"",s:"open",p:[]},
+ {id:"nfk",n:"Nationale Feedback-Komponente",layer:"quer",fn:"Nutzenden-Feedback",s:"live",
+  w:"Anbieter digitaler Verwaltungsleistungen sammeln und werten anonymes Nutzenden-Feedback aus. Erfüllt die Anforderungen der Single-Digital-Gateway-Verordnung (Art. 25 SDG-VO). Betrieb durch das ITZBund.",
+  link:"https://www.digitale-verwaltung.de/Webs/DV/DE/onlinezugangsgesetz/rahmenarchitektur/basisdienste-basiskomponenten/nationale-feedback-komponente/nationale-feedback-komponente-node.html",p:[]},
+ {id:"zsk",n:"Zentrale Statistik-Komponente",layer:"quer",fn:"Nutzungsstatistik",s:"live",
+  w:"Aggregiert nicht-personenbezogene Nutzungsdaten von Onlineservices und stellt sie dar.",
+  when:"Nach Pilotierung im 1. Halbjahr 2023 als zentrale Plattform verfügbar.",
+  link:"https://statistik.ozg-umsetzung.de/landing/",p:[]},
+ {id:"support",n:"Supportkomponente 115",layer:"quer",fn:"First-Level-Support",s:"live",
+  w:"First-Level-Support für Online-Dienste über die Behördennummer 115.",
+  link:"https://www.115.de/fuer-behoerden/innovationen#c2432",p:[]},
+ {id:"gdik",n:"GDIK",layer:"quer",fn:"Geodigitalisierung / Karten",s:"open",link:"https://www.gdik.de/",p:[]},
+
+ {id:"fitconnect",n:"FIT-Connect",layer:"transport",fn:"Antrag → Fachverfahren",s:"live",
+  w:"Einfache, maschinenlesbare und verschlüsselte Kommunikation zwischen Antragstellenden und zuständigen Fachbehörden. Verknüpft Online-Dienste mit den Systemen zur Antragsbearbeitung in Bund, Ländern und Kommunen. Moderne REST-APIs und JSON. Vom IT-Planungsrat initiiert, von der FITKO entwickelt. Für Datentransport und Schreiben in Fachverfahren (das NOOTS liest nur).",
+  g:["Ersetzt XTA und OSCI nicht komplett, sondern muss sie einbinden. Das macht das Architekturmanagement anspruchsvoll.","Bei Kommunen und Fachverfahrensherstellern gab es Vorbehalte zur Komplexität der Integration."],
+  when:"Über 219 angebundene Behörden und 156 Hersteller.",
+  link:"https://docs.fitko.de/fit-connect/docs/organisation-tasks/success-stories/",p:["api"]},
+ {id:"osci",n:"OSCI & XTA",layer:"transport",fn:"Klassischer Transportstandard",s:"legacy",
+  w:"OSCI ist ein Transportstandard für die sichere, vertrauliche und rechtsverbindliche Übertragung im E-Government. XTA ist die Schnittstelle zwischen Fachverfahren und Transportverfahren und standardisiert den Nachrichtenaustausch.",
+  g:["Basiert auf älteren, schwerfälligen Standards (SOAP, XML).","Implementierung braucht tiefes kryptografisches Know-how bei Herstellern."],
+  when:"Laut Präsentation vom August 2026 soll OSCI langfristig durch FIT-Connect ersetzt werden.",
+  link:"https://www.xoev.de/osci-xta-3355",p:[]},
+ {id:"dvdv",n:"DVDV",layer:"transport",fn:"Verwaltungsdiensteverzeichnis",s:"live",
+  w:"Das Deutsche Verwaltungsdiensteverzeichnis ermöglicht E-Government-Anwendungen deutschlandweit sicheren, rechtskonformen Datenaustausch zwischen Behörden. Beispiel: Beim Reisepass-Antrag läuft die Kommunikation zwischen Bürgeramt und Bundesdruckerei über das DVDV.",
+  link:"https://www.itzbund.de/DE/itloesungen/standardloesungen/dvdv/dvdv.html",p:["api"]},
+
+ {id:"noots",n:"NOOTS",layer:"daten",fn:"Nachweise aus Registern abrufen",s:"pilot",
+  w:"Nationales Once-Only-Technical-System: technische Infrastruktur für das Once-Only-Prinzip. Behörden rufen vorhandene Nachweise (z. B. Geburtsurkunde, Gewerbeanmeldung) direkt und datenschutzkonform aus Registern ab, sofern die Antragstellenden ausdrücklich zustimmen. Nur Lesezugriff: Es schreibt keine Daten zurück.",
+  g:["Kaum produktive Onlinedienste, keine Code-Snippets oder Best Practices am Markt.","Bürokratisches Nadelöhr: Onboarding und Zertifizierung mit nachgewiesener Rechtsgrundlage und Plattformsicherheit dauern mehrere Wochen.","Funktioniert nur, wenn das Zielregister schon angebunden ist."],
+  eng:"Die technische Einbindung ist vergleichsweise simpel: REST-API über den Sicheren Anschlussknoten (SAK), einen lokalen Edge-Microservice.",
+  when:"MVP-Phase. Flächenrollout NOOTS 1.0 am 30.11.2026. Vollständiges Registerspektrum frühestens 2028.",
+  roles:[["Fachverfahrens-Verantwortlicher (FV-VZ)","Die rechtlich verantwortliche Behörde"],["Betrieblich Verantwortlicher (BV)","Betreibt System und SAK, potenziell DigitalService"],["Entwicklungsdienstleister","Entwickelt Anwendung und Schnittstellen, Kernrolle von DigitalService"]],
+  note:"DigitalService baut und betreibt künftig Systeme auf der Data-Consumer-Seite.",
+  links:[["What we know about connecting to NOOTS as a Data Consumer","https://digitalservicebund.atlassian.net/wiki/spaces/OODP/pages/3539042328/What+we+know+about+connecting+to+NOOTS+as+a+Data+Consumer"],["NOOTS Glossary","https://digitalservicebund.atlassian.net/wiki/spaces/OODP/pages/3542351875/NOOTS+Glossary"],["Implementation Playbook: From zero to real register data","https://digitalservicebund.atlassian.net/wiki/spaces/OODP/pages/3545432098/Implementation+Playbook+From+zero+to+real+register+data"]],
+  p:["once","api"]},
+ {id:"raas",n:"Register as a Service",layer:"daten",fn:"Register in die Länder-Cloud",s:"plan",
+  w:"Daten aus kommunalen Registern werden neu strukturiert und in Cloud-Strukturen der Länder gehostet statt lokal in der Kommune. Das soll die Kommunen massiv entlasten. Register werden nacheinander angebunden; hohe Priorität hat z. B. das Pass- und Ausweisregister.",
+  g:["Datenstrukturen müssen vorab grundlegend aufgeräumt werden. Das kostet viel Zeit."],
+  open:["Was würde das für die Kommunen bedeuten?","Welches Problem löst das in Bezug auf NOOTS?","Sind kommunale Register oft offline, oder geht es um die Struktur?","Geht es um Kostenersparnis durch zentralen Betrieb?"],
+  p:["once"]},
+
+ {id:"efa",n:"EfA-Marktplatz",layer:"bau",fn:"Fertige Dienste nachnutzen",s:"live",
+  w:"Digitale Verwaltungsdienste, die ein Land zentral entwickelt und allen anderen bereitstellt, z. B. digitale Wohnsitzummeldung oder Elterngeld digital. Bestellung über den Marktplatz, Anbindung über standardisierte Schnittstellen. Entwicklung und Betrieb meist bei einem öffentlichen IT-Dienstleister.",
+  p:["efa"]},
+ {id:"modulf",n:"MODUL-F",layer:"bau",fn:"Bausteine für Fachverfahren",s:"live",
+  w:"Plattform mit verwaltungsspezifischen, vorprogrammierten Modulen, die sich zu Fachverfahren kombinieren lassen (Software für die Bearbeitung im Hintergrund).",
+  link:"https://www.digitale-verwaltung.de/Webs/DV/DE/onlinezugangsgesetz/rahmenarchitektur/basisdienste-basiskomponenten/modul-f/modul-f-node.html",p:["efa"],
+  statusNote:"Status in der Sammlung nicht angegeben."},
+ {id:"opencode",n:"openCode",layer:"bau",fn:"Open Source für die Verwaltung",s:"live",
+  w:"Zentrale Plattform für verwaltungsrelevante Open-Source-Software mit rechtssicherem Rahmen für Bereitstellung und Nutzung, einfacher Wiederverwendung und aktiver Community aus Verwaltung und Entwicklung.",
+  g:["Kleinere Community, vor allem deutschsprachiger Raum und öffentliche Hand.","Wenig Beiträge von freien, globalen Entwickler:innen.","Es fehlen Drittanbieter-Marktplätze für Entwicklungswerkzeuge (z. B. CI/CD-Erweiterungen) wie bei GitHub."],
+  link:"https://opencode.de/de",p:["efa"]},
+
+ {id:"euoots",n:"SDG / EU-OOTS",layer:"eu",fn:"Nachweise EU-weit",s:"rule",
+  w:"Single Digital Gateway: Verpflichtung, zentrale Verwaltungsleistungen EU-weit digital anzubieten und Nachweise grenzüberschreitend zwischen EU-Behörden abrufbar zu machen.",
+  p:["once"]},
+ {id:"iea",n:"Interoperable Europe Act",layer:"eu",fn:"EU-Verordnung",s:"rule",
+  w:"EU-Verordnung zur Stärkung der grenzüberschreitenden Zusammenarbeit von Verwaltungen.",p:["api"]}
+];
+const ACTORS=[
+ {id:"itplr",n:"IT-Planungsrat",w:"Politisches Steuerungsgremium von Bund und Ländern. Legt Standards und Verbindlichkeiten fest und hat die Federführung für den Deutschland-Stack. Hat FIT-Connect initiiert.",rel:["fitconnect"]},
+ {id:"fitko",n:"FITKO",w:"Föderale IT-Kooperation: operative Koordination und Umsetzung. Entwickelt FIT-Connect, betreut FINK und prüft ePayBL auf Tauglichkeit für den Deutschland-Stack.",rel:["fitconnect","fink","epaybl"]},
+ {id:"bva",n:"Bundesverwaltungsamt",w:"Spezialisierte Einheit für die operative Umsetzung des NOOTS.",rel:["noots"]},
+ {id:"itzbund",n:"ITZBund",w:"Informationstechnikzentrum Bund. Betreibt u. a. die Nationale Feedback-Komponente und das DVDV.",rel:["nfk","dvdv"]},
+ {id:"bmds",n:"BMDS",w:"Bundesministerium für Digitales und Staatsmodernisierung. Herausgeber des Bundesportals.",rel:["bundesportal"]},
+ {id:"ds",n:"DigitalService",w:"Spezialisierte Einheit in der Umsetzung. In der NOOTS-Terminologie Entwicklungsdienstleister und potenziell Betrieblich Verantwortlicher auf der Data-Consumer-Seite.",rel:["noots"]}
+];
+const PRIN={
+ once:{n:"Once-Only",w:"Nachweise und Daten, die Bürger:innen oder Unternehmen der Verwaltung schon einmal mitgeteilt haben, müssen Behörden nicht erneut abfragen.",z:"Behörden tauschen Daten direkt und sicher über standardisierte Schnittstellen aus, wenn die Betroffenen zustimmen. Kerninfrastruktur in Deutschland ist das NOOTS."},
+ api:{n:"API-First",w:"Software und Behördensysteme werden von Grund auf so gebaut, dass alle Daten und Funktionen über offene, gut dokumentierte, maschinenlesbare Schnittstellen erreichbar sind.",z:"Benutzeroberflächen und Backend-Prozesse werden entkoppelt. Das erleichtert neue Anwendungen und Automatisierung und baut Datensilos ab."},
+ efa:{n:"Einer für Alle",w:"Ein Land oder eine Behörde entwickelt einen digitalen Dienst, den andere Länder und Kommunen nachnutzen, statt selbst neu zu programmieren.",z:"Weniger Doppelarbeit, schnellerer OZG-Rollout, geringere Gesamtkosten. Erfolgsfaktor: einheitliche Standards und einfachere Beschaffung."}
+};
+const FLOWS={
+ antrag:{n:"Bürgerin stellt einen Antrag",steps:[
+  ["bundesportal","Sie sucht die Leistung im Bundesportal und landet beim passenden Onlinedienst."],
+  ["bundid","Sie meldet sich mit BundID und AusweisApp an. Hier scheitern in der Praxis viele."],
+  ["efa","Der Onlinedienst ist im Idealfall ein EfA-Dienst, den ihr Land nachnutzt."],
+  ["noots","Mit ihrer Zustimmung ruft der Dienst vorhandene Nachweise über das NOOTS ab, statt sie hochladen zu lassen. Ab 30.11.2026 in der Fläche."],
+  ["xbezahl","Die Gebühr läuft über die Schnittstelle XBezahldienste …"],
+  ["epaybl","… an die Bezahlplattform ihres Landes, z. B. ePayBL."],
+  ["fitconnect","FIT-Connect transportiert den Antrag verschlüsselt zur zuständigen Behörde."],
+  ["modulf","Dort bearbeitet ein Fachverfahren den Antrag, etwa aus MODUL-F-Bausteinen."],
+  ["postfach","Der Bescheid kommt ins Postfach. Diese Komponente ist in der Sammlung noch nicht beschrieben."],
+  ["nfk","Zum Schluss kann sie anonym Feedback geben (NFK)."]]},
+ neu:{n:"Ein neues Gesetz soll digital umsetzbar sein",steps:[
+  ["efa","Gibt es den Dienst schon? Erst im EfA-Marktplatz nachsehen."],
+  ["opencode","Gibt es offenen Code, den man nachnutzen kann? openCode prüfen."],
+  ["bundid","Anmeldung nicht selbst bauen: BundID für Privatpersonen …"],
+  ["muk","… und Mein Unternehmenskonto für Unternehmen vorsehen."],
+  ["noots","Welche Nachweise kann das Register liefern? Rechtsgrundlage für den NOOTS-Abruf früh mitdenken, das Onboarding dauert Wochen."],
+  ["raas","Ist das Register überhaupt schon angebunden? Vollständig frühestens 2028."],
+  ["fitconnect","Antragsdaten über FIT-Connect an die Fachverfahren übergeben, nicht über neue Spezialschnittstellen."],
+  ["zsk","Nutzung messen mit der Zentralen Statistik-Komponente."]]},
+ unternehmen:{n:"Unternehmen meldet etwas an",steps:[
+  ["bundesportal","Das Unternehmen findet die Leistung im Bundesportal."],
+  ["muk","Anmeldung mit Mein Unternehmenskonto (auf ELSTER-Basis)."],
+  ["noots","Vorhandene Nachweise, z. B. zur Gewerbeanmeldung, kommen über das NOOTS."],
+  ["fitconnect","Die Daten gehen per FIT-Connect an die Fachbehörde."],
+  ["muk","Bescheide landen im integrierten Postfach von Mein Unternehmenskonto."]]}
+};
+
+const $=s=>document.querySelector(s);
+const byId=Object.fromEntries(C.map(c=>[c.id,c]));
+let state={sel:null,actor:null,prin:null,filter:null,flow:null,step:0};
+
+function esc(s){return String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+
+function buildControls(){
+  $("#flowChips").innerHTML=Object.entries(FLOWS).map(([k,f])=>`<button class="chip" data-flow="${k}" aria-pressed="false">▶ ${esc(f.n)}</button>`).join("");
+  $("#prinChips").innerHTML=Object.entries(PRIN).map(([k,p])=>`<button class="chip" data-prin="${k}" aria-pressed="false">${esc(p.n)} <span class="n">${C.filter(c=>c.p.includes(k)).length}</span></button>`).join("");
+  const gaps=C.filter(c=>c.s==="open").length, nd=C.filter(c=>["pilot","plan"].includes(c.s)).length;
+  $("#filterChips").innerHTML=`<button class="chip" data-filter="soon" aria-pressed="false">Noch nicht fertig <span class="n">${nd}</span></button><button class="chip" data-filter="open" aria-pressed="false">Lücken in der Sammlung <span class="n">${gaps}</span></button>`;
+}
+
+function render(){
+  const flow=state.flow?FLOWS[state.flow]:null;
+  const stepIdx={};
+  if(flow) flow.steps.forEach(([id],i)=>{(stepIdx[id]=stepIdx[id]||[]).push(i)});
+  const active=flow?flow.steps[state.step][0]:null;
+  const actorRel=state.actor?ACTORS.find(a=>a.id===state.actor).rel:null;
+  const lit=c=>{
+    if(flow) return !!stepIdx[c.id];
+    if(state.prin) return c.p.includes(state.prin);
+    if(state.filter==="open") return c.s==="open";
+    if(state.filter==="soon") return ["pilot","plan"].includes(c.s);
+    if(actorRel) return actorRel.includes(c.id);
+    return true;
+  };
+  let h="";
+  if(flow){
+    const [id,txt]=flow.steps[state.step];
+    h+=`<div class="flowbar"><div class="cap"><b>${esc(flow.n)} · Schritt ${state.step+1} von ${flow.steps.length}</b><span>${esc(txt)}</span></div>
+    <div class="nav"><button class="btn" id="prev" ${state.step===0?"disabled":""}>Zurück</button><button class="btn primary" id="next">${state.step===flow.steps.length-1?"Fertig":"Weiter"}</button><button class="btn" id="stop" aria-label="Ablauf beenden">✕</button></div></div>`;
+  }
+  h+=`<div class="persona"><span>Nutzende:</span><span class="who">Bürger:innen</span><span class="who">Unternehmen</span><span class="who">Behörden &amp; Fachverfahren</span></div>`;
+  for(const L of LAYERS){
+    const items=C.filter(c=>c.layer===L.id);
+    h+=`<section class="layer" style="--lc:var(${L.c})"><div class="lab"><span class="k">${L.k}</span><span class="t">${esc(L.t)}</span><span class="d">${esc(L.d)}</span></div><div class="tiles">`;
+    for(const c of items){
+      const st=STATUS[c.s];
+      const isActive=c.id===active;
+      let badge="";
+      if(stepIdx[c.id]){const nums=stepIdx[c.id].map(i=>i+1);const done=stepIdx[c.id].every(i=>i<state.step);badge=`<span class="step ${done?"done":""}">${nums.join("·")}</span>`}
+      const cls=["tile",(state.sel===c.id||isActive)?"sel":"",lit(c)?"":"dim"].join(" ");
+      h+=`<button class="${cls}" data-id="${c.id}" style="--sc:var(${st.c})" title="${esc(st.l)}">${badge}<span class="dot ${c.s==="open"?"hollow":""}"></span><span><span class="nm">${esc(c.n)}</span>${c.fn?`<span class="fn">${esc(c.fn)}</span>`:""}</span></button>`;
+    }
+    h+=`</div></section>`;
+  }
+  h+=`<div class="gov"><span class="k">Governance & Umsetzung</span>${ACTORS.map(a=>`<button class="actor ${state.actor===a.id?"sel":""}" data-actor="${a.id}">${esc(a.n)}</button>`).join("")}</div>`;
+  h+=`<div class="legend">${Object.entries(STATUS).map(([k,s])=>`<span style="--sc:var(${s.c})"><i class="${k==="open"?"hollow":""}"></i>${s.l}</span>`).join("")}</div>`;
+  $("#map").innerHTML=h;
+  document.querySelectorAll("[data-flow]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.flow===state.flow));
+  document.querySelectorAll("[data-prin]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.prin===state.prin));
+  document.querySelectorAll("[data-filter]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.filter===state.filter));
+  renderPanel(active);
+}
+
+function relButtons(ids){return `<div class="rel">${ids.map(i=>`<button data-goto="${i}">${esc(byId[i].n)}</button>`).join("")}</div>`}
+
+function renderPanel(active){
+  const P=$("#panel");
+  const id=active||state.sel;
+  if(state.prin&&!id){
+    const p=PRIN[state.prin];
+    P.innerHTML=`<div class="eyebrow">Leitprinzip</div><h2>${esc(p.n)}</h2><h3>Definition</h3><p>${esc(p.w)}</p><h3>Ziel</h3><p>${esc(p.z)}</p><h3>Komponenten, die es umsetzen</h3>${relButtons(C.filter(c=>c.p.includes(state.prin)).map(c=>c.id))}`;return;
+  }
+  if(state.actor&&!id){
+    const a=ACTORS.find(x=>x.id===state.actor);
+    P.innerHTML=`<div class="eyebrow">Governance & Umsetzung</div><h2>${esc(a.n)}</h2><p>${esc(a.w)}</p><h3>Verbunden mit</h3>${relButtons(a.rel)}`;return;
+  }
+  if(!id){
+    P.innerHTML=`<div class="eyebrow">Überblick</div><h2>Deutschland-Stack</h2>
+    <p>Architekturvorgabe und Ökosystem für Digitalvorhaben in Deutschland. Ziel: wiederverwendbare, modulare IT-Komponenten und offene Schnittstellen statt isolierter Einzelentwicklungen, auf Bundes-, Länder- und Kommunalebene und für die Wirtschaft.</p>
+    <div class="gap">Was der Deutschland-Stack am Ende umfasst, ist Stand Oktober 2026 noch in Abstimmung.</div>
+    <h3>Er legt fest</h3><ul><li>wie Softwarekomponenten zusammenspielen,</li><li>welche Software man für welchen Anwendungsfall einsetzt (z. B. welche Ausweislösung, womit baue ich mein Formular),</li><li>wie die Software betrieben wird.</li></ul>
+    <h3>Kernaspekte</h3><ul><li><b>Plattformkern</b> (Digital Public Infrastructure): Identitäten, Bezahlen, Datenaustausch, Basisregister</li><li><b>Fachagnostische Plattformen</b>: IT-Bausteine, die immer wieder vorkommen</li><li><b>Managed Services</b></li></ul>
+    <h3>Mehr</h3><p><a href="https://deutschland-stack.gov.de/gesamtbild/#portfolio-roadmap-und-mehr" target="_blank" rel="noopener">deutschland-stack.gov.de</a> · <a href="https://technologie.deutschland-stack.gov.de/" target="_blank" rel="noopener">Technologie-Übersicht</a></p>
+    <h3>Los geht's</h3><p>Klick auf eine Komponente im Plan oder starte einen Ablauf oben.</p>`;return;
+  }
+  const c=byId[id];const st=STATUS[c.s];const L=LAYERS.find(l=>l.id===c.layer);
+  let h=`<div class="eyebrow">${esc(L.t)}</div><h2>${esc(c.n)}</h2>${c.fn?`<p style="color:var(--muted);margin-top:-2px">${esc(c.fn)}</p>`:""}
+  <span class="status" style="--sc:var(${st.c})"><i></i>${st.l}</span>`;
+  if(c.s==="open"){
+    h+=`<h3>Wofür ist es gut</h3><div class="gap">Diese Komponente steht in der Sammlung, ist aber noch nicht beschrieben. Hier fehlen Funktion, Abgrenzung, Herausforderungen und Verfügbarkeit.</div>`;
+  } else {
+    if(c.w) h+=`<h3>Wofür ist es gut</h3><p>${esc(c.w)}</p>`;
+    if(c.path) h+=`<h3>Happy Path</h3><div class="path">${c.path.map((s,i)=>`${i?"<em>→</em>":""}<span>${esc(s)}</span>`).join("")}</div>`;
+    if(c.eng) h+=`<h3>Technische Einbindung</h3><p>${esc(c.eng)}</p>`;
+    h+=`<h3>Was kann es (noch) nicht</h3>`;
+    if(c.quote) h+=`<p class="quote">${esc(c.quote)}</p>`;
+    h+=c.g&&c.g.length?`<ul>${c.g.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:`<div class="gap">In der Sammlung noch keine Herausforderungen erfasst.</div>`;
+    h+=`<h3>Ist es schon nutzbar?</h3><div class="when">${esc(c.when||c.statusNote||st.l)}</div>`;
+    if(c.roles) h+=`<h3>Rollen</h3><table class="roles">${c.roles.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</table><p style="margin-top:8px">${esc(c.note)}</p>`;
+    if(c.open) h+=`<h3>Offene Fragen</h3><ul>${c.open.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  }
+  if(c.p.length) h+=`<h3>Leitprinzipien</h3><div class="tags">${c.p.map(k=>`<button class="tag" data-prin="${k}">${esc(PRIN[k].n)}</button>`).join("")}</div>`;
+  const actors=ACTORS.filter(a=>a.rel.includes(c.id));
+  if(actors.length) h+=`<h3>Wer steckt dahinter</h3><div class="rel">${actors.map(a=>`<button data-actor="${a.id}">${esc(a.n)}</button>`).join("")}</div>`;
+  if(c.link||c.links){h+=`<h3>Quellen</h3><ul>`;if(c.link)h+=`<li><a href="${esc(c.link)}" target="_blank" rel="noopener">${esc(new URL(c.link).hostname)}</a></li>`;(c.links||[]).forEach(([t,u])=>h+=`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`);h+=`</ul>`}
+  P.innerHTML=h;
+}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;
+  const d=t.dataset;
+  if(d.id){ if(state.flow){const i=FLOWS[state.flow].steps.findIndex(s=>s[0]===d.id);if(i>=0){state.step=i;render();return}state.flow=null}
+    state.sel=state.sel===d.id?null:d.id;state.actor=null;render();
+    if(innerWidth<=1040&&state.sel)$("#panel").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});return}
+  if(d.goto){state.sel=d.goto;state.prin=null;state.actor=null;state.filter=null;render();return}
+  if(d.flow){const on=state.flow!==d.flow;Object.assign(state,{flow:on?d.flow:null,step:0,sel:null,prin:null,actor:null,filter:null});render();return}
+  if(d.prin){const on=state.prin!==d.prin;Object.assign(state,{prin:on?d.prin:null,sel:null,actor:null,flow:null,filter:null});render();return}
+  if(d.filter){Object.assign(state,{filter:state.filter===d.filter?null:d.filter,flow:null,prin:null,actor:null});render();return}
+  if(d.actor){Object.assign(state,{actor:state.actor===d.actor?null:d.actor,sel:null,prin:null,flow:null,filter:null});render();return}
+  if(t.id==="prev"){state.step=Math.max(0,state.step-1);render();return}
+  if(t.id==="next"){const f=FLOWS[state.flow];if(state.step<f.steps.length-1)state.step++;else{state.sel=f.steps[state.step][0];state.flow=null}render();return}
+  if(t.id==="stop"){state.flow=null;render();return}
+  if(t.id==="cd"){Object.assign(state,{sel:"noots",flow:null,prin:null,actor:null,filter:null});render();return}
+});
+document.addEventListener("keydown",e=>{
+  if(!state.flow||e.target.closest("input,textarea"))return;
+  if(e.key==="ArrowRight")$("#next")?.click();
+  if(e.key==="ArrowLeft"&&state.step>0)$("#prev")?.click();
+  if(e.key==="Escape")$("#stop")?.click();
+});
+(function(){const ms=new Date("2026-11-30T00:00:00+01:00")-new Date();const d=Math.ceil(ms/864e5);
+  $("#cdDays").textContent=d>0?d:"0";if(d<=0)$("#cd span").innerHTML="<strong>NOOTS 1.0</strong> Flächenrollout seit 30.11.2026"})();
+buildControls();render();
+</script>
+
+</body>
+</html>
