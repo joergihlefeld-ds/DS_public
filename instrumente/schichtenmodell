@@ -1,1 +1,456 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schichtenmodell Verwaltungsdigitalisierung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: links das Schichtenmodell als Bauplan (sticky), rechts das Hilfeblatt zum gewählten Baustein */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --ink:#1d2430; --muted:#5b6474; --line:#d6dbe3;
+  --accent:#1f4e8c;
+  --tech-bg:#e3f2ee; --tech-ink:#0d4f42; --tech-line:#7cc3b0;
+  --std-bg:#eeeafb; --std-ink:#3b2f86; --std-line:#a99ee6;
+  --base-bg:#eef0f3; --base-ink:#2c3340; --base-line:#b7bfcb;
+  --goal-bg:#e7eef8; --goal-ink:#163d70; --goal-line:#8fb0dc;
+  --font-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --font-body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#12161d; --surface:#1a2029; --ink:#e6e9ee; --muted:#9aa4b4; --line:#2e3744;
+  --accent:#8fb6ec;
+  --tech-bg:#123a33; --tech-ink:#bfe9dc; --tech-line:#2f7d6a;
+  --std-bg:#2a2450; --std-ink:#d6cffb; --std-line:#5b4fb0;
+  --base-bg:#222934; --base-ink:#d5dae2; --base-line:#475263;
+  --goal-bg:#17304f; --goal-ink:#cfe0f7; --goal-line:#3d6599;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#12161d; --surface:#1a2029; --ink:#e6e9ee; --muted:#9aa4b4; --line:#2e3744;
+  --accent:#8fb6ec;
+  --tech-bg:#123a33; --tech-ink:#bfe9dc; --tech-line:#2f7d6a;
+  --std-bg:#2a2450; --std-ink:#d6cffb; --std-line:#5b4fb0;
+  --base-bg:#222934; --base-ink:#d5dae2; --base-line:#475263;
+  --goal-bg:#17304f; --goal-ink:#cfe0f7; --goal-line:#3d6599;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.6}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:28px 48px}
+header{display:grid;gap:6px;margin-bottom:22px;max-width:70ch}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0;text-wrap:balance}
+header p{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.model{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:grid;gap:0}
+@media (max-width:900px){.model{position:static}}
+.howto{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.howto span{font-size:13px;color:var(--muted)}
+.arrowbtn{font:inherit;font-size:13px;font-weight:600;color:var(--accent);background:transparent;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+.arrowbtn[aria-pressed="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.layer{border:1px dashed var(--line);border-radius:12px;padding:10px 12px 12px;background:var(--surface);display:grid;gap:8px}
+.layer-label{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.layer-label button{all:unset;cursor:pointer;color:var(--accent);text-transform:none;letter-spacing:0;font-size:12px;font-weight:600}
+.layer-label button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.row{display:grid;gap:8px;grid-template-columns:repeat(var(--n,3),minmax(0,1fr))}
+@media (max-width:480px){.row{grid-template-columns:1fr}}
+.blk{font:inherit;text-align:left;cursor:pointer;border-radius:8px;padding:9px 11px;border:1px solid;display:grid;gap:1px;min-width:0;transition:transform .12s ease, box-shadow .12s ease}
+.blk b{font-weight:600;font-size:14px;line-height:1.3}
+.blk small{font-size:12px;opacity:.85;line-height:1.35}
+.blk:hover{transform:translateY(-1px)}
+.blk:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.blk[aria-current="true"]{box-shadow:0 0 0 2px var(--accent)}
+.t-goal{background:var(--goal-bg);color:var(--goal-ink);border-color:var(--goal-line)}
+.t-tech{background:var(--tech-bg);color:var(--tech-ink);border-color:var(--tech-line)}
+.t-std{background:var(--std-bg);color:var(--std-ink);border-color:var(--std-line)}
+.t-base{background:var(--base-bg);color:var(--base-ink);border-color:var(--base-line)}
+.blk.wide{grid-column:1/-1}
+.blk.proposed{border-style:dashed;background:transparent}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:1px dashed currentColor;border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+.split{display:grid;gap:4px;border-left:3px solid var(--line);padding-left:12px;margin:6px 0 10px}
+.split.assess{border-left-style:dashed}
+.join{display:flex;justify-content:center;align-items:center;gap:8px;height:30px;color:var(--muted);font-size:11.5px}
+.join svg{width:14px;height:22px}
+.join .lbl{opacity:0;transition:opacity .2s}
+.show-arrows .join .lbl{opacity:1}
+.show-arrows .join{color:var(--accent)}
+.flag{display:inline-block;font-size:11px;font-weight:600;margin-top:3px}
+.cross{margin-top:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px 26px;min-width:0;scroll-margin-top:16px}
+.panel .kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.panel h2{font-family:var(--font-display);font-weight:500;font-size:28px;line-height:1.2;margin:4px 0 6px;text-wrap:balance}
+.panel .lede{font-size:16px;color:var(--ink);margin:0 0 14px;max-width:62ch}
+.panel h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--muted);margin:20px 0 6px}
+.panel p,.panel li{max-width:64ch}
+.panel p{margin:0 0 10px}
+.panel ul{margin:0 0 10px;padding-left:20px;display:grid;gap:4px}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border-radius:999px;padding:3px 10px;border:1px solid var(--line);color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;cursor:pointer;border-radius:999px;padding:4px 11px;border:1px solid}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.home{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}
+.home a{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:6px 11px;background:var(--bg)}
+.home a:hover{border-color:var(--accent)}
+.home a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.src{font-size:13px;padding-left:18px}
+.src a{color:var(--accent);word-break:break-word}
+.note{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);margin-top:22px;padding-top:12px}
+.pfeil-figure{display:grid;gap:10px;margin:10px 0 6px}
+.pf{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.pf .sym{font-family:var(--font-display);font-size:22px;line-height:1;color:var(--accent);width:28px;text-align:center}
+.pf b{display:block}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Verwaltungsdigitalisierung in Deutschland · Stand Oktober 2026</span>
+    <h1>Wie die Instrumente aufeinander aufbauen</h1>
+    <p>Sechs Schichten, vom rechtlichen Fundament bis zum Nutzen für Bürger:innen und Unternehmen. Wählen Sie einen Baustein, um seine Hilfeseite zu öffnen.</p>
+  </header>
+
+  <div class="grid">
+    <section class="model" id="model" aria-label="Schichtenmodell">
+      <div class="howto">
+        <span>Die Pfeile bedeuten „trägt“: jede Schicht ist Voraussetzung für die darüber.</span>
+        <button class="arrowbtn" id="arrowbtn" type="button" aria-pressed="false" data-id="pfeile">Wie lese ich die Pfeile?</button>
+      </div>
+
+      <div class="layer" style="border-style:solid">
+        <div class="layer-label"><span>Ziel</span></div>
+        <div class="row" style="--n:1">
+          <button class="blk t-goal" data-id="ziel"><b>Bürger:innen und Unternehmen</b><small>Digital only, Daten nur einmal angeben</small></button>
+        </div>
+      </div>
+      <div class="join" aria-hidden="true"><svg viewBox="0 0 14 22"><path d="M7 21V3M2 8l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lbl">trägt</span></div>
+
+      <div class="layer">
+        <div class="layer-label"><span>Zugang</span></div>
+        <div class="row" style="--n:2">
+          <button class="blk t-tech" data-id="services"><b>Online-Services</b><small>Bund, Länder, Kommunen</small></button>
+          <button class="blk t-tech" data-id="app"><b>Deutschland-App</b><small>Bündelt Leistungen, geplant 2027</small></button>
+        </div>
+      </div>
+      <div class="join" aria-hidden="true"><svg viewBox="0 0 14 22"><path d="M7 21V3M2 8l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lbl">trägt</span></div>
+
+      <div class="layer">
+        <div class="layer-label"><span>Technische Plattform</span><button data-id="dstack">Deutschland-Stack ›</button></div>
+        <div class="row">
+          <button class="blk t-tech" data-id="bundid"><b>BundID</b><small>Identität, Postfach</small></button>
+          <button class="blk t-tech" data-id="register"><b>Registermodernisierung</b><small>NOOTS, Once-Only</small></button>
+          <button class="blk t-tech" data-id="eudi"><b>EUDI-Wallet</b><small>EU-Identität, ab 2027</small></button>
+          <button class="blk t-tech wide proposed" data-id="plattformportfolio"><b>Plattformportfolio<span class="tag">Vorschlag</span></b><small>Landkarte der Stack-Komponenten: vorhanden, verpflichtend, fehlend</small></button>
+        </div>
+      </div>
+      <div class="join" aria-hidden="true"><svg viewBox="0 0 14 22"><path d="M7 21V3M2 8l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lbl">trägt</span></div>
+
+      <div class="layer">
+        <div class="layer-label"><span>Qualitäts- und Methodenstandards</span></div>
+        <div class="row">
+          <button class="blk t-std" data-id="digitalcheck"><b>Digitalcheck</b><small>Gesetze digitaltauglich</small><span class="flag">↺ wirkt zurück auf Recht</span></button>
+          <button class="blk t-std" data-id="servicestandard"><b>Servicestandard</b><small>DIN SPEC 66336</small></button>
+          <button class="blk t-std" data-id="dachmarke"><b>Digitale Dachmarke</b><small>Erkennbar, vertrauenswürdig</small></button>
+        </div>
+      </div>
+      <div class="join" aria-hidden="true"><svg viewBox="0 0 14 22"><path d="M7 21V3M2 8l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lbl">trägt</span></div>
+
+      <div class="layer">
+        <div class="layer-label"><span>Governance und Steuerung</span></div>
+        <div class="row" style="--n:2">
+          <button class="blk t-base" data-id="bmds"><b>BMDS</b><small>Federführung Bund</small></button>
+          <button class="blk t-base" data-id="itplr"><b>IT-Planungsrat, FITKO</b><small>Bund-Länder-Standards</small></button>
+          <button class="blk t-base" data-id="itzv"><b>IT-Zustimmungsvorbehalt</b><small>Veto des BMDS bei IT-Ausgaben</small></button>
+          <button class="blk t-base" data-id="kontrolle"><b>Kontrolle, Haushalt</b><small>NKR, BRH, Haushaltsverfahren</small></button>
+          <button class="blk t-base wide proposed" data-id="investportfolio"><b>IT-Investitionsportfolio des Bundes<span class="tag">Vorschlag</span></b><small>Gesamtsicht auf alle IT-Vorhaben, verknüpft mit dem Plattformportfolio</small></button>
+        </div>
+      </div>
+      <div class="join" aria-hidden="true"><svg viewBox="0 0 14 22"><path d="M7 21V3M2 8l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lbl">trägt</span></div>
+
+      <div class="layer" style="border-style:solid">
+        <div class="layer-label"><span>Recht und Strategie · Fundament</span></div>
+        <div class="row">
+          <button class="blk t-base" data-id="ozg"><b>OZG 2.0</b><small>Pflichten, Generalklausel</small></button>
+          <button class="blk t-base" data-id="agenda"><b>Modernisierungsagenden</b><small>Bund und föderal</small></button>
+          <button class="blk t-base" data-id="art91c"><b>Art. 91c GG</b><small>Reform geplant</small></button>
+        </div>
+      </div>
+
+      <div class="layer cross">
+        <div class="row" style="--n:1">
+          <button class="blk t-base" data-id="querschnitt" style="background:transparent"><b>Querschnitt: Kapazität und Arbeitskultur</b><small>Wirkt auf allen Ebenen</small></button>
+        </div>
+      </div>
+    </section>
+
+    <article class="panel" id="panel" aria-live="polite"></article>
+  </div>
+</div>
+
+<script>
+const S = {
+  hib26:["Bundestag hib 33/2026 – Stand der Digitalvorhaben","https://www.bundestag.de/presse/hib/kurzmeldungen-1136658"],
+  brh:["Bundesrechnungshof – Bericht Verwaltungsdigitalisierung, Juli 2026","https://cdn.netzpolitik.org/wp-upload/2026/08/2026-07-31_BRH_Verwaltungsdigitalisierung.pdf"],
+  ihk:["IHK Lippe-Detmold – Föderale Modernisierungsagenda","https://www.ihk.de/lippe-detmold/hauptnavigation/beraten-und-informieren/recht/aktuelles-recht/modernisierungsagenda-6929026"],
+  fma:["Börse Express – Föderale Modernisierungsagenda","https://www.boerse-express.com/news/articles/foederale-modernisierungsagenda-200-massnahmen-zur-buerokratie-reduktion-921495"],
+  haushalt:["Bulletin der Bundesregierung – Rede BMDS zum Haushalt 2027","https://www.bundesregierung.de/resource/blob/992814/2451912/fde48e890883943d8a9964d5cb1e5935/81-4-bmds-haushaltsgesetz-2027-bt-data.pdf?download=1"],
+  dc:["DigitalService – Digitalcheck","https://digitalservice.bund.de/en/projects/digitalcheck"],
+  dcEU:["Interoperable Europe – Germany’s Digitalcheck","https://interoperable-europe.ec.europa.eu/collection/better-legislation-smoother-implementation/news/digital-readiness-check-drafting-policies-and-legislation"],
+  ss:["DigitalService – Servicestandard","https://digitalservice.bund.de/en/projects/servicestandard"],
+  din:["Vergabeblog – DIN SPEC 66336","https://vergabeblog.de/?p=70338"],
+  dm:["DigitalService – Digitale Dachmarke","https://digitalservice.bund.de/projekte/digitale-dachmarke"],
+  reg:["IT-Planungsrat – Sachstand Registermodernisierung 2024","https://www.it-planungsrat.de/fileadmin/beschluesse/2024/Beschluss_2024-57_Sachstandsbericht_Registermodernisierung.pdf"],
+  ozg:["cosinex – Vermittlungsausschuss beschließt OZG 2.0","https://blog.cosinex.de/2024/06/14/vermittlungsausschuss-beschliesst-onlinezugangsgesetz-2-0/"],
+  brat:["Bundesrat Drs. 93/1/24 – Empfehlungen zum OZG-Änderungsgesetz","https://dserver.bundestag.de/brd/2024/0093-1-24.pdf"],
+  hib91c:["Bundestag hib 428/2025 – Anfrage zu Art. 91c GG","https://www.bundestag.de/presse/hib/kurzmeldungen-1110006"],
+  drs1841:["BT-Drs. 21/1841 – Antwort zur Änderung von Art. 91c GG","https://dserver.bundestag.de/btd/21/018/2101841.pdf"],
+  itstv:["IT-Staatsvertrag (Ausführung von Art. 91c GG)","https://revosax.sachsen.de/vorschrift_gesamt/11306/49972.html"],
+  otto:["Otto Schmidt IT-Recht-Blog – Art. 91c Abs. 5 GG","https://www.otto-schmidt.de/blog/it-recht-blog/grundgesetzanderung-mehr-macht-fur-den-bund-bei-der-it-ITBLOG0003408.html"],
+  tsp:["Tagesspiegel Background – OZG-Debatte verfassungsrechtlich","https://background.tagesspiegel.de/smart-city-und-stadtentwicklung/briefing/die-ozg-debatte-muss-auch-verfassungsrechtlich-gefuehrt-werden"],
+  fitko:["IT-Planungsrat/FITKO – Jahresbericht 2021","https://www.IT-Planungsrat.de/publication/Jahresberich_IT-PLR_FITKO_2021_22_barrierefrei.pdf"],
+  bitkom:["Bitkom Monitor Digitalpolitik (Januar 2026)","https://silicon-saxony.de/en/bitkom-federal-government-has-launched-every-second-digital-project/"],
+  ds:["DigitalService – Über uns","https://digitalservice.bund.de/en/ueber-uns"],
+  w4g:["DigitalService – Work4Germany 2026","https://digitalservice.bund.de/en/press/press-releases/work4germany-2026-fellowship-support-for-the-federal-government-s-modernization-agenda"],
+  orgerl:["Organisationserlass des Bundeskanzlers vom 6. Mai 2025, Ziffer XIII",""],
+  vereinb:["Vereinbarung zwischen BKAmt, BMDS und BMF zum Zustimmungsvorbehalt vom 27. November 2025, §§ 1–6",""],
+  drs5842:["BT-Drs. 21/5842 – Antwort der Bundesregierung „Ein Jahr BMDS“, 7. Mai 2026, Antworten zu Fragen 6 und 7","https://dserver.bundestag.de/btd/21/058/2105842.pdf"],
+  moda21:["Modernisierungsagenda für Staat und Verwaltung (Bund), Maßnahme 2.1 – BR-Drs. 575/25","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],
+  brhzv:["Bundesrechnungshof – Bericht Verwaltungsdigitalisierung, Juli 2026, Stellungnahmen des BMDS zum Zustimmungsvorbehalt","https://cdn.netzpolitik.org/wp-upload/2026/08/2026-07-31_BRH_Verwaltungsdigitalisierung.pdf"],
+  adt1:["Nicht amtlich: Agora Digitale Transformation – Studie zum IT-Zustimmungsvorbehalt des BMDS, August 2025",""],
+  adt2:["Nicht amtlich: Agora Digitale Transformation – „Vom Veto zur Steuerung“",""],
+  moda:["Modernisierungsagenda für Staat und Verwaltung (Bund) – BR-Drs. 575/25","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],
+  brhbund:["Bundesrechnungshof – Bericht Verwaltungsdigitalisierung, Juli 2026, Beispiel Basisdienst „Nutzerkonto Bund“","https://cdn.netzpolitik.org/wp-upload/2026/08/2026-07-31_BRH_Verwaltungsdigitalisierung.pdf"],
+  giga:["Nicht amtlich: GIGA – Digitales Bürgerkonto in Deutschland, Dezember 2025 (Pressebericht)","https://www.giga.de/tech/digitales-buergerkonto-in-deutschland-das-muesst-ihr-jetzt-wissen--01KC3W99YM7KF6SPVY88G1MC86"],
+  moda51:["Modernisierungsagenda (Bund), Einleitung und Maßnahme 5.1 (PMflexONE) – BR-Drs. 575/25","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],
+  modadvc:["Modernisierungsagenda (Bund), Maßnahme zur Deutschen Verwaltungscloud (Service-Portfolio, Steuerung D-Stack/DVC) – BR-Drs. 575/25","https://dserver.bundestag.de/brd/2025/0575-25.pdf"]
+};
+const L = {ziel:"Ziel",services:"Zugang",app:"Zugang",dstack:"Technische Plattform",bundid:"Technische Plattform",register:"Technische Plattform",eudi:"Technische Plattform",digitalcheck:"Standards",servicestandard:"Standards",dachmarke:"Standards",bmds:"Governance",itplr:"Governance",itzv:"Governance",kontrolle:"Governance",investportfolio:"Governance · Vorschlag",plattformportfolio:"Technische Plattform · Vorschlag",ozg:"Recht und Strategie",agenda:"Recht und Strategie",art91c:"Recht und Strategie",querschnitt:"Querschnitt",pfeile:"Lesehilfe"};
+const T = {ziel:"t-goal",services:"t-tech",app:"t-tech",dstack:"t-tech",bundid:"t-tech",register:"t-tech",eudi:"t-tech",digitalcheck:"t-std",servicestandard:"t-std",dachmarke:"t-std",bmds:"t-base",itplr:"t-base",itzv:"t-base",kontrolle:"t-base",investportfolio:"t-base",plattformportfolio:"t-tech",ozg:"t-base",agenda:"t-base",art91c:"t-base",querschnitt:"t-base",pfeile:"t-goal"};
+
+const P = {
+pfeile:{t:"Wie die Pfeile zu lesen sind",lede:"Das Modell ist ein Bauplan. Jeder Pfeil zeigt nach oben und bedeutet „trägt“ oder „ermöglicht“: Die untere Schicht ist Voraussetzung dafür, dass die obere funktioniert.",
+body:`<div class="pfeil-figure">
+<div class="pf"><span class="sym">↑</span><div><b>Trägt (von unten nach oben)</b>Recht und Strategie geben den Auftrag und die Befugnisse. Die Governance organisiert, wer was entscheidet und bezahlt. Standards legen fest, wie gut gebaut wird. Die Plattform liefert wiederverwendbare Bausteine. Erst darauf entstehen Online-Services und die App, die Bürger:innen und Unternehmen nutzen.</div></div>
+<div class="pf"><span class="sym">↺</span><div><b>Wirkt zurück (von oben nach unten)</b>Der Digitalcheck setzt schon beim Entwurf neuer Gesetze an. Er sorgt dafür, dass das Fundament mit jeder neuen Regelung digitaltauglicher wird. Auch Erfahrungen aus dem Betrieb von Services sollen über Evaluierung zurück in Recht und Standards fließen.</div></div>
+<div class="pf"><span class="sym">↔</span><div><b>Querschnitt</b>Kapazität und Arbeitskultur sind keine eigene Schicht. Sie entscheiden auf jeder Ebene, ob ein Instrument tatsächlich umgesetzt wird.</div></div>
+</div>
+<h3>Was das Bild bewusst vereinfacht</h3>
+<ul><li>Die Schichten entstehen nicht nacheinander, sondern parallel. Das Modell zeigt Abhängigkeiten, keine Zeitfolge.</li>
+<li>Kontrolle und Haushalt wirken auf alle Schichten, sind aber in der Governance verortet, weil sie dort über Mittel und Prioritäten entscheiden.</li>
+<li>Gestrichelte Kästen mit dem Hinweis „Vorschlag“ sind keine beschlossenen Instrumente, sondern Ergänzungen, die sich aus den Lücken im Modell ergeben: ein IT-Investitionsportfolio in der Governance und ein Plattformportfolio für den Deutschland-Stack.</li>
+<li>Bund, Länder und Kommunen teilen sich die Schichten unterschiedlich. Wer was verbindlich regeln darf, klärt am Ende das Fundament, vor allem Art. 91c GG.</li></ul>
+<h3>Wo es heute hakt</h3>
+<p>Fundament und Governance sind weitgehend vorhanden. Der Engpass liegt in der Mitte: Für den Deutschland-Stack fehlen laut Bundesrechnungshof noch verbindliche Standards. Deshalb stützt sich die Zugangsschicht weiter auf viele Einzellösungen.</p>`,
+links:["dstack","digitalcheck","art91c","querschnitt"],src:["brh","dc"]},
+
+ziel:{t:"Bürger:innen und Unternehmen",lede:"Die oberste Schicht ist der Maßstab für alle anderen: Verwaltungsleistungen sollen vollständig digital und ohne wiederholte Angaben nutzbar sein.",
+body:`<h3>Was gemeint ist</h3><p><b>Digital only</b> heißt, dass Behördengänge komplett digital möglich sein sollen. Die föderale Modernisierungsagenda will dafür die Schriftform durch elektronische Kommunikation ablösen. <b>Once-Only</b> heißt, dass Daten, die der Staat schon hat, nicht erneut eingereicht werden müssen.</p>
+<h3>Beispiele aus den Agenden</h3><ul><li>Kindergeld soll ohne gesonderten Antrag ausgezahlt werden.</li><li>Genehmigungsfiktionen: Anträge gelten nach drei Monaten ohne Reaktion als genehmigt.</li><li>Mindestens ein Drittel der Berichts- und Auskunftspflichten der Wirtschaft soll bis Ende 2026 entfallen.</li></ul>
+<h3>Warum ganz oben</h3><p>Nutzen entsteht erst, wenn alle Schichten darunter zusammenspielen. Fehlt etwa die Registervernetzung, bleibt ein Online-Antrag ein digitalisiertes Papierformular.</p>`,
+links:["services","register","agenda"],src:["ihk","fma"]},
+
+services:{t:"Online-Services",lede:"Die konkreten digitalen Verwaltungsleistungen von Bund, Ländern und Kommunen. Hier erleben Bürger:innen und Unternehmen die Digitalisierung.",
+home:[["Bundesportal – verwaltung.bund.de","https://verwaltung.bund.de"]],
+body:`<h3>Wo man sie findet</h3><p>Die Verwaltungsportale von Bund und Ländern sind nach § 1a OZG im <b>Portalverbund</b> verknüpft, damit jede Online-Leistung über jedes beteiligte Portal auffindbar ist. Das <b>Bundesportal</b> unter verwaltung.bund.de ist der Einstiegspunkt des Bundes in diesen Verbund; von dort gelangt man zum jeweils zuständigen Online-Service.</p>
+<h3>Rolle im Modell</h3><p>Services nutzen die Bausteine der Plattform (Identität, Register, Postfach) und sollen nach dem Servicestandard gebaut werden. Ihre Rechtsgrundlage ist vor allem das OZG.</p>
+<h3>Stand</h3><p>Die nächste Phase setzt auf den Rollout bereits vorhandener Leistungen, beginnend mit Hessen und Bayern. Bis September 2026 sollten weitere Länder hinzukommen. Das Prinzip „einmal bauen, überall nutzen“ ersetzt dabei zunehmend Eigenentwicklungen jedes Landes.</p>
+<h3>Typische Schwachstelle</h3><p>Ein digitaler Antrag, der intern ausgedruckt weiterbearbeitet wird. Dieser Medienbruch lässt sich nur über die unteren Schichten beheben, nicht im Frontend.</p>`,
+links:["dstack","servicestandard","ozg"],src:["hib26"]},
+
+app:{t:"Deutschland-App",lede:"Eine geplante App, die verschiedene Verwaltungsleistungen an einem Ort bündelt. Vorgesehen ist sie für 2027.",
+body:`<h3>Rolle im Modell</h3><p>Die App ist ein Zugangskanal, kein eigenes Fachverfahren. Sie setzt auf die Plattformschicht auf, insbesondere auf Identität und künftig die EUDI-Wallet.</p>
+<h3>Stand</h3><p>Die Bundesregierung nennt die Deutschland-App in der Haushaltsdebatte zum Etat 2027 als Vorhaben, das Verwaltungsleistungen leichter zugänglich machen soll. Details zu Umfang und Betrieb sind öffentlich noch kaum beschrieben.</p>
+<h3>Abhängigkeit</h3><p>Ohne einen tragfähigen Deutschland-Stack wäre die App eine Hülle über vielen unverbundenen Einzelservices.</p>`,
+links:["dstack","eudi","bundid"],src:["fma","haushalt"]},
+
+dstack:{t:"Deutschland-Stack",lede:"Die geplante gemeinsame technische Grundlage für Bund, Länder und Kommunen: eine modulare, souveräne Technologieplattform, auf der Verwaltungsdigitalisierung aufbaut.",
+home:[["Deutschland-Stack – deutschland-stack.gov.de","https://deutschland-stack.gov.de/"]],
+body:`<h3>Was dazugehört</h3><p>Basiskomponenten wie Identität (BundID/DeutschlandID), Registervernetzung (NOOTS) und die EUDI-Wallet, dazu Standards, Schnittstellen und Betriebsregeln. Die Länder haben in der föderalen Modernisierungsagenda zugesagt, sich am D-Stack zu beteiligen.</p>
+<h3>Warum er die Mitte des Modells ist</h3><p>Hier entscheidet sich, ob Komponenten einmal gebaut und überall genutzt werden. Alle Schichten darunter liefern Auftrag, Steuerung und Qualitätsregeln für ihn; alle Schichten darüber hängen von ihm ab.</p>
+<h3>Kritik</h3><p>Der Bundesrechnungshof bemängelt im Juli 2026, dass für den Deutschland-Stack noch Standards fehlen, und mahnt eine übergreifende Planung an. Das BMDS setzt nach eigener Darstellung iterativ um.</p>`,
+links:["bundid","register","eudi","plattformportfolio","art91c"],src:["brh","ihk","hib26"]},
+
+bundid:{t:"BundID / DeutschlandID",lede:"Das zentrale Nutzerkonto für Verwaltungsleistungen: Anmeldung, Identifizierung und ein Postfach für Bescheide.",
+body:`<h3>Rechtsgrundlage</h3><p>Das OZG-Änderungsgesetz schuf die Voraussetzungen für die BundID als Weg der digitalen Kommunikation mit der Verwaltung.</p>
+<h3>Weiterentwicklung</h3><p>Der Übergang zur DeutschlandID soll über eine Entwicklergemeinschaft im IT-Planungsrat gesteuert werden. Damit ist es ein Bund-Länder-Baustein, nicht nur ein Bundesprodukt.</p>
+<h3>Bezug zu anderen Bausteinen</h3><p>Die BundID wird Teil des Deutschland-Stacks und muss mit der EUDI-Wallet zusammenspielen. Fällt sie aus, sind alle Services betroffen, die sich nur auf sie stützen.</p>
+<h3>Was die Modernisierungsagenda Bund vorsieht</h3><ul>
+<li>Die BundID ist Identifizierungsmittel für das geplante Gründungsportal („Unternehmensgründung in 24 Stunden“), das Teil des Deutschland-Stacks werden soll.</li>
+<li>Der First-Level-Support für BundID, Online-Ausweis und Bundesportal soll innerhalb von 18 Monaten gebündelt werden.</li>
+<li>Die EUDI-Wallet soll innerhalb von 36 Monaten in Anwendungen mehrerer Anbieter eingebunden sein (Maßnahme 6.3). Die BundID muss dazu passen.</li></ul>
+<h3>Kritik und offene Punkte</h3><ul>
+<li><b>Verspätung:</b> Der Bundesrechnungshof führt das Nutzerkonto als Beispiel für verspätete Basisdienste an. Es wurde 2017 beschlossen, war aber erst im Sommer 2021 OZG-konform verfügbar. Bis dahin hatten Bund, Länder und Kommunen eigene Konten entwickelt. Diese werden derzeit nach und nach durch das Nutzerkonto Bund abgelöst.</li>
+<li><b>DeutschlandID:</b> Die Weiterentwicklung ist beschlossen. Einen verbindlichen Zeitplan enthalten die ausgewerteten Quellen nicht.</li>
+<li><b>Pflicht zur Nutzung:</b> Ein Pressebericht nennt eine Nutzungspflicht für das Bürgerkonto ab 2028. Eine amtliche Fundstelle dafür liegt in den ausgewerteten Quellen nicht vor.</li></ul>`,
+links:["ozg","itplr","eudi","plattformportfolio"],src:["ozg","moda","brhbund","giga"]},
+
+register:{t:"Registermodernisierung",lede:"Die Vernetzung der öffentlichen Register, damit Behörden Nachweise direkt untereinander austauschen. Sie ist die Voraussetzung für Once-Only.",
+body:`<h3>Wie es funktioniert</h3><p>Das National-Once-Only-Technical-System (NOOTS) verbindet Register über eine gemeinsame Infrastruktur. Der Bund baut es im Rahmen der Gesamtsteuerung Registermodernisierung auf.</p>
+<h3>Rechtsgrundlage</h3><p>Seit Juli 2024 gilt mit dem OZG-Änderungsgesetz eine „Generalklausel“ für den automatisierten Nachweisabruf. Für das NOOTS selbst ist zusätzlich ein Bund-Länder-Staatsvertrag vorgesehen.</p>
+<h3>Warum zentral</h3><p>Ohne vernetzte Register müssen Bürger:innen weiterhin Nachweise hochladen. Die Registermodernisierung ist damit der Teil des Stacks, der „digital“ in „einfach“ übersetzt.</p>`,
+links:["ozg","itplr","ziel"],src:["reg"]},
+
+eudi:{t:"EUDI-Wallet",lede:"Die europäische digitale Brieftasche für Identität und Nachweise. Sie soll in den Deutschland-Stack integriert werden.",
+body:`<h3>Stand</h3><p>Die Länder wollen sich an der Integration der EUDI-Wallet in den D-Stack spätestens ab dem 1. Januar 2027 beteiligen.</p>
+<h3>Rolle im Modell</h3><p>Die Wallet ergänzt die nationale Identität um eine europaweit anerkannte. Für Services und die Deutschland-App ist sie ein weiterer Weg zur Anmeldung und zum Vorlegen von Nachweisen.</p>
+<h3>Abhängigkeit</h3><p>Der Rahmen kommt aus dem EU-Recht. Die Umsetzung in Deutschland hängt an den gemeinsamen Standards des Stacks.</p>`,
+links:["bundid","dstack","app"],src:["ihk"]},
+
+digitalcheck:{t:"Digitalcheck",lede:"Ein Verfahren, mit dem Gesetzentwürfe schon beim Schreiben auf ihre digitale Umsetzbarkeit geprüft werden.",
+home:[["Digitalcheck: Digitaltaugliche Regelungen erarbeiten","https://digitalcheck.bund.de/"],["Zentrum für Legistik","https://zfl.bund.de/"]],
+body:`<h3>Wie er arbeitet</h3><p>Der Digitalcheck beruht auf fünf Prinzipien für digitaltaugliche Gesetzgebung und gilt seit 1. Januar 2023 für neue Regelungsvorhaben. Er bietet Methoden, Werkzeuge und Schulungen für die Ministerien. Der Nationale Normenkontrollrat prüft die Digitaltauglichkeit anhand der Digitalcheck-Dokumentation.</p>
+<h3>Warum er zurückwirkt</h3><p>Als einziges Instrument im Modell wirkt er nach unten: Er verbessert das Fundament, also das künftige Recht. Damit beugt er Hindernissen vor, die sonst erst bei der Umsetzung sichtbar werden.</p>
+<h3>Akteure und Stand</h3><p>Entwickelt vom DigitalService mit dem Bund, zuerst mit dem BMI, inzwischen mit dem BMDS, begleitet von einer interministeriellen Arbeitsgruppe und dem NKR. Seit 2025 wird die Infrastruktur auch für Interoperabilitätsbewertungen der EU genutzt.</p>
+<h3>Zentrum für Legistik</h3><p>Das Zentrum für Legistik ist eine zentrale Plattform für moderne Rechtsetzung. Es unterstützt dabei, Regelungen von Anfang an digitaltauglich und bürgernah zu gestalten, und ergänzt den Digitalcheck um weitere Hilfen für die Gesetzgebungsarbeit.</p>`,
+links:["ozg","kontrolle","servicestandard"],src:["dc","dcEU"]},
+
+servicestandard:{t:"Servicestandard",lede:"Der Qualitätsmaßstab für gute staatliche Online-Services. Er legt fest, wie digitale Angebote entwickelt und betrieben werden sollen.",
+home:[["Der Servicestandard – servicestandard.gov.de","https://servicestandard.gov.de/"]],
+body:`<h3>Inhalt</h3><p>Grundlage ist die DIN SPEC 66336 vom März 2025. Sie enthält prüfbare Muss-, Soll- und Kann-Anforderungen für Online-Dienste der Verwaltung, etwa zu Nutzerzentrierung, iterativem Vorgehen und robustem Betrieb. Eine DIN SPEC ist eine Spezifikation, keine verbindliche Norm.</p>
+<h3>Praxis</h3><p>Seit Juni 2025 erklärt servicestandard.gov.de die Anforderungen anwendungsnah. Erarbeitet wurde der Standard mit einem Konsortium aus 54 Personen und 42 Organisationen. Ziel ist, die 13 Kriterien verbindlich zu machen.</p>
+<h3>Rolle im Modell</h3><p>Der Digitalcheck sichert den Weg vom Gesetz zum Prozess, der Servicestandard den Weg vom Prozess zum Service.</p>`,
+links:["services","digitalcheck","dachmarke"],src:["ss","din"]},
+
+dachmarke:{t:"Digitale Dachmarke",lede:"Ein übergreifendes Kennzeichnungssystem für digitale Angebote der öffentlichen Verwaltung. Es soll zeigen, dass ein Service echt und staatlich ist.",
+home:[["Die Digitale Dachmarke – dachmarke.gov.de","https://dachmarke.gov.de/"]],
+body:`<h3>Wozu</h3><p>Viele Verwaltungsangebote sehen unterschiedlich aus und sind schwer von Fälschungen zu unterscheiden. Eine gemeinsame Kennzeichnung schafft Wiedererkennung und Vertrauen, auch als Schutz vor Phishing.</p>
+<h3>Stand</h3><p>Derzeit laufen die Pilotierung und die Konzeption für den weiteren Roll-out.</p>
+<h3>Rolle im Modell</h3><p>Die Dachmarke ist der Standard, den Nutzer:innen direkt sehen. Sie wirkt erst, wenn Services und App sie einheitlich verwenden.</p>`,
+links:["services","app","servicestandard"],src:["dm"]},
+
+bmds:{t:"BMDS",lede:"Das Bundesministerium für Digitales und Staatsmodernisierung führt auf Bundesebene die Verwaltungsdigitalisierung und die Modernisierungsagenda.",
+home:[["Zielbild des BMDS","https://bmds.bund.de/ministerium/zielbild"]],
+body:`<h3>Aufgaben</h3><p>Staatsmodernisierung, Verwaltungsdigitalisierung, digitale Infrastruktur, digitale Souveränität sowie Innovation und KI. Für den Deutschland-Stack sieht das Ministerium wichtige Voraussetzungen geschaffen; 2026 hat der Bund den Vorsitz im IT-Planungsrat.</p>
+<h3>Instrumente in seiner Hand</h3><ul><li>Die Modernisierungsagenda Bund</li><li>Der IT-Zustimmungsvorbehalt für wesentliche IT-Ausgaben der Bundesverwaltung</li><li>Federführung beim Deutschland-Stack und bei der Deutschland-App</li><li>Fachliche Verantwortung für Digitalcheck und Servicestandard</li></ul>
+<h3>Bewertung von außen</h3><p>Laut Bitkom-Monitor ist der Einfluss des Digitalministeriums auf das Tempo der Digitalvorhaben deutlich spürbar.</p>`,
+links:["itzv","agenda","dstack","itplr"],src:["hib26","bitkom","haushalt"]},
+
+itplr:{t:"IT-Planungsrat und FITKO",lede:"Das Bund-Länder-Gremium für IT-Zusammenarbeit und seine operative Einrichtung. Hier werden gemeinsame Standards beschlossen und föderale Produkte betreut.",
+body:`<h3>Grundlage</h3><p>Der IT-Planungsrat beruht auf dem IT-Staatsvertrag zur Ausführung von Art. 91c GG. Er koordiniert die IT-Zusammenarbeit und legt gemeinsame Standards fest, soweit sie für den Datenaustausch zwischen Bund und Ländern nötig sind. Der Vorsitz wechselt jährlich zwischen Bund und Ländern.</p>
+<h3>FITKO</h3><p>Die Föderale IT-Kooperation setzt Beschlüsse um und betreut Produkte wie FIT-Connect.</p>
+<h3>Grenze des Modells</h3><p>Standards entstehen hier im Einvernehmen. Die geplante Reform von Art. 91c GG soll dem Bund ermöglichen, Standards direkt verbindlich zu regeln.</p>`,
+links:["art91c","bundid","register"],src:["itstv","fitko"]},
+
+kontrolle:{t:"Kontrolle und Haushalt",lede:"Instrumente, die prüfen, ob Vorhaben wirtschaftlich, wirksam und digitaltauglich sind, und die über Mittel entscheiden.",
+body:`<h3>Nationaler Normenkontrollrat (NKR)</h3><p>Prüft Gesetzentwürfe, darunter ihre Digitaltauglichkeit auf Basis der Digitalcheck-Dokumentation.</p>
+<h3>Bundesrechnungshof (BRH)</h3><p>Prüft die Wirtschaftlichkeit. Sein Bericht vom Juli 2026 zur Verwaltungsdigitalisierung bemängelt fehlende Standards und Planung beim Deutschland-Stack.</p>
+<h3>Haushaltsverfahren</h3><p>Über den Haushalt werden Mittel für die Verwaltungsdigitalisierung bereitgestellt und Prioritäten gesetzt. Für IT-Ausgaben der Bundesverwaltung ist dem Haushaltsverfahren der IT-Zustimmungsvorbehalt des BMDS vorgeschaltet; er hat eine eigene Seite.</p>
+<h3>Rolle im Modell</h3><p>Diese Instrumente wirken auf alle Schichten. Sie sind in der Governance verortet, weil sie dort über Freigaben und Korrekturen entscheiden.</p>`,
+links:["itzv","digitalcheck","dstack","bmds"],src:["brh","dc","haushalt"]},
+
+itzv:{t:"IT-Zustimmungsvorbehalt",lede:"Das BMDS kann wesentliche IT-Ausgaben der unmittelbaren Bundesverwaltung freigeben, mit Auflagen versehen oder ablehnen. Ohne seine Zustimmung berücksichtigt das BMF die Anmeldung eines Ressorts im Haushalt nicht.",
+body:`<h3>Grundlage</h3><ul><li><b>Organisationserlass</b> des Bundeskanzlers vom 6. Mai 2025, Ziffer XIII: Das BMDS erhält die Zuständigkeit für einen Zustimmungsvorbehalt für alle wesentlichen IT-Ausgaben der unmittelbaren Bundesverwaltung. Das Nähere regelt eine Vereinbarung.</li><li><b>Vereinbarung</b> zwischen Bundeskanzleramt, BMDS und BMF vom 27. November 2025. Sie konkretisiert Zweck, Begriffe und Verfahren und soll allen Ressorts bekanntgegeben werden.</li><li><b>Modernisierungsagenda Bund</b>, Maßnahme 2.1: Vereinbarung geschlossen (3 Monate), Regelaufgabe etabliert (12 Monate), messbare Kostenreduktion bei IT-Ausgaben (24 Monate).</li></ul>
+<p>Zugleich gehen die Befugnisse des Beauftragten der Bundesregierung für Informationstechnik zu den Richtlinien für den IT-Einsatz in der Bundesverwaltung auf das BMDS über (§ 1 Vereinbarung).</p>
+<h3>Zweck</h3><p>Mittel für die Digitalisierung der unmittelbaren Bundesverwaltung sollen effektiver und effizienter eingesetzt werden: Redundanzen vermeiden, Standards und Plattformansätze ressortübergreifend einhalten (§ 2).</p>
+<h3>Was erfasst ist</h3><p><b>IT-Ausgaben</b> sind alle im Haushaltsplan nach § 11 Abs. 2 Nr. 2 BHO aufzuführenden Investitions- und Sachmittel für IT-Infrastruktur, IT-Services, Digitalisierungsvorhaben, IT-Betrieb, Hard- und Software sowie Dienstleistungen wie Schulungen oder externe Unterstützung (§ 3 Abs. 1).</p>
+<p><b>Wesentlich</b> sind Vorhaben, die einen Schwellenwert überschreiten oder unabhängig von der Höhe strategischen Aufgaben dienen (§ 3 Abs. 2). Für den Haushalt 2027 liegt der Schwellenwert bei <b>500.000 Euro in einem Haushaltsjahr oder 3 Mio. Euro Gesamtvolumen</b> (§ 3 Abs. 3). Strategisch sind derzeit insbesondere:</p>
+<ul><li>leistungsfähige IT- und Kommunikationsinfrastruktur des Bundes</li><li>Anwendungen der Gemeinsamen IT des Bundes</li><li>Cybersicherheit der Bundesverwaltung</li><li>moderne digitale Technologien von erheblicher Tragweite</li><li>Digitalisierungsprogramme der Bundesverwaltung</li><li>IT-Projektvorhaben des Koalitionsvertrags</li></ul>
+<p>Schwellenwert und strategische Vorhaben legt das BMDS fest; das BMF gibt sie im Haushaltsaufstellungsrundschreiben bekannt.</p>
+<h3>Ausnahmen</h3><p>Ausgenommen sind der Geschäftsbereich des BMVg, die Sicherheits- und Polizeiaufgaben im Geschäftsbereich des BMI, der BND und die Steuerverwaltung im Geschäftsbereich des BMF. Eine Begründung dafür ist in den ausgewerteten amtlichen Dokumenten nicht enthalten.</p>
+<h3>Verfahren</h3><ul><li><b>Datenbasis:</b> die IT-Rahmenplanungen der Bundesbehörden. Die Ressorts erfassen sämtliche IT-Vorhaben in ITR4Web 2.0 (§ 4 Abs. 1).</li><li><b>Pre-Check:</b> Vor der Haushaltsaufstellung prüft das BMDS die Vorhaben, identifiziert wesentliche IT-Ausgaben, bewertet sie und kann Auflagen erteilen (§ 4 Abs. 3).</li><li><b>Haushaltsaufstellung:</b> Das BMF berücksichtigt Anmeldungen für wesentliche IT-Ausgaben nur, wenn das Ressort schriftlich bestätigt, dass die Zustimmung des BMDS vorliegt.</li><li><b>Umsetzung:</b> Bewertungen und Auflagen gelten weiter bei Beschaffung, Vertragsmanagement, Inbetriebnahme und Distribution.</li></ul>
+<p>Das BMDS soll den Vorbehalt pragmatisch und bürokratiearm wahrnehmen und Behörden befähigen, Vorhaben passfähig zur IT des Bundes zu planen (§ 4 Abs. 2).</p>
+<h3>Stand in der Praxis</h3><p>Bis Ende März 2026 hat das BMDS über 200 IT-Vorhaben gesichtet, in über 50 Fällen Hinweise und Auflagen gegeben und wenige Vorhaben abgelehnt. Im April 2026 hat sich die Zahl der vorliegenden Vorhaben wegen der Haushaltsaufstellung 2027 verzehnfacht. Prüfschwerpunkte für 2027 sind unter anderem KI, Plattformen wie Cloud und Low-Code/Vorgangsbearbeitung, Netzinfrastruktur, Rechenzentren und Überschneidungen zur Gemeinsamen IT des Bundes; Cybersicherheit wird querschnittlich berücksichtigt.</p>
+<h3>Ausblick</h3><p>Bis spätestens zur Aufstellung des Haushalts 2028 soll geprüft werden, ob zusätzliche Instrumente die Umsetzung unterstützen (§ 5). Die Umsetzung wird im dritten Jahr nach Inkrafttreten evaluiert (§ 6); die Bundesregierung nennt 2028.</p>
+<h3>Rolle im Modell</h3><p>Der Vorbehalt verbindet die Governance mit Standards und Plattform: Finanziert werden sollen Vorhaben, die Standards und Plattformansätze einhalten. Nach Angaben des BMDS gegenüber dem Bundesrechnungshof kann es so Parallel- und Doppelentwicklungen unterbinden. Er wirkt nur in der unmittelbaren Bundesverwaltung, nicht bei Ländern und Kommunen; dort bleibt es bei Abstimmung über den IT-Planungsrat.</p>
+<h3>Offene Punkte</h3><ul><li>Ein veröffentlichter Kriterienkatalog liegt nicht vor; laut Bundesregierung gibt es intern definierte Prüfkriterien.</li><li>Die Vereinbarung nennt keine Bearbeitungsfristen und keine Genehmigungsfiktion.</li><li>Ein Verfahren für den Dissens zwischen BMDS und Ressort ist nicht geregelt.</li></ul>`,
+links:["investportfolio","bmds","kontrolle","dstack","itplr"],src:["orgerl","vereinb","drs5842","moda21","brhzv","adt1","adt2"]},
+
+investportfolio:{t:"IT-Investitionsportfolio des Bundes",lede:"Eine laufende Gesamtsicht auf alle IT-Vorhaben und IT-Ausgaben der unmittelbaren Bundesverwaltung. Sie ergänzt den Zustimmungsvorbehalt, der Vorhaben einzeln prüft, um den Blick über alle Ressorts hinweg.",
+body:`<p><span class="status">Vorschlag · kein beschlossenes Instrument</span></p>
+<h3>Belegt: was schon angelegt ist</h3>
+<div class="split"><ul>
+<li><b>Datenbasis:</b> Die IT-Rahmenplanungen der Bundesbehörden dienen als Datengrundlage; die Ressorts erfassen sämtliche IT-Vorhaben in ITR4Web 2.0 (§ 4 Abs. 1 Vereinbarung).</li>
+<li><b>Analyseauftrag:</b> Das BMDS soll zusätzlich mit Datenanalysemethoden Effizienzpotenziale aufdecken und zentrale IT-Angebote in die breite Nutzung bringen (§ 4 Abs. 2).</li>
+<li><b>Übersichtstool:</b> Das BMDS hat gegenüber dem Bundesrechnungshof ein Tool angekündigt, mit dem Behörden ihre IT-Ausgaben einheitlich erfassen, um Parallel- und Doppelentwicklungen zu erkennen. Der Bundesrechnungshof begrüßt das.</li>
+<li><b>Offene Tür:</b> Bis spätestens zum Haushalt 2028 wird geprüft, ob zusätzliche Instrumente den Zustimmungsvorbehalt unterstützen (§ 5).</li>
+<li><b>Methodik:</b> Maßnahme 5.1 der Modernisierungsagenda sieht ein ressortweites Tool für Projekt- und Portfoliosteuerung (PMflexONE) und vereinfachte Standards für Projekt- und Portfoliomanagement vor. Das betrifft die Ressorts intern, könnte aber die gemeinsame Methodik liefern.</li>
+</ul></div>
+<h3>Einschätzung: was das Portfolio leisten würde</h3>
+<div class="split assess"><p>Der Zustimmungsvorbehalt entscheidet Vorhaben für Vorhaben im Takt der Haushaltsaufstellung. Ein Portfolio betrachtet alle Vorhaben zugleich und beantwortet Fragen, die eine Einzelprüfung nicht beantworten kann:</p>
+<ul><li>Wo bauen mehrere Ressorts dasselbe?</li><li>Welche Vorhaben hängen voneinander ab?</li><li>Welche Betriebs- und Folgekosten entstehen insgesamt?</li><li>Wo fehlt eine gemeinsame Komponente, die viele Vorhaben bräuchten?</li></ul>
+<p>Damit würde aus dem Veto eine Steuerung: Der Vorbehalt bleibt das Tor, das Portfolio liefert die Gesamtsicht, an der sich Zustimmung, Auflagen und Prioritäten ausrichten.</p></div>
+<h3>Einschätzung: die Verknüpfung mit dem Plattformportfolio</h3>
+<div class="split assess"><p>Den größten Nutzen hat das Investitionsportfolio, wenn jede Investition gegen die Plattformlandkarte geprüft wird. Gibt es die Komponente schon, wird nachgenutzt. Fehlt sie und brauchen sie mehrere Ressorts, ist sie ein Kandidat für den Deutschland-Stack statt einer Einzellösung. Das entspricht dem Zweck aus § 2 der Vereinbarung: Redundanzen vermeiden, Standards und Plattformansätze einhalten.</p></div>
+<h3>Voraussetzungen</h3>
+<ul><li>Eine gemeinsame Gliederung der Ausgaben, etwa nach Domänen oder Fähigkeiten, damit Dubletten über Ressorts hinweg erkennbar werden.</li><li>Nachvollziehbare Prüf- und Priorisierungskriterien; heute gibt es nur intern definierte Prüfkriterien.</li><li>Ein Rhythmus außerhalb der Haushaltsaufstellung, zum Beispiel quartalsweise, weil der Haushaltskalender bisher die einzige Zeitstruktur ist.</li></ul>
+<h3>Grenze</h3><p>Das Portfolio wirkt wie der Vorbehalt nur in der unmittelbaren Bundesverwaltung. Die ausgenommenen Bereiche (BMVg, Sicherheits- und Polizeiaufgaben des BMI, BND, Steuerverwaltung) und die Länder liegen außerhalb.</p>`,
+links:["itzv","plattformportfolio","kontrolle","bmds"],src:["vereinb","brhzv","drs5842","moda51"]},
+
+plattformportfolio:{t:"Plattformportfolio",lede:"Eine gepflegte Landkarte der gemeinsamen Komponenten: was der Deutschland-Stack und die Gemeinsame IT des Bundes schon bieten, was verpflichtend genutzt werden soll und was noch fehlt.",
+body:`<p><span class="status">Vorschlag · kein beschlossenes Instrument</span></p>
+<h3>Belegt: was schon angelegt ist</h3>
+<div class="split"><ul>
+<li><b>Lücke bei der Planung:</b> Der Bundesrechnungshof bemängelt fehlende Standards für den Deutschland-Stack und mahnt eine übergreifende Planung an.</li>
+<li><b>Ansätze für ein Serviceportfolio:</b> Die Modernisierungsagenda sieht für die Deutsche Verwaltungscloud vor, dass ihr Service-Portfolio D-Stack-konforme Infrastruktur-Services umfasst, und fordert abgestimmte Steuerungseinheiten von D-Stack und Verwaltungscloud.</li>
+<li><b>Bezug zum Zustimmungsvorbehalt:</b> Anwendungen der Gemeinsamen IT des Bundes und leistungsfähige IT-Infrastruktur zählen zu den strategischen Aufgaben, die unabhängig vom Betrag dem Vorbehalt unterliegen (§ 3 Abs. 2 Vereinbarung). Für den Haushalt 2027 sind Plattformen wie Cloud und Low-Code/Vorgangsbearbeitung sowie Überschneidungen zur Gemeinsamen IT Prüfschwerpunkte.</li>
+</ul></div>
+<h3>Einschätzung: was das Portfolio leisten würde</h3>
+<div class="split assess"><p>Für jede Komponente hält es fest, in welchem Reifegrad sie ist, wer sie betreibt, ob ihre Nutzung verpflichtend ist und welche Vorhaben sie bereits nachnutzen. Dazu kommt eine Liste der Bedarfe, die mehrere Ressorts melden, für die es aber noch keine gemeinsame Lösung gibt.</p>
+<p>So wird die übergreifende Planung, die der Bundesrechnungshof vermisst, an einem Ort sichtbar: Roadmap des Stacks, Lücken und Abhängigkeiten.</p></div>
+<h3>Einschätzung: die Verknüpfung mit dem Investitionsportfolio</h3>
+<div class="split assess"><p>Beide Portfolios ergänzen sich. Das Investitionsportfolio zeigt, wohin das Geld fließt; das Plattformportfolio zeigt, was schon da ist. Zusammen machen sie Prüfungen im Zustimmungsvorbehalt konkret: Nachnutzung, wo eine Komponente vorhanden ist, und gezielter Ausbau des Stacks, wo viele Ressorts denselben Bedarf haben.</p></div>
+<h3>Grenze</h3><p>Verbindlich nutzen lässt sich ein solches Portfolio zunächst nur innerhalb der Bundesverwaltung. Für Länder und Kommunen bleibt es bei Abstimmung über den IT-Planungsrat, solange Art. 91c GG nicht geändert ist.</p>`,
+links:["investportfolio","dstack","itzv","art91c"],src:["brh","modadvc","vereinb","drs5842"]},
+
+ozg:{t:"OZG 2.0",lede:"Das Onlinezugangsgesetz verpflichtet Bund und Länder, Verwaltungsleistungen online anzubieten. Das Änderungsgesetz von 2024 hat es grundlegend erweitert.",
+body:`<h3>Warum die Änderung nötig war</h3><p>Die Ziele des ursprünglichen OZG wurden nicht oder nicht fristgerecht erreicht.</p>
+<h3>Was das OZG 2.0 bringt</h3><ul><li>BundID als Weg der digitalen Kommunikation mit der Verwaltung</li><li>Einen elektronischen Ersatz für die Schriftform</li><li>Ein qualifiziertes elektronisches Siegel</li><li>Eine Generalklausel für den automatisierten Nachweisabruf, die Grundlage der Registermodernisierung</li></ul>
+<h3>Konflikt</h3><p>Der Bundesrat stoppte das Gesetz im März 2024 zunächst. Aus Sicht der Länder konzentrierten sich Regelungsbefugnisse zu sehr beim Bund, während sich der Bund aus der Finanzierung zurückzog. Erst nach dem Vermittlungsverfahren trat es im Juli 2024 in Kraft.</p>`,
+links:["bundid","register","art91c"],src:["ozg","brat","reg"]},
+
+agenda:{t:"Modernisierungsagenden",lede:"Zwei politische Programme geben die Richtung vor: die Modernisierungsagenda des Bundes vom Oktober 2025 und die Föderale Modernisierungsagenda von Bund und Ländern vom Dezember 2025.",
+home:[["Modernisierungsagenda Bund (BR-Drs. 575/25)","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],["Föderale Modernisierungsagenda – Bundesregierung","https://www.bundesregierung.de/breg-de/aktuelles/foederale-modernisierungsagenda-2397632"],["Föderale Modernisierungsagenda (MPK-Beschluss, PDF)","https://www.rlp.de/fileadmin/02/MPK_Vorsitz/Beschluesse_MPK_4._Dezember_2025_Berlin/Foederale_Modernisierungsagenda.pdf"],["Fortschrittsbericht Juni 2026 (PDF)","https://www.bundesregierung.de/resource/blob/2196306/2445318/98baa702bc15bb8c0bc8894856da1bdc/2026-06-26-fortschrittsbericht-modernisierung-data.pdf?download=1"]],
+body:`<h3>Inhalt</h3><p>Die föderale Agenda bündelt rund 200 Maßnahmen in Leitthemen wie Bürokratieabbau, schnellere Planungs- und Genehmigungsverfahren, digitale Verfahren und bessere Gesetzgebung. Viele sollen bis Ende 2026 umgesetzt sein.</p>
+<h3>Verbindung zu anderen Schichten</h3><ul><li>Sie verankert den Deutschland-Stack als gemeinsames Vorhaben.</li><li>Sie kündigt die Reform von Art. 91c GG an.</li><li>Sie sieht eine Deutschland-App ab 2027 vor.</li></ul>
+<h3>Umsetzungsstand</h3><p>Laut einer Zwischenbilanz lag die Umsetzungsquote des Bundes bei 12 Prozent seiner 82 Projekte, die der Länder bei 7 Prozent von 140 Projekten.</p>`,
+links:["dstack","art91c","app"],src:["ihk","fma"]},
+
+art91c:{t:"Art. 91c GG",lede:"Die Verfassungsnorm für die IT-Zusammenarbeit von Bund und Ländern. Eine Reform soll dem Bund erlauben, nicht nur zu koordinieren, sondern verbindlich zu regeln und selbst zu bauen.",
+body:`<h3>Ausgangslage heute</h3><p>Art. 91c GG erlaubt Bund und Ländern vor allem Zusammenarbeit: Sie können den gemeinsamen Betrieb von IT-Systemen vereinbaren. Der IT-Staatsvertrag schafft darauf den IT-Planungsrat; gemeinsame Standards gelten aber nur, soweit sie für den Datenaustausch nötig sind.</p>
+<p>Seit 2017 gibt Absatz 5 dem Bund die ausschließliche Gesetzgebungszuständigkeit für den Zugang zu Verwaltungsleistungen. Das deckt vor allem das „Frontend“ ab. Kritiker sprechen beim OZG deshalb von einem Frontend ohne Backend.</p>
+<h3>Was die Reform bewirken soll</h3><ul><li><b>Verbindliche Standards</b> statt Konsens, etwa für den Deutschland-Stack</li><li><b>Einmal bauen, alle nutzen:</b> Der Bund entwickelt und betreibt IT-Systeme, die die Länder mitnutzen</li><li><b>Ende-zu-Ende-Digitalisierung:</b> Regelungsbefugnis auch für die Verfahren selbst</li></ul>
+<h3>Konfliktlinie</h3><p>Es geht um das Verhältnis von Bundeskompetenz, Länderzuständigkeit und Finanzierung, wie schon beim OZG 2.0. Eine Grundgesetzänderung braucht Zweidrittelmehrheiten in Bundestag und Bundesrat, die Länder müssen also mitziehen.</p>
+<h3>Stand</h3><p>Ziel ist in Koalitionsvertrag und föderaler Modernisierungsagenda beschrieben. Einen veröffentlichten Gesetzentwurf gab es in den ausgewerteten Quellen nicht. Den aktuellen Stand zeigt das Dokumentationssystem des Bundestags (DIP) unter dem Stichwort „91c“.</p>`,
+links:["itplr","dstack","ozg","agenda"],src:["hib91c","drs1841","ihk","itstv","otto","tsp","brat"]},
+
+querschnitt:{t:"Kapazität und Arbeitskultur",lede:"Instrumente, die Fähigkeiten in die Verwaltung bringen. Sie sind keine eigene Schicht, sondern entscheiden auf jeder Ebene über die Umsetzung.",
+body:`<h3>Beispiele</h3><ul><li><b>DigitalService des Bundes:</b> 2020 als bundeseigene GmbH gegründet, als interne Digitalisierungseinheit für Umsetzung, Beratung und Befähigung.</li><li><b>Fellowships:</b> Work4Germany bringt Expert:innen für neue Arbeitsweisen für sechs Monate in die Bundesverwaltung. 2026 begleiten sieben Alumni die Handlungsfelder und die Gesamtsteuerung der Modernisierungsagenda.</li><li><b>Eigene Kompetenzen der Behörden:</b> Produktmanagement, Nutzerforschung, agile Steuerung.</li></ul>
+<h3>Warum quer</h3><p>Ein Standard bleibt Papier, wenn niemand ihn anwenden kann. Ein Gesetz wird nicht digitaltauglich, wenn Legistik und IT getrennt arbeiten. Kapazität ist deshalb der Faktor, der alle Pfeile erst wirksam macht.</p>`,
+links:["pfeile","servicestandard","digitalcheck"],src:["ds","w4g"]}
+};
+
+const panel=document.getElementById('panel');
+const blocks=[...document.querySelectorAll('[data-id]')];
+const arrowbtn=document.getElementById('arrowbtn');
+const model=document.getElementById('model');
+
+function render(id,scroll){
+  if(!P[id]) id='pfeile';
+  const p=P[id];
+  const links=(p.links||[]).map(k=>`<button class="chip ${T[k]}" data-go="${k}">${P[k].t}</button>`).join('');
+  const src=(p.src||[]).map(k=>S[k][1]?`<li><a href="${S[k][1]}" target="_blank" rel="noopener">${S[k][0]}</a></li>`:`<li>${S[k][0]}</li>`).join('');
+  const home=(p.home||[]).map(h=>`<a href="${h[1]}" target="_blank" rel="noopener">${h[0]} ↗</a>`).join('');
+  panel.innerHTML=`<span class="kicker">${L[id]}</span><h2>${p.t}</h2><p class="lede">${p.lede}</p>${home?`<div class="home">${home}</div>`:''}${p.body}
+  ${links?`<h3>Hängt zusammen mit</h3><div class="links">${links}</div>`:''}
+  ${src?`<h3>Quellen</h3><ul class="src">${src}</ul>`:''}
+  <p class="note">Stand der ausgewerteten öffentlichen Quellen: Oktober 2026. Laufende Vorhaben können sich inzwischen geändert haben.</p>`;
+  blocks.forEach(b=>b.setAttribute('aria-current',b.dataset.id===id?'true':'false'));
+  const on=id==='pfeile';
+  arrowbtn.setAttribute('aria-pressed',on?'true':'false');
+  model.classList.toggle('show-arrows',on);
+  try{ if(location.hash.slice(1)!==id) history.replaceState(null,'','#'+id);}catch(e){}
+  if(scroll && window.matchMedia('(max-width:900px)').matches) panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){render(g.dataset.go,true);return;}
+  const b=e.target.closest('[data-id]'); if(b){render(b.dataset.id,true);}
+});
+window.addEventListener('hashchange',()=>render(location.hash.slice(1),false));
+render((location.hash||'#pfeile').slice(1),false);
+</script>
+</body>
+</html>
 
