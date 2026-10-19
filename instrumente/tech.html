@@ -96,6 +96,8 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,4vw,42px);l
 .flowbar .cap{flex:1 1 260px;min-width:0}
 .flowbar .cap b{font-family:var(--f-display);display:block;font-size:15px}
 .flowbar .cap span{font-size:14.5px}
+.flowbar .cap .ex{display:inline-block;font:600 11.5px/1 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--warn);border:1px solid var(--warn);border-radius:4px;padding:4px 6px;margin-bottom:6px}
+.exnote{font:500 11px/1.2 var(--f-mono);letter-spacing:.04em;color:var(--warn);text-transform:none}
 .flowbar .nav{display:flex;gap:6px;align-items:center;font-family:var(--f-mono);font-size:13px}
 .btn{font:600 14px/1 var(--f-body);border:1px solid var(--accent);background:var(--surface);color:var(--accent);border-radius:8px;padding:8px 12px;cursor:pointer}
 .btn:disabled{opacity:.4;cursor:default}
@@ -148,7 +150,7 @@ table.roles td:first-child{font-weight:700;width:42%}
 
   <div class="controls">
     <div class="group">
-      <div class="eyebrow">Abläufe durchspielen</div>
+      <div class="eyebrow">Abläufe durchspielen <span class="exnote">· beispielhaft, nicht aus der Quelle</span></div>
       <div class="chips" id="flowChips"></div>
     </div>
     <div class="group">
@@ -361,7 +363,7 @@ function render(){
   let h="";
   if(flow){
     const [id,txt]=flow.steps[state.step];
-    h+=`<div class="flowbar"><div class="cap"><b>${esc(flow.n)} · Schritt ${state.step+1} von ${flow.steps.length}</b><span>${esc(txt)}</span></div>
+    h+=`<div class="flowbar"><div class="cap"><span class="ex">Beispielhafter Ablauf, nicht aus der Quelle</span><b>${esc(flow.n)} · Schritt ${state.step+1} von ${flow.steps.length}</b><span>${esc(txt)}</span></div>
     <div class="nav"><button class="btn" id="prev" ${state.step===0?"disabled":""}>Zurück</button><button class="btn primary" id="next">${state.step===flow.steps.length-1?"Fertig":"Weiter"}</button><button class="btn" id="stop" aria-label="Ablauf beenden">✕</button></div></div>`;
   }
   h+=`<div class="persona"><span>Nutzende:</span><span class="who">Bürger:innen</span><span class="who">Unternehmen</span><span class="who">Behörden &amp; Fachverfahren</span></div>`;
