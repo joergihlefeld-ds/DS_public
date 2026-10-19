@@ -263,8 +263,8 @@ const C=[
   g:["Kaum produktive Onlinedienste, keine Code-Snippets oder Best Practices am Markt.","Bürokratisches Nadelöhr: Onboarding und Zertifizierung mit nachgewiesener Rechtsgrundlage und Plattformsicherheit dauern mehrere Wochen.","Funktioniert nur, wenn das Zielregister schon angebunden ist."],
   eng:"Die technische Einbindung ist vergleichsweise simpel: REST-API über den Sicheren Anschlussknoten (SAK), einen lokalen Edge-Microservice.",
   when:"MVP-Phase. Flächenrollout NOOTS 1.0 am 30.11.2026. Vollständiges Registerspektrum frühestens 2028.",
-  roles:[["Fachverfahrens-Verantwortlicher (FV-VZ)","Die rechtlich verantwortliche Behörde"],["Betrieblich Verantwortlicher (BV)","Betreibt System und SAK, potenziell DigitalService"],["Entwicklungsdienstleister","Entwickelt Anwendung und Schnittstellen, Kernrolle von DigitalService"]],
-  note:"DigitalService baut und betreibt künftig Systeme auf der Data-Consumer-Seite.",
+  roles:[["Fachverfahrens-Verantwortlicher (FV-VZ)","Die rechtlich verantwortliche Behörde"],["Betrieblich Verantwortlicher (BV)","Betreibt das System sowie den Sicheren Anschlussknoten (SAK)"],["Entwicklungsdienstleister","Entwickelt die Anwendung und Schnittstellen"]],
+  note:"Diese Rollen beschreiben die Data-Consumer-Seite, also Systeme, die Nachweise über das NOOTS abrufen.",
   links:[["What we know about connecting to NOOTS as a Data Consumer","https://digitalservicebund.atlassian.net/wiki/spaces/OODP/pages/3539042328/What+we+know+about+connecting+to+NOOTS+as+a+Data+Consumer"],["NOOTS Glossary","https://digitalservicebund.atlassian.net/wiki/spaces/OODP/pages/3542351875/NOOTS+Glossary"],["Implementation Playbook: From zero to real register data","https://digitalservicebund.atlassian.net/wiki/spaces/OODP/pages/3545432098/Implementation+Playbook+From+zero+to+real+register+data"]],
   p:["once","api"]},
  {id:"raas",n:"Register as a Service",layer:"daten",fn:"Register in die Länder-Cloud",s:"plan",
@@ -296,8 +296,7 @@ const ACTORS=[
  {id:"fitko",n:"FITKO",w:"Föderale IT-Kooperation: operative Koordination und Umsetzung. Entwickelt FIT-Connect, betreut FINK und prüft ePayBL auf Tauglichkeit für den Deutschland-Stack.",rel:["fitconnect","fink","epaybl"]},
  {id:"bva",n:"Bundesverwaltungsamt",w:"Spezialisierte Einheit für die operative Umsetzung des NOOTS.",rel:["noots"]},
  {id:"itzbund",n:"ITZBund",w:"Informationstechnikzentrum Bund. Betreibt u. a. die Nationale Feedback-Komponente und das DVDV.",rel:["nfk","dvdv"]},
- {id:"bmds",n:"BMDS",w:"Bundesministerium für Digitales und Staatsmodernisierung. Herausgeber des Bundesportals.",rel:["bundesportal"]},
- {id:"ds",n:"DigitalService",w:"Spezialisierte Einheit in der Umsetzung. In der NOOTS-Terminologie Entwicklungsdienstleister und potenziell Betrieblich Verantwortlicher auf der Data-Consumer-Seite.",rel:["noots"]}
+ {id:"bmds",n:"BMDS",w:"Bundesministerium für Digitales und Staatsmodernisierung. Herausgeber des Bundesportals.",rel:["bundesportal"]}
 ];
 const PRIN={
  once:{n:"Once-Only",w:"Nachweise und Daten, die Bürger:innen oder Unternehmen der Verwaltung schon einmal mitgeteilt haben, müssen Behörden nicht erneut abfragen.",z:"Behörden tauschen Daten direkt und sicher über standardisierte Schnittstellen aus, wenn die Betroffenen zustimmen. Kerninfrastruktur in Deutschland ist das NOOTS."},

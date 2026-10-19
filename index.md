@@ -9,4 +9,4 @@ title: DS public
 ## Instrumente
 
 - [Schichtenmodell Verwaltungsdigitalisierung](instrumente/schichtenmodell.html)
-- [Ökosystem](instrumente/tech.html)
+- [Ökosystem](instrumente/tech-oekosystem.html)
