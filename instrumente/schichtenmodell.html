@@ -2,7 +2,6 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Schichtenmodell Verwaltungsdigitalisierung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -142,8 +141,8 @@ header p{margin:0;color:var(--muted)}
         <div class="layer-label"><span>Technische Plattform</span><button data-id="dstack">Deutschland-Stack ›</button></div>
         <div class="row">
           <button class="blk t-tech" data-id="bundid"><b>BundID</b><small>Identität, Postfach</small></button>
-          <button class="blk t-tech" data-id="register"><b>Registermodernisierung</b><small>NOOTS, Once-Only</small></button>
-          <button class="blk t-tech" data-id="eudi"><b>EUDI-Wallet</b><small>EU-Identität, ab 2027</small></button>
+          <button class="blk t-tech" data-id="register"><b>Registermodernisierung</b><small>NOOTS, live seit Januar 2026</small></button>
+          <button class="blk t-tech" data-id="eudi"><b>EUDI-Wallet: d-you</b><small>Staatliche Wallet, ab Januar 2027</small></button>
           <button class="blk t-tech wide proposed" data-id="plattformportfolio"><b>Plattformportfolio<span class="tag">Vorschlag</span></b><small>Landkarte der Stack-Komponenten: vorhanden, verpflichtend, fehlend</small></button>
         </div>
       </div>
@@ -222,6 +221,11 @@ const S = {
   brhzv:["Bundesrechnungshof – Bericht Verwaltungsdigitalisierung, Juli 2026, Stellungnahmen des BMDS zum Zustimmungsvorbehalt","https://cdn.netzpolitik.org/wp-upload/2026/08/2026-07-31_BRH_Verwaltungsdigitalisierung.pdf"],
   adt1:["Nicht amtlich: Agora Digitale Transformation – Studie zum IT-Zustimmungsvorbehalt des BMDS, August 2025",""],
   adt2:["Nicht amtlich: Agora Digitale Transformation – „Vom Veto zur Steuerung“",""],
+  noots:["BMDS – NOOTS (Nationales Once-Only-Technical-System)","https://bmds.bund.de/themen/digitaler-staat/noots"],
+  eudibmds:["BMDS – EUDI-Wallet d-you","https://bmds.bund.de/themen/digitaler-staat/digitale-identitaeten/eudi-wallet"],
+  drs7319:["BT-Drs. 21/7319 – Antwort der Bundesregierung zur deutschen EUDI-Wallet, 21. Juli 2026","https://dserver.bundestag.de/btd/21/073/2107319.pdf"],
+  vzdyou:["Nicht amtlich: Verbraucherzentrale – D-You-Wallet, Stand 18. September 2026","https://www.verbraucherzentrale.de/wissen/digitale-welt/datenschutz/dyouwallet-was-sie-zur-digitalen-brieftasche-wissen-muessen-95821"],
+  netzpol:["Nicht amtlich: netzpolitik.org – EUDI-Wallet geht in Testphase, Januar 2026","https://netzpolitik.org/2026/eudi-wallet-digitale-brieftasche-geht-in-testphase/"],
   moda:["Modernisierungsagenda für Staat und Verwaltung (Bund) – BR-Drs. 575/25","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],
   brhbund:["Bundesrechnungshof – Bericht Verwaltungsdigitalisierung, Juli 2026, Beispiel Basisdienst „Nutzerkonto Bund“","https://cdn.netzpolitik.org/wp-upload/2026/08/2026-07-31_BRH_Verwaltungsdigitalisierung.pdf"],
   giga:["Nicht amtlich: GIGA – Digitales Bürgerkonto in Deutschland, Dezember 2025 (Pressebericht)","https://www.giga.de/tech/digitales-buergerkonto-in-deutschland-das-muesst-ihr-jetzt-wissen--01KC3W99YM7KF6SPVY88G1MC86"],
@@ -289,16 +293,25 @@ body:`<h3>Rechtsgrundlage</h3><p>Das OZG-Änderungsgesetz schuf die Voraussetzun
 links:["ozg","itplr","eudi","plattformportfolio"],src:["ozg","moda","brhbund","giga"]},
 
 register:{t:"Registermodernisierung",lede:"Die Vernetzung der öffentlichen Register, damit Behörden Nachweise direkt untereinander austauschen. Sie ist die Voraussetzung für Once-Only.",
-body:`<h3>Wie es funktioniert</h3><p>Das National-Once-Only-Technical-System (NOOTS) verbindet Register über eine gemeinsame Infrastruktur. Der Bund baut es im Rahmen der Gesamtsteuerung Registermodernisierung auf.</p>
-<h3>Rechtsgrundlage</h3><p>Seit Juli 2024 gilt mit dem OZG-Änderungsgesetz eine „Generalklausel“ für den automatisierten Nachweisabruf. Für das NOOTS selbst ist zusätzlich ein Bund-Länder-Staatsvertrag vorgesehen.</p>
+home:[["NOOTS – BMDS","https://bmds.bund.de/themen/digitaler-staat/noots"]],
+body:`<h3>Was das NOOTS ist</h3><p>Das Nationale Once-Only-Technical-System (NOOTS) ist ein informationstechnisches System, über das öffentliche Stellen elektronische Nachweise rechtskonform aus Verwaltungsregistern abrufen. Dazu gehören Standards, Sicherheitsanforderungen sowie organisatorische und rechtliche Regelungen. Die Register bleiben dezentral; das NOOTS verbindet sie, passend zur föderalen Registerlandschaft.</p>
+<h3>Stand</h3><ul><li>Die erste funktionsfähige Version ist seit Januar 2026 im Livebetrieb.</li><li>Bis Ende 2026 soll eine Version für den technischen Flächenrollout bereitstehen.</li><li>Der Rollout folgt einem dreistufigen Konzept des IT-Planungsrats: initiale Anschlussvorhaben, Ertüchtigungsvorhaben, Anschlussvorhaben.</li></ul>
+<h3>Zuständigkeit</h3><ul><li><b>IT-Planungsrat:</b> entscheidet über Betrieb, Weiterentwicklung und Finanzierung. Seine Steuerungsgruppe bilden der Bund (BMDS) sowie Bayern, Brandenburg, Hamburg, Hessen, Nordrhein-Westfalen und das Saarland.</li><li><b>FITKO:</b> Gesamtleitung der Umsetzung und fachliche Koordination.</li><li><b>Bundesverwaltungsamt:</b> operative Umsetzung als betriebsverantwortliche Stelle.</li></ul>
+<h3>Europa</h3><p>Über eine Schnittstelle wird das NOOTS an das EU-OOTS angebunden, das den grenzüberschreitenden Nachweisaustausch in der EU ermöglicht.</p>
+<h3>Rechtsgrundlage</h3><p>Seit Juli 2024 gilt mit dem OZG-Änderungsgesetz eine „Generalklausel“ für den automatisierten Nachweisabruf. Für das NOOTS selbst ist ein Bund-Länder-Staatsvertrag vorgesehen; die BMDS-Seite nennt dazu keine Einzelheiten.</p>
 <h3>Warum zentral</h3><p>Ohne vernetzte Register müssen Bürger:innen weiterhin Nachweise hochladen. Die Registermodernisierung ist damit der Teil des Stacks, der „digital“ in „einfach“ übersetzt.</p>`,
-links:["ozg","itplr","ziel"],src:["reg"]},
+links:["ozg","itplr","dstack","ziel"],src:["noots","reg"]},
 
-eudi:{t:"EUDI-Wallet",lede:"Die europäische digitale Brieftasche für Identität und Nachweise. Sie soll in den Deutschland-Stack integriert werden.",
-body:`<h3>Stand</h3><p>Die Länder wollen sich an der Integration der EUDI-Wallet in den D-Stack spätestens ab dem 1. Januar 2027 beteiligen.</p>
-<h3>Rolle im Modell</h3><p>Die Wallet ergänzt die nationale Identität um eine europaweit anerkannte. Für Services und die Deutschland-App ist sie ein weiterer Weg zur Anmeldung und zum Vorlegen von Nachweisen.</p>
-<h3>Abhängigkeit</h3><p>Der Rahmen kommt aus dem EU-Recht. Die Umsetzung in Deutschland hängt an den gemeinsamen Standards des Stacks.</p>`,
-links:["bundid","dstack","app"],src:["ihk"]},
+eudi:{t:"EUDI-Wallet: d-you",lede:"d-you ist die staatliche EUDI-Wallet Deutschlands: eine digitale Brieftasche auf dem Smartphone für Identität und Nachweise, europaweit nutzbar gegenüber Verwaltung und Unternehmen.",
+home:[["EUDI-Wallet (d-you) – BMDS","https://bmds.bund.de/themen/digitaler-staat/digitale-identitaeten/eudi-wallet"]],
+body:`<h3>Name und Rahmen</h3><p><b>EUDI-Wallet</b> ist das EU-Konzept aus der novellierten eIDAS-Verordnung, nach der jeder Mitgliedstaat eine Wallet anbieten muss. <b>d-you</b> ist die deutsche staatliche Umsetzung; „d“ steht für „digital“ und „Deutschland“. Das Bundeskabinett hat am 20. Mai 2026 den Entwurf eines Digitale-Identitäten-Gesetzes (DIdG) beschlossen.</p>
+<h3>Start und Funktionen</h3><ul><li>Start am 2. Januar 2027, kostenlos und freiwillig.</li><li>Die erste Ausbaustufe wird iterativ entwickelt; rund 40 Partner aus Wirtschaft, Wissenschaft und Verwaltung sollen zum Start Anwendungen anbieten.</li><li>Später sollen unter anderem persönliche Nachweise, qualifizierte elektronische Signaturen, pseudonyme Anmeldungen, Bezahlfunktionen sowie Personalausweis und Führerschein in digitaler Form folgen.</li></ul>
+<h3>Wer sie entwickelt</h3><p>Der Bund stellt die Wallet bereit. In seinem Auftrag leitet die Bundesagentur für Sprunginnovationen (SPRIND) das Entwicklungsteam, zusammen mit BSI, Bundesdruckerei, Fraunhofer AISEC, PwC Deutschland und Meiré und Meiré. Seit 2026 gibt es eine Testumgebung für Personenidentifikationsdaten (PID), inzwischen auch für elektronische Attributsbescheinigungen (EAA). Der Quellcode ist öffentlich.</p>
+<h3>Datenschutz</h3><p>Nach Angaben des BMDS liegen die Daten nur verschlüsselt auf dem Smartphone; eine zentrale Speicherung oder Profilbildung sei technisch ausgeschlossen. Die Verbraucherzentralen sehen den zentralen Verwaltungsserver der Wallet dennoch kritisch und mahnen hohe Sicherheitsanforderungen an.</p>
+<h3>Verhältnis zu BundID und Online-Ausweis</h3><p>Verwaltungen können sich laut BMDS entweder über die BundID oder direkt an die Wallet anbinden. Im Dresdner Pilot soll die BundID in die Wallet eingebunden werden, damit sich Nutzer:innen etwa für Online-Bescheide ausweisen können. Die Wallet ist damit ein Zugangsweg, das Konto mit Postfach bleibt. Wie sich d-you zur geplanten DeutschlandID verhält, ist in den ausgewerteten Quellen nicht beschrieben.</p>
+<h3>Private Wallets</h3><p>Etwa zwölf Monate nach dem Start sollen sich auch nichtstaatliche Anbieter zertifizieren und in Deutschland anerkennen lassen können.</p>
+<h3>Rolle im Modell</h3><p>Die Länder wollen sich an der Integration der Wallet in den Deutschland-Stack spätestens ab dem 1. Januar 2027 beteiligen. Für Services und die Deutschland-App ist d-you ein weiterer Weg zur Anmeldung und zum Vorlegen von Nachweisen. Die Bundesregierung sieht den Start der Deutschland-App durch den Zeitplan der Wallet nicht gefährdet.</p>`,
+links:["bundid","dstack","app","plattformportfolio"],src:["eudibmds","drs7319","vzdyou","netzpol","ihk"]},
 
 digitalcheck:{t:"Digitalcheck",lede:"Ein Verfahren, mit dem Gesetzentwürfe schon beim Schreiben auf ihre digitale Umsetzbarkeit geprüft werden.",
 home:[["Digitalcheck: Digitaltaugliche Regelungen erarbeiten","https://digitalcheck.bund.de/"],["Zentrum für Legistik","https://zfl.bund.de/"]],
@@ -454,4 +467,3 @@ render((location.hash||'#pfeile').slice(1),false);
 </script>
 </body>
 </html>
-
