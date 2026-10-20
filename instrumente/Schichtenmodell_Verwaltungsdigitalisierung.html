@@ -94,6 +94,11 @@ header p{margin:0;color:var(--muted)}
 .home a{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:6px 11px;background:var(--bg)}
 .home a:hover{border-color:var(--accent)}
 .home a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tablewrap{overflow-x:auto;margin:6px 0 12px}
+.maptable{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.45}
+.maptable th{text-align:left;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding:6px 10px 6px 0}
+.maptable td{border-bottom:1px solid var(--line);padding:7px 10px 7px 0;vertical-align:top}
+.maptable td:last-child{color:var(--muted)}
 .src{font-size:13px;padding-left:18px}
 .src a{color:var(--accent);word-break:break-word}
 .note{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);margin-top:22px;padding-top:12px}
@@ -165,6 +170,7 @@ header p{margin:0;color:var(--muted)}
           <button class="blk t-base" data-id="itplr"><b>IT-Planungsrat, FITKO</b><small>Bund-Länder-Standards</small></button>
           <button class="blk t-base" data-id="itzv"><b>IT-Zustimmungsvorbehalt</b><small>Veto des BMDS bei IT-Ausgaben</small></button>
           <button class="blk t-base" data-id="kontrolle"><b>Kontrolle, Haushalt</b><small>NKR, BRH, Haushaltsverfahren</small></button>
+          <button class="blk t-base wide" data-id="vergabe"><b>Vergabe und Förderung</b><small>Digitaler Marktplatz, einfachere Förderverfahren</small></button>
           <button class="blk t-base wide proposed" data-id="investportfolio"><b>IT-Investitionsportfolio des Bundes<span class="tag">Vorschlag</span></b><small>Gesamtsicht auf alle IT-Vorhaben, verknüpft mit dem Plattformportfolio</small></button>
         </div>
       </div>
@@ -227,13 +233,15 @@ const S = {
   vzdyou:["Nicht amtlich: Verbraucherzentrale – D-You-Wallet, Stand 18. September 2026","https://www.verbraucherzentrale.de/wissen/digitale-welt/datenschutz/dyouwallet-was-sie-zur-digitalen-brieftasche-wissen-muessen-95821"],
   netzpol:["Nicht amtlich: netzpolitik.org – EUDI-Wallet geht in Testphase, Januar 2026","https://netzpolitik.org/2026/eudi-wallet-digitale-brieftasche-geht-in-testphase/"],
   moda:["Modernisierungsagenda für Staat und Verwaltung (Bund) – BR-Drs. 575/25","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],
+  fmabreg:["Bundesregierung – Föderale Modernisierungsagenda: Ein schneller, digitaler und handlungsfähiger Staat, 25. Juni 2026","https://www.bundesregierung.de/breg-de/aktuelles/foederale-modernisierungsagenda-2397632"],
+  fortschritt:["Bundesregierung – Fortschrittsbericht Modernisierung, 26. Juni 2026","https://www.bundesregierung.de/resource/blob/2196306/2445318/98baa702bc15bb8c0bc8894856da1bdc/2026-06-26-fortschrittsbericht-modernisierung-data.pdf?download=1"],
   brhbund:["Bundesrechnungshof – Bericht Verwaltungsdigitalisierung, Juli 2026, Beispiel Basisdienst „Nutzerkonto Bund“","https://cdn.netzpolitik.org/wp-upload/2026/08/2026-07-31_BRH_Verwaltungsdigitalisierung.pdf"],
   giga:["Nicht amtlich: GIGA – Digitales Bürgerkonto in Deutschland, Dezember 2025 (Pressebericht)","https://www.giga.de/tech/digitales-buergerkonto-in-deutschland-das-muesst-ihr-jetzt-wissen--01KC3W99YM7KF6SPVY88G1MC86"],
   moda51:["Modernisierungsagenda (Bund), Einleitung und Maßnahme 5.1 (PMflexONE) – BR-Drs. 575/25","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],
   modadvc:["Modernisierungsagenda (Bund), Maßnahme zur Deutschen Verwaltungscloud (Service-Portfolio, Steuerung D-Stack/DVC) – BR-Drs. 575/25","https://dserver.bundestag.de/brd/2025/0575-25.pdf"]
 };
-const L = {ziel:"Ziel",services:"Zugang",app:"Zugang",dstack:"Technische Plattform",bundid:"Technische Plattform",register:"Technische Plattform",eudi:"Technische Plattform",digitalcheck:"Standards",servicestandard:"Standards",dachmarke:"Standards",bmds:"Governance",itplr:"Governance",itzv:"Governance",kontrolle:"Governance",investportfolio:"Governance · Vorschlag",plattformportfolio:"Technische Plattform · Vorschlag",ozg:"Recht und Strategie",agenda:"Recht und Strategie",art91c:"Recht und Strategie",querschnitt:"Querschnitt",pfeile:"Lesehilfe"};
-const T = {ziel:"t-goal",services:"t-tech",app:"t-tech",dstack:"t-tech",bundid:"t-tech",register:"t-tech",eudi:"t-tech",digitalcheck:"t-std",servicestandard:"t-std",dachmarke:"t-std",bmds:"t-base",itplr:"t-base",itzv:"t-base",kontrolle:"t-base",investportfolio:"t-base",plattformportfolio:"t-tech",ozg:"t-base",agenda:"t-base",art91c:"t-base",querschnitt:"t-base",pfeile:"t-goal"};
+const L = {ziel:"Ziel",services:"Zugang",app:"Zugang",dstack:"Technische Plattform",bundid:"Technische Plattform",register:"Technische Plattform",eudi:"Technische Plattform",digitalcheck:"Standards",servicestandard:"Standards",dachmarke:"Standards",bmds:"Governance",itplr:"Governance",itzv:"Governance",kontrolle:"Governance",vergabe:"Governance",investportfolio:"Governance · Vorschlag",plattformportfolio:"Technische Plattform · Vorschlag",ozg:"Recht und Strategie",agenda:"Recht und Strategie",art91c:"Recht und Strategie",querschnitt:"Querschnitt",pfeile:"Lesehilfe"};
+const T = {ziel:"t-goal",services:"t-tech",app:"t-tech",dstack:"t-tech",bundid:"t-tech",register:"t-tech",eudi:"t-tech",digitalcheck:"t-std",servicestandard:"t-std",dachmarke:"t-std",bmds:"t-base",itplr:"t-base",itzv:"t-base",kontrolle:"t-base",vergabe:"t-base",investportfolio:"t-base",plattformportfolio:"t-tech",ozg:"t-base",agenda:"t-base",art91c:"t-base",querschnitt:"t-base",pfeile:"t-goal"};
 
 const P = {
 pfeile:{t:"Wie die Pfeile zu lesen sind",lede:"Das Modell ist ein Bauplan. Jeder Pfeil zeigt nach oben und bedeutet „trägt“ oder „ermöglicht“: Die untere Schicht ist Voraussetzung dafür, dass die obere funktioniert.",
@@ -253,9 +261,20 @@ links:["dstack","digitalcheck","art91c","querschnitt"],src:["brh","dc"]},
 
 ziel:{t:"Bürger:innen und Unternehmen",lede:"Die oberste Schicht ist der Maßstab für alle anderen: Verwaltungsleistungen sollen vollständig digital und ohne wiederholte Angaben nutzbar sein.",
 body:`<h3>Was gemeint ist</h3><p><b>Digital only</b> heißt, dass Behördengänge komplett digital möglich sein sollen. Die föderale Modernisierungsagenda will dafür die Schriftform durch elektronische Kommunikation ablösen. <b>Once-Only</b> heißt, dass Daten, die der Staat schon hat, nicht erneut eingereicht werden müssen.</p>
-<h3>Beispiele aus den Agenden</h3><ul><li>Kindergeld soll ohne gesonderten Antrag ausgezahlt werden.</li><li>Genehmigungsfiktionen: Anträge gelten nach drei Monaten ohne Reaktion als genehmigt.</li><li>Mindestens ein Drittel der Berichts- und Auskunftspflichten der Wirtschaft soll bis Ende 2026 entfallen.</li></ul>
-<h3>Warum ganz oben</h3><p>Nutzen entsteht erst, wenn alle Schichten darunter zusammenspielen. Fehlt etwa die Registervernetzung, bleibt ein Online-Antrag ein digitalisiertes Papierformular.</p>`,
-links:["services","register","agenda"],src:["ihk","fma"]},
+<h3>Beispiele aus der föderalen Modernisierungsagenda</h3><p>Die Bundesregierung nennt konkrete Ergebnisse für Bürger:innen und Unternehmen. Die rechte Spalte zeigt, welche Bausteine im Modell sie tragen müssen. Diese Zuordnung ist eine Einordnung für das Modell; die Seite der Bundesregierung nennt die Bausteine nicht.</p>
+<div class="tablewrap"><table class="maptable"><thead><tr><th>Maßnahme</th><th>Trägt von unten</th></tr></thead><tbody>
+<tr><td>Kindergeld ohne Antrag, ab 2027 zunächst für weitere Kinder, später auch für das erste Kind</td><td>Registermodernisierung (NOOTS), Rechtsänderung</td></tr>
+<tr><td>Elterngeld mit zentraler IT-Infrastruktur und Once-Only</td><td>NOOTS, Deutschland-Stack</td></tr>
+<tr><td>Wohnsitzummeldung und Personalausweisantrag digital</td><td>BundID bzw. d-you zur Identifizierung, Registeranbindung</td></tr>
+<tr><td>i-Kfz-App, Fahrzeugschein auf dem Smartphone</td><td>Identität; als digitaler Nachweis ein naheliegender Fall für d-you (Einschätzung)</td></tr>
+<tr><td>„Schneller Gründen“ per digitalem Kombiantrag</td><td>BundID, Schnittstellen zu Register- und Steuerbehörden</td></tr>
+<tr><td>Formlose E-Mail statt Papier, Unterschrift oder qualifizierter Signatur in den meisten Fällen</td><td>Rechtsänderungen, OZG</td></tr>
+<tr><td>Genehmigungsfiktion bei Fristablauf (Beispiel: drei Monate)</td><td>Rechtsänderungen; Digitalcheck für neue Regeln</td></tr>
+<tr><td>Mindestens ein Drittel weniger Berichts- und Auskunftspflichten, Bürokratiekosten minus 25 Prozent</td><td>Rechtsänderungen; Digitalcheck</td></tr>
+<tr><td>Digitaler Marktplatz für öffentliche Aufträge</td><td>Vergabe und Förderung</td></tr>
+</tbody></table></div>
+<h3>Warum ganz oben</h3><p>Nutzen entsteht erst, wenn alle Schichten darunter zusammenspielen. Ohne vernetzte Register gibt es kein antragsloses Kindergeld, ohne Identität keine digitale Ummeldung. Fehlt die Mitte, bleibt ein Online-Antrag ein digitalisiertes Papierformular.</p>`,
+links:["register","bundid","eudi","services","agenda"],src:["fmabreg","noots"]},
 
 services:{t:"Online-Services",lede:"Die konkreten digitalen Verwaltungsleistungen von Bund, Ländern und Kommunen. Hier erleben Bürger:innen und Unternehmen die Digitalisierung.",
 home:[["Bundesportal – verwaltung.bund.de","https://verwaltung.bund.de"]],
@@ -416,11 +435,19 @@ body:`<h3>Warum die Änderung nötig war</h3><p>Die Ziele des ursprünglichen OZ
 links:["bundid","register","art91c"],src:["ozg","brat","reg"]},
 
 agenda:{t:"Modernisierungsagenden",lede:"Zwei politische Programme geben die Richtung vor: die Modernisierungsagenda des Bundes vom Oktober 2025 und die Föderale Modernisierungsagenda von Bund und Ländern vom Dezember 2025.",
-home:[["Modernisierungsagenda Bund (BR-Drs. 575/25)","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],["Föderale Modernisierungsagenda – Bundesregierung","https://www.bundesregierung.de/breg-de/aktuelles/foederale-modernisierungsagenda-2397632"],["Föderale Modernisierungsagenda (MPK-Beschluss, PDF)","https://www.rlp.de/fileadmin/02/MPK_Vorsitz/Beschluesse_MPK_4._Dezember_2025_Berlin/Foederale_Modernisierungsagenda.pdf"],["Fortschrittsbericht Juni 2026 (PDF)","https://www.bundesregierung.de/resource/blob/2196306/2445318/98baa702bc15bb8c0bc8894856da1bdc/2026-06-26-fortschrittsbericht-modernisierung-data.pdf?download=1"]],
-body:`<h3>Inhalt</h3><p>Die föderale Agenda bündelt rund 200 Maßnahmen in Leitthemen wie Bürokratieabbau, schnellere Planungs- und Genehmigungsverfahren, digitale Verfahren und bessere Gesetzgebung. Viele sollen bis Ende 2026 umgesetzt sein.</p>
-<h3>Verbindung zu anderen Schichten</h3><ul><li>Sie verankert den Deutschland-Stack als gemeinsames Vorhaben.</li><li>Sie kündigt die Reform von Art. 91c GG an.</li><li>Sie sieht eine Deutschland-App ab 2027 vor.</li></ul>
-<h3>Umsetzungsstand</h3><p>Laut einer Zwischenbilanz lag die Umsetzungsquote des Bundes bei 12 Prozent seiner 82 Projekte, die der Länder bei 7 Prozent von 140 Projekten.</p>`,
-links:["dstack","art91c","app"],src:["ihk","fma"]},
+home:[["Modernisierungsagenda Bund – Bundesregierung","https://www.bundesregierung.de/breg-de/aktuelles/modernisierungsagenda-2386518"],["Modernisierungsagenda Bund (BR-Drs. 575/25)","https://dserver.bundestag.de/brd/2025/0575-25.pdf"],["Föderale Modernisierungsagenda – Bundesregierung","https://www.bundesregierung.de/breg-de/aktuelles/foederale-modernisierungsagenda-2397632"],["Föderale Modernisierungsagenda (amtliches PDF)","https://www.bundesregierung.de/resource/blob/975228/2397654/c57248be7fa2d61ab6d8b12c0f29f05b/2025-12-04-mpk-staatsmodernisierung-data.pdf?download=1"],["Fortschrittsbericht Juni 2026 (PDF)","https://www.bundesregierung.de/resource/blob/2196306/2445318/98baa702bc15bb8c0bc8894856da1bdc/2026-06-26-fortschrittsbericht-modernisierung-data.pdf?download=1"],["FAQ zur Staatsmodernisierung","https://www.bundesregierung.de/breg-de/aktuelles/faq-zur-staatsmodernisierung-2444550"]],
+body:`<h3>Zwei Agenden</h3><ul><li><b>Modernisierungsagenda Bund:</b> vom Kabinett Anfang Oktober 2025 beschlossen, mit über 80 Einzelmaßnahmen, Fristen und Monitoring.</li><li><b>Föderale Modernisierungsagenda:</b> von Bundeskanzler und Regierungschef:innen der Länder im Dezember 2025 beschlossen, mit über 200 Maßnahmen.</li></ul>
+<h3>Die fünf Leitthemen der föderalen Agenda</h3><ol><li>Weniger Bürokratie und schnelle Entscheidungen</li><li>Schnellere Verfahren bei Planung, Genehmigung, Vergabe und Datenschutz</li><li>Effiziente, resiliente staatliche Strukturen</li><li>Digitale, serviceorientierte Verfahren</li><li>Bessere Rechtsetzung</li></ol>
+<h3>Verbindung zu anderen Schichten</h3><ul><li>Die föderale Agenda nennt den Deutschland-Stack als nationale Technologieplattform für die digitale Verwaltung.</li><li>Sie kündigt die Reform von Art. 91c GG an und sieht die Beteiligung der Länder an der Integration der EUDI-Wallet (d-you) vor.</li><li>Ihre konkreten Ergebnisse für Bürger:innen und Unternehmen, etwa antragsloses Kindergeld oder digitale Ummeldung, stehen auf der Seite „Bürger:innen und Unternehmen“ mit den Bausteinen, die sie tragen.</li><li>Für die Verwaltung nennt sie außerdem KI zur Unterstützung der Sachbearbeitung, einfachere Förderverfahren und einen digitalen Marktplatz für öffentliche Aufträge.</li><li>Die Bundesagenda sieht eine Deutschland-App ab 2027 vor.</li></ul>
+<h3>Umsetzungsstand</h3><p>Laut Fortschrittsbericht vom Juni 2026 sind alle 60 kurzfristigen Maßnahmen der föderalen Agenda in Umsetzung, 15 davon vollständig umgesetzt.</p><p>Eine frühere, nicht amtliche Zwischenbilanz nannte eine Umsetzungsquote von 12 Prozent bei 82 Projekten des Bundes und 7 Prozent bei 140 Projekten der Länder.</p>`,
+links:["ziel","dstack","art91c","vergabe","app"],src:["fmabreg","fortschritt","ihk","fma"]},
+
+vergabe:{t:"Vergabe und Förderung",lede:"Wie der Staat beschafft und fördert. Die föderale Modernisierungsagenda will beides vereinfachen: mit einem digitalen Marktplatz für öffentliche Aufträge und einfacheren Förderverfahren.",
+body:`<h3>Was die Agenda vorsieht</h3><ul><li><b>Digitaler Marktplatz:</b> Er soll den Zugang zu öffentlichen Aufträgen erleichtern.</li><li><b>KI in Vergabeverfahren:</b> Ausschreibungen sollen mit KI-gestützten Verfahren vereinfacht werden.</li><li><b>Einfachere Förderverfahren:</b> Sie sollen auch Kommunen entlasten.</li><li>Schnellere Verfahren bei der Vergabe sind Teil des zweiten Leitthemas der föderalen Agenda.</li></ul>
+<h3>Rolle im Modell</h3><p>Vergabe und Förderung sind der Weg, über den Geld zu Vorhaben wird. Sie sitzen deshalb in der Governance-Schicht. Der IT-Zustimmungsvorbehalt entscheidet, ob ein IT-Vorhaben finanziert wird; seine Auflagen gelten laut Vereinbarung ausdrücklich auch bei der Beschaffung.</p>
+<h3>Einschätzung: Verbindung zu den Portfolios</h3><div class="split assess"><p>Ein digitaler Marktplatz erzeugt Daten darüber, was die Verwaltung tatsächlich einkauft. Verknüpft mit dem IT-Investitionsportfolio ließe sich prüfen, ob beschaffte Lösungen Standards und Plattformkomponenten einhalten. Servicestandard und Dachmarke könnten als Anforderungen in Ausschreibungen einfließen.</p></div>
+<h3>Stand</h3><p>Die ausgewerteten Quellen nennen keinen Zeitplan und keine zuständige Stelle für den Marktplatz.</p>`,
+links:["itzv","investportfolio","servicestandard","agenda"],src:["fmabreg","ihk","vereinb"]},
 
 art91c:{t:"Art. 91c GG",lede:"Die Verfassungsnorm für die IT-Zusammenarbeit von Bund und Ländern. Eine Reform soll dem Bund erlauben, nicht nur zu koordinieren, sondern verbindlich zu regeln und selbst zu bauen.",
 body:`<h3>Ausgangslage heute</h3><p>Art. 91c GG erlaubt Bund und Ländern vor allem Zusammenarbeit: Sie können den gemeinsamen Betrieb von IT-Systemen vereinbaren. Der IT-Staatsvertrag schafft darauf den IT-Planungsrat; gemeinsame Standards gelten aber nur, soweit sie für den Datenaustausch nötig sind.</p>
