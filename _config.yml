@@ -1,0 +1,27 @@
+title: DS public
+description: Anleitungen für Kolleg:innen ohne technischen Hintergrund
+lang: de
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-titles-from-headings
+
+relative_links:
+  enabled: true
+  collections: false
+
+# Interne Dateien nicht veröffentlichen
+exclude:
+  - CLAUDE.md
+  - README.md
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default

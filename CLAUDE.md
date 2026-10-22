@@ -45,6 +45,15 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 - Befehle für das Terminal immer in einem eigenen Codeblock und mit einem Satz, was der Befehl tut.
 - Links vollständig angeben: `<https://…>`
 
+## Webseite (GitHub Pages)
+
+- Das Repo wird über GitHub Pages mit Jekyll als Webseite veröffentlicht, im Corporate Design von DigitalService.
+- Layout: `_layouts/default.html`, Gestaltung: `assets/css/style.css`, Einstellungen: `_config.yml`.
+- Logo, Favicon und die Schrift Inter liegen in `assets/` und stammen aus dem DigitalService-Design-System. Nicht verändern.
+- Neue Anleitungen brauchen keinen Front Matter. Sie bekommen das Layout automatisch.
+- Mermaid-Diagramme werden auf der Webseite gezeichnet. Links im Diagramm (`click`) mit `.md` schreiben, die Webseite macht daraus `.html`.
+- `CLAUDE.md` und `README.md` werden nicht veröffentlicht.
+
 ## Arbeitsweise für Claude
 
 - Neue Anleitungen immer in `anleitungen/` anlegen.

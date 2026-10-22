@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'de' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title and page.title != site.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/DS_Logo_Favicon.svg' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="{{ '/' | relative_url }}" aria-label="Startseite {{ site.title }}">
+        <img src="{{ '/assets/img/DigitalService_Logo_RGB_blue.svg' | relative_url }}" alt="DigitalService" width="80" height="80">
+      </a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="{{ '/' | relative_url }}">Start</a>
+        <a href="{{ '/anleitungen/uebersicht.html' | relative_url }}">Übersicht</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inhalt" class="container content">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>{{ site.title }} · {{ site.description }}</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    // Mermaid-Codeblöcke als Diagramme darstellen
+    const blocks = document.querySelectorAll('.language-mermaid');
+    if (blocks.length) {
+      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs');
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: 'base',
+        themeVariables: {
+          fontFamily: 'Inter, Arial, sans-serif',
+          fontSize: '16px',
+          primaryColor: '#e0f0ff',
+          primaryTextColor: '#2a2b2d',
+          primaryBorderColor: '#0000ff',
+          lineColor: '#0000ff',
+          edgeLabelBackground: '#ffffff'
+        }
+      });
+      blocks.forEach((block) => {
+        const pre = document.createElement('pre');
+        pre.className = 'mermaid';
+        // Links im Diagramm zeigen im Markdown auf .md, auf der Webseite auf .html
+        pre.textContent = block.textContent.replace(/(click\s+\S+\s+")([^"]+)\.md"/g, '$1$2.html"');
+        block.replaceWith(pre);
+      });
+      await mermaid.run();
+    }
+  </script>
+</body>
+</html>
