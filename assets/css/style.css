@@ -1,4 +1,6 @@
-/* DigitalService Corporate Design: ds-blue, Inter, viel Weißraum */
+/* DigitalService Corporate Design nach dem Design System „DigitalServiceWeb“
+   (abgeleitet von digitalservice.bund.de): ein Blau, grauer Text in Inter Light,
+   harte Kanten, Struktur durch blaue Balken und Quadrate. Token-Namen wie im Design System. */
 
 @font-face {
   font-family: "Inter";
@@ -9,22 +11,42 @@
 }
 
 :root {
-  --ds-blue: #0000ff;
-  --white: #ffffff;
-  --light-blue: #e0f0ff;
-  --black: #2a2b2d;
-  --light-grey: #e9eef3;
-  --brightened-medium-grey: #c7ced4;
-  --bright-yellow: #fec32b;
+  /* Farben */
+  --brand: #0000ff;
+  --ink: #2a2b2d;
+  --on-brand: #ffffff;
+  --surface: #ffffff;
+  --surface-blue: #e0f0ff;
+  --surface-grey: #e9eef3;
+  --surface-card: #edeef1;
+  --border-chrome: #c9cfd3;
+  --grey-brightened: #c7ced4;
+  --focus: #fec32b;
+  --tint-yellow: #fee094;
 
+  /* Schrift */
   --font-sans: Inter, Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 
-  --space-1: 8px;
-  --space-2: 16px;
-  --space-3: 32px;
-  --space-4: 64px;
+  /* Abstände */
+  --space-5: 5px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-18: 18px;
+  --space-20: 20px;
+  --space-30: 30px;
+  --space-40: 40px;
+  --space-50: 50px;
 
-  --radius-sm: 4px;
+  /* Linien und Größen */
+  --radius-none: 0;
+  --border-width-light: 1px;
+  --border-width-default: 2px;
+  --border-width-bar: 5px;
+  --logo-size: 80px;
+  --header-height: 81px;
+  --bullet-size: 10px;
+  --container-max: 1320px;
   --content-width: 880px;
 }
 
@@ -40,105 +62,172 @@ html {
 
 body {
   margin: 0;
-  background: var(--white);
-  color: var(--black);
+  background: var(--surface);
+  color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 25.5px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  max-width: var(--content-width);
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--space-2);
+  padding: 0 var(--space-40);
 }
 
-/* Barrierefreiheit */
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: var(--space-1);
-  background: var(--ds-blue);
-  color: var(--white);
-  padding: var(--space-1) var(--space-2);
-  z-index: 10;
+/* Barrierefreiheit: Fokus ist eine gelbe Fläche mit grauer Schrift, keine Outline */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  background-color: var(--focus);
+  color: var(--ink);
+  outline: none;
 }
-.skip-link:focus {
-  left: var(--space-2);
-}
-
 :focus-visible {
-  outline: 3px solid var(--ds-blue);
+  outline: var(--border-width-default) solid var(--ink);
   outline-offset: 2px;
 }
 
-/* Work-in-Progress-Banner */
-.wip-banner {
-  background: var(--bright-yellow);
-  color: var(--black);
-  font-size: 16px;
-  padding: var(--space-1) 0;
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: var(--space-8);
+  background: var(--focus);
+  color: var(--ink);
+  font-weight: 500;
+  padding: var(--space-10) var(--space-20);
+  z-index: 10;
+}
+.skip-link:focus {
+  left: var(--space-20);
 }
 
-/* Kopfzeile */
+/* Work-in-Progress-Banner (helles Gelb, weil kräftiges Gelb den Fokus bedeutet) */
+.wip-banner {
+  background: var(--tint-yellow);
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  padding: var(--space-10) 0;
+}
+.wip-banner strong {
+  font-weight: 600;
+}
+
+/* Header */
 .site-header {
-  border-bottom: 1px solid var(--brightened-medium-grey);
+  background: var(--surface);
+  border-bottom: var(--border-width-light) solid var(--border-chrome);
 }
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-2);
-  padding-top: var(--space-3);
-  padding-bottom: var(--space-3);
+  gap: var(--space-20);
+  min-height: calc(var(--header-height) - var(--border-width-light));
 }
 .logo {
   display: block;
   line-height: 0;
 }
+.logo:focus-visible {
+  outline: var(--border-width-default) solid var(--ink);
+}
 .logo img {
-  width: 80px;
-  height: 80px;
+  display: block;
+  width: var(--logo-size);
+  height: var(--logo-size);
 }
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  justify-content: flex-end;
+  gap: var(--space-8) var(--space-30);
 }
-.site-nav a {
-  color: var(--black);
-  font-weight: 700;
+
+/* Links im Menü und im Footer: grau, Hover zeigt eine 2px-Linie */
+.site-nav a,
+.site-footer a {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
   text-decoration: none;
+  border-bottom: var(--border-width-default) solid transparent;
 }
-.site-nav a:hover {
-  color: var(--ds-blue);
-  text-decoration: underline;
+.site-nav a:hover,
+.site-footer a:hover {
+  border-bottom-color: var(--ink);
+}
+.site-nav a[aria-current="page"] {
+  color: var(--brand);
+  border-bottom-color: var(--brand);
 }
 
 /* Inhalt */
 .content {
-  padding-top: var(--space-4);
-  padding-bottom: var(--space-4);
+  padding-top: var(--space-50);
+  padding-bottom: 80px;
+}
+.content > * {
+  max-width: var(--content-width);
 }
 
 h1,
 h2,
-h3 {
-  font-weight: 700;
-  line-height: 1.21;
-  margin: var(--space-4) 0 var(--space-2);
+h3,
+h4 {
+  line-height: 1.2;
+  margin: 0;
 }
+
+/* H1 laut: groß, fett, blau */
 h1 {
-  margin-top: 0;
-  font-size: 36px;
-  color: var(--ds-blue);
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--brand);
+  margin-bottom: var(--space-40);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
+
+/* H2 leise: 24px Regular grau, mit blauem Balken wie der Intro-Block */
 h2 {
-  font-size: 30px;
+  position: relative;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 64px;
+  margin-bottom: var(--space-18);
+  padding-left: var(--space-30);
 }
+h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  bottom: 0.05em;
+  width: var(--border-width-bar);
+  background: var(--brand);
+}
+
+/* H3 wie Kartentitel: 18px Medium blau */
 h3 {
-  font-size: 22px;
-  margin-top: var(--space-3);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24.75px;
+  color: var(--brand);
+  margin-top: var(--space-40);
+  margin-bottom: var(--space-10);
+}
+h4 {
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: var(--space-30);
+  margin-bottom: var(--space-8);
 }
 
 p,
@@ -147,47 +236,70 @@ ol,
 table,
 blockquote,
 pre {
-  margin: 0 0 var(--space-2);
+  margin: 0 0 var(--space-20);
 }
 
-ul,
+strong,
+b {
+  font-weight: 600;
+}
+
+/* Links im Text: blau; dünne Linie, damit sie nicht nur an der Farbe erkennbar sind */
+a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+a:hover {
+  text-decoration-thickness: var(--border-width-default);
+}
+
+/* Listen mit blauen Quadraten */
+ul {
+  list-style: none;
+  padding-left: 25px;
+}
+ul > li {
+  position: relative;
+}
+ul > li::before {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 8px;
+  width: var(--bullet-size);
+  height: var(--bullet-size);
+  background: var(--brand);
+}
 ol {
-  padding-left: var(--space-3);
+  padding-left: 25px;
+}
+ol > li::marker {
+  color: var(--brand);
+  font-weight: 500;
 }
 li + li {
-  margin-top: var(--space-1);
+  margin-top: var(--space-8);
 }
 li > ul,
 li > ol {
-  margin-top: var(--space-1);
+  margin-top: var(--space-8);
   margin-bottom: 0;
-}
-
-a {
-  color: var(--ds-blue);
-  text-underline-offset: 3px;
-}
-a:hover {
-  text-decoration-thickness: 2px;
-}
-
-strong {
-  font-weight: 700;
 }
 
 hr {
   border: 0;
-  border-top: 1px solid var(--brightened-medium-grey);
-  margin: var(--space-4) 0;
+  border-top: var(--border-width-light) solid var(--border-chrome);
+  margin: var(--space-50) 0;
 }
 
-/* Hinweise (Zitatblöcke) */
+/* Hinweise (Zitatblöcke): hellblaue Fläche, eckig */
 blockquote {
   margin-left: 0;
   margin-right: 0;
-  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
-  background: var(--light-blue);
-  border-left: 6px solid var(--ds-blue);
+  padding: var(--space-20) var(--space-30);
+  background: var(--surface-blue);
 }
 blockquote > :last-child {
   margin-bottom: 0;
@@ -195,17 +307,19 @@ blockquote > :last-child {
 
 /* Code */
 code {
-  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.85em;
-  background: var(--light-grey);
+  font-weight: 400;
+  background: var(--surface-grey);
   padding: 0.1em 0.35em;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-none);
 }
 pre {
-  background: var(--light-grey);
-  padding: var(--space-2);
+  background: var(--surface-grey);
+  padding: var(--space-20);
   overflow-x: auto;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-none);
+  line-height: 1.5;
 }
 pre code {
   background: none;
@@ -224,73 +338,113 @@ table {
   overflow-x: auto;
   border-collapse: collapse;
   font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
 }
 th,
 td {
   text-align: left;
   vertical-align: top;
-  padding: var(--space-1) var(--space-2);
-  border-bottom: 1px solid var(--brightened-medium-grey);
+  padding: var(--space-10) var(--space-20);
+  border-bottom: var(--border-width-light) solid var(--grey-brightened);
 }
 th {
-  background: var(--light-grey);
-  font-weight: 700;
+  background: var(--surface-card);
+  font-weight: 500;
 }
 
-/* Checklisten */
-.task-list {
-  list-style: none;
+/* Checklisten: ohne Quadrat, mit Kästchen */
+ul.task-list {
   padding-left: 0;
+}
+ul.task-list > li::before {
+  content: none;
 }
 .task-list-item-checkbox {
   width: 18px;
   height: 18px;
-  margin: 0 var(--space-1) 0 0;
+  margin: 0 var(--space-8) 0 0;
   vertical-align: -3px;
-  accent-color: var(--ds-blue);
+  accent-color: var(--brand);
 }
 
 /* Diagramme */
 pre.mermaid {
-  background: var(--white);
-  border: 1px solid var(--brightened-medium-grey);
+  background: var(--surface);
+  border: var(--border-width-light) solid var(--border-chrome);
   text-align: center;
-  padding: var(--space-3) var(--space-2);
+  padding: var(--space-30) var(--space-20);
 }
 pre.mermaid .clickable,
 pre.mermaid a {
   cursor: pointer;
 }
 
-/* Fußzeile */
+/* Footer: weiß, graue Links, wie auf digitalservice.bund.de */
 .site-footer {
-  background: var(--ds-blue);
-  color: var(--white);
+  background: var(--surface);
+  border-top: var(--border-width-light) solid var(--border-chrome);
   font-size: 16px;
-  padding: var(--space-3) 0;
+  font-weight: 400;
+  line-height: 22px;
+  padding: var(--space-40) 0;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-30) var(--space-40);
 }
 .site-footer p {
   margin: 0;
 }
+.site-footer ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-8);
+}
+.site-footer li + li {
+  margin-top: 0;
+}
+.site-footer li::before {
+  content: none;
+}
+
+@media (max-width: 900px) {
+  h1 {
+    font-size: 40px;
+  }
+}
 
 @media (max-width: 600px) {
-  body {
-    font-size: 16px;
-  }
-  h1 {
-    font-size: 30px;
-  }
-  h2 {
-    font-size: 24px;
+  .container {
+    padding: 0 16px;
   }
   .header-inner {
-    padding-top: var(--space-2);
-    padding-bottom: var(--space-2);
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-10);
+  }
+  .logo img {
+    width: 64px;
+    height: 64px;
   }
   .site-nav {
-    gap: var(--space-2);
+    gap: var(--space-8) var(--space-20);
   }
   .content {
-    padding-top: var(--space-3);
+    padding-top: var(--space-30);
+  }
+  h1 {
+    font-size: 32px;
+    margin-bottom: var(--space-30);
+  }
+  h2 {
+    font-size: 22px;
+    margin-top: var(--space-50);
+    padding-left: var(--space-20);
+  }
+  blockquote {
+    padding: var(--space-20);
   }
 }

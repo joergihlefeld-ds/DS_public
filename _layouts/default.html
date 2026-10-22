@@ -28,10 +28,9 @@
         <img src="{{ '/assets/img/DigitalService_Logo_RGB_blue.svg' | relative_url }}" alt="DigitalService" width="80" height="80">
       </a>
       <nav class="site-nav" aria-label="Hauptnavigation">
-        <a href="{{ '/' | relative_url }}">Start</a>
-        <a href="{{ '/onboarding/claude-regeln-fuer-non-engineers.html' | relative_url }}">Onboarding</a>
-        <a href="{{ '/anleitungen/uebersicht.html' | relative_url }}">Übersicht</a>
-        <a href="{{ '/gut-mit-claude-arbeiten/gut-mit-claude-arbeiten-als-pm.html' | relative_url }}">Gut mit Claude arbeiten</a>
+        {%- for item in site.navigation %}
+        <a href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a>
+        {%- endfor %}
       </nav>
     </div>
   </header>
@@ -41,8 +40,15 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">
+    <div class="container footer-inner">
       <p>{{ site.title }} · {{ site.description }}</p>
+      <nav aria-label="Fußnavigation">
+        <ul>
+          {%- for item in site.navigation %}
+          <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+          {%- endfor %}
+        </ul>
+      </nav>
     </div>
   </footer>
 

@@ -5,6 +5,17 @@ lang: de
 # Banner „Work in Progress“ oben auf jeder Seite (false = ausblenden)
 wip: true
 
+# Navigation in Header und Footer
+navigation:
+  - title: Start
+    url: /
+  - title: Onboarding
+    url: /onboarding/claude-regeln-fuer-non-engineers.html
+  - title: Übersicht
+    url: /anleitungen/uebersicht.html
+  - title: Gut mit Claude arbeiten
+    url: /gut-mit-claude-arbeiten/gut-mit-claude-arbeiten-als-pm.html
+
 markdown: kramdown
 kramdown:
   input: GFM

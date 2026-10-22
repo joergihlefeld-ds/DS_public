@@ -51,6 +51,8 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 
 - Das Repo wird über GitHub Pages mit Jekyll als Webseite veröffentlicht, im Corporate Design von DigitalService.
 - Layout: `_layouts/default.html`, Gestaltung: `assets/css/style.css`, Einstellungen: `_config.yml`.
+- Vorbild für die Gestaltung ist das Design System „DigitalServiceWeb“ (<https://claude.ai/artifact/Q6baZvHFHqTJ3phAwXNhxD>), abgeleitet von digitalservice.bund.de. Farben, Abstände und Schriftstile in `style.css` tragen dieselben Token-Namen (z. B. `--brand`, `--ink`, `--surface-blue`). Neue Gestaltung nur mit diesen Tokens.
+- Die Navigation in Header und Footer steht in `_config.yml` unter `navigation`.
 - Logo, Favicon und die Schrift Inter liegen in `assets/` und stammen aus dem DigitalService-Design-System. Nicht verändern.
 - Neue Anleitungen brauchen keinen Front Matter. Sie bekommen das Layout automatisch.
 - Mermaid-Diagramme werden auf der Webseite gezeichnet. Links im Diagramm (`click`) mit `.md` schreiben, die Webseite macht daraus `.html`.
