@@ -34,20 +34,23 @@
   --space-10: 10px;
   --space-18: 18px;
   --space-20: 20px;
+  --space-25: 25px;
   --space-30: 30px;
+  --space-32: 32px;
   --space-40: 40px;
   --space-50: 50px;
 
   /* Linien und Größen */
   --radius-none: 0;
   --border-width-light: 1px;
+  --border-width-underline: 1.6px;
   --border-width-default: 2px;
   --border-width-bar: 5px;
   --logo-size: 80px;
   --header-height: 81px;
   --bullet-size: 10px;
   --container-max: 1320px;
-  --content-width: 880px;
+  --content-width: 760px;
 }
 
 *,
@@ -98,6 +101,7 @@ summary:focus-visible {
   color: var(--ink);
   font-weight: 500;
   padding: var(--space-10) var(--space-20);
+  border-bottom: 0;
   z-index: 10;
 }
 .skip-link:focus {
@@ -114,7 +118,7 @@ summary:focus-visible {
   padding: var(--space-10) 0;
 }
 .wip-banner strong {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Header */
@@ -132,6 +136,7 @@ summary:focus-visible {
 .logo {
   display: block;
   line-height: 0;
+  border-bottom: 0;
 }
 .logo:focus-visible {
   outline: var(--border-width-default) solid var(--ink);
@@ -184,75 +189,64 @@ h4 {
   margin: 0;
 }
 
-/* H1 laut: groß, fett, blau */
+/* Überschriften wie ArticleBody: H1 groß, fett, blau; Zwischentitel leise und grau */
 h1 {
-  font-size: 56px;
+  font-size: 44px;
   font-weight: 700;
   color: var(--brand);
-  margin-bottom: var(--space-40);
+  padding-bottom: 33px;
   overflow-wrap: break-word;
   hyphens: auto;
 }
-
-/* H2 leise: 24px Regular grau, mit blauem Balken wie der Intro-Block */
+.home h1 {
+  font-size: 56px;
+}
 h2 {
-  position: relative;
   font-size: 24px;
   font-weight: 400;
   color: var(--ink);
-  margin-top: 64px;
-  margin-bottom: var(--space-18);
-  padding-left: var(--space-30);
+  margin-top: 36px;
+  padding-bottom: var(--space-18);
 }
-h2::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.15em;
-  bottom: 0.05em;
-  width: var(--border-width-bar);
-  background: var(--brand);
-}
-
-/* H3 wie Kartentitel: 18px Medium blau */
 h3 {
   font-size: 18px;
-  font-weight: 500;
-  line-height: 24.75px;
-  color: var(--brand);
-  margin-top: var(--space-40);
-  margin-bottom: var(--space-10);
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: var(--space-25);
+  padding-bottom: 9px;
 }
 h4 {
   font-size: 17px;
   font-weight: 500;
-  margin-top: var(--space-30);
-  margin-bottom: var(--space-8);
+  margin-top: var(--space-20);
+  padding-bottom: var(--space-8);
 }
 
 p,
 ul,
-ol,
+ol {
+  margin: 0 0 12.75px;
+}
 table,
 blockquote,
 pre {
-  margin: 0 0 var(--space-20);
+  margin: var(--space-20) 0;
 }
 
 strong,
 b {
-  font-weight: 600;
+  font-weight: 500;
 }
 
-/* Links im Text: blau; dünne Linie, damit sie nicht nur an der Farbe erkennbar sind */
+/* Links im Fließtext: blau, dauerhaft unterstrichen (1.6px-Linie) */
 a {
   color: var(--brand);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+  font-weight: 400;
+  text-decoration: none;
+  border-bottom: var(--border-width-underline) solid var(--brand);
 }
 a:hover {
-  text-decoration-thickness: var(--border-width-default);
+  border-bottom-width: var(--border-width-default);
 }
 
 /* Listen mit blauen Quadraten */
@@ -298,7 +292,7 @@ hr {
 blockquote {
   margin-left: 0;
   margin-right: 0;
-  padding: var(--space-20) var(--space-30);
+  padding: var(--space-32);
   background: var(--surface-blue);
 }
 blockquote > :last-child {
@@ -412,8 +406,8 @@ pre.mermaid a {
 }
 
 @media (max-width: 900px) {
-  h1 {
-    font-size: 40px;
+  .home h1 {
+    font-size: 44px;
   }
 }
 
@@ -435,14 +429,13 @@ pre.mermaid a {
   .content {
     padding-top: var(--space-30);
   }
-  h1 {
+  h1,
+  .home h1 {
     font-size: 32px;
-    margin-bottom: var(--space-30);
+    padding-bottom: var(--space-25);
   }
   h2 {
     font-size: 22px;
-    margin-top: var(--space-50);
-    padding-left: var(--space-20);
   }
   blockquote {
     padding: var(--space-20);
