@@ -55,6 +55,7 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 - Neue Anleitungen brauchen keinen Front Matter. Sie bekommen das Layout automatisch.
 - Mermaid-Diagramme werden auf der Webseite gezeichnet. Links im Diagramm (`click`) mit `.md` schreiben, die Webseite macht daraus `.html`.
 - `CLAUDE.md` und `README.md` werden nicht veröffentlicht.
+- Suchmaschinen sind über `<meta name="robots" content="noindex, …">` im Layout ausgeschlossen. Nicht entfernen. Keine `robots.txt` mit `Disallow` anlegen: Dann sieht Google das `noindex` nicht.
 - Das Banner „Work in Progress“ schaltest du in `_config.yml` mit `wip: true` bzw. `wip: false` ein und aus.
 
 ## Arbeitsweise für Claude
