@@ -72,6 +72,14 @@ body {
   outline-offset: 2px;
 }
 
+/* Work-in-Progress-Banner */
+.wip-banner {
+  background: var(--bright-yellow);
+  color: var(--black);
+  font-size: 16px;
+  padding: var(--space-1) 0;
+}
+
 /* Kopfzeile */
 .site-header {
   border-bottom: 1px solid var(--brightened-medium-grey);

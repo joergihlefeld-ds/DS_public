@@ -9,6 +9,7 @@ Diese Datei beschreibt, wie in diesem Repository gearbeitet wird. Claude liest s
 ## Ablage
 
 - Alle Anleitungen liegen im Ordner `anleitungen/`.
+- Leitfäden für die tägliche Arbeit (keine Schritt-für-Schritt-Anleitungen) liegen in `gut-mit-claude-arbeiten/`.
 - Format: **Markdown** (`.md`), keine Word- oder PDF-Dateien.
 - Dateinamen: Kleinbuchstaben, Wörter mit Bindestrich, keine Umlaute oder Leerzeichen.
   Beispiel: `github-account-einrichten.md`, `git-mit-claude-verbinden.md`
@@ -53,6 +54,7 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 - Neue Anleitungen brauchen keinen Front Matter. Sie bekommen das Layout automatisch.
 - Mermaid-Diagramme werden auf der Webseite gezeichnet. Links im Diagramm (`click`) mit `.md` schreiben, die Webseite macht daraus `.html`.
 - `CLAUDE.md` und `README.md` werden nicht veröffentlicht.
+- Das Banner „Work in Progress“ schaltest du in `_config.yml` mit `wip: true` bzw. `wip: false` ein und aus.
 
 ## Arbeitsweise für Claude
 
@@ -72,5 +74,6 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 | `anleitungen/git-und-claude-mit-github-verbinden.md` | Git installieren, Repo klonen, Claude mit GitHub verbinden |
 | `anleitungen/vs-code-einrichten.md` | VS Code installieren, mit GitHub anmelden, Erweiterung Claude Code einrichten |
 | `anleitungen/claude-md-einrichten.md` | CLAUDE.md anlegen und pflegen |
+| `gut-mit-claude-arbeiten/gut-mit-claude-arbeiten-als-pm.md` | Grundregeln, Setup und Kontextpflege für PMs (Basis: Product Discussion Club 22.10.2026) |
 
 Geplant (laut „Nächster Schritt“): Änderungen speichern und zu GitHub schicken.

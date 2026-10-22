@@ -2,6 +2,9 @@ title: DS public
 description: Anleitungen für Kolleg:innen ohne technischen Hintergrund
 lang: de
 
+# Banner „Work in Progress“ oben auf jeder Seite (false = ausblenden)
+wip: true
+
 markdown: kramdown
 kramdown:
   input: GFM
