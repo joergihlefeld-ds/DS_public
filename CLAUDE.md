@@ -9,6 +9,7 @@ Diese Datei beschreibt, wie in diesem Repository gearbeitet wird. Claude liest s
 ## Ablage
 
 - Alle Anleitungen liegen im Ordner `anleitungen/`.
+- Regeln und Onboarding (Datenschutz, erlaubte Tools, Lizenz) liegen in `onboarding/`. Neue Anleitungen dürfen diesen Regeln nicht widersprechen, z. B. bei erlaubten Connectors.
 - Leitfäden für die tägliche Arbeit (keine Schritt-für-Schritt-Anleitungen) liegen in `gut-mit-claude-arbeiten/`.
 - Format: **Markdown** (`.md`), keine Word- oder PDF-Dateien.
 - Dateinamen: Kleinbuchstaben, Wörter mit Bindestrich, keine Umlaute oder Leerzeichen.
@@ -74,6 +75,7 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 | `anleitungen/git-und-claude-mit-github-verbinden.md` | Git installieren, Repo klonen, Claude mit GitHub verbinden |
 | `anleitungen/vs-code-einrichten.md` | VS Code installieren, mit GitHub anmelden, Erweiterung Claude Code einrichten |
 | `anleitungen/claude-md-einrichten.md` | CLAUDE.md anlegen und pflegen |
+| `onboarding/claude-regeln-fuer-non-engineers.md` | Regeln für Non-Engineers: Datenschutz, Datenkategorien, Output-Prüfung, erlaubte Connectors, Weg zur Lizenz (WIP) |
 | `gut-mit-claude-arbeiten/gut-mit-claude-arbeiten-als-pm.md` | Grundregeln, Setup und Kontextpflege für PMs (Basis: Product Discussion Club 22.10.2026) |
 
 Geplant (laut „Nächster Schritt“): Änderungen speichern und zu GitHub schicken.

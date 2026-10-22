@@ -85,6 +85,8 @@ Das Herunterladen eines Repos heißt bei Git **klonen**. Dabei meldest du dich z
 
 ## Teil 4 – Claude mit GitHub verbinden
 
+> **Hinweis:** Ob du GitHub mit Claude verbinden darfst, hängt vom Projekt ab. Kläre das vorher mit deinem Projekt. Siehe [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md), Abschnitt 4.
+
 1. Öffne <https://claude.ai> und melde dich an.
 2. Unten links auf deinen Namen → **Einstellungen** (bzw. **Settings**) → **Connectors**.
 3. Bei **GitHub** auf **Verbinden** (bzw. **Connect**) klicken.

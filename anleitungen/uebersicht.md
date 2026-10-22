@@ -1,5 +1,7 @@
 # Übersicht: Welche Anleitung kommt wann?
 
+> **Vorher:** Lies die [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md). Dort steht, welche Daten und Tools du mit Claude nutzen darfst und wie du eine Lizenz bekommst.
+
 Die Anleitungen bauen aufeinander auf. Arbeite sie am besten in dieser Reihenfolge durch.
 Klicke auf einen Kasten oder auf einen Link in der Liste darunter, um die Anleitung zu öffnen.
 
