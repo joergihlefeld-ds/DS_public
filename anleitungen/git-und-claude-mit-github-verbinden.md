@@ -136,6 +136,6 @@ Das Herunterladen eines Repos heißt bei Git **klonen**. Dabei meldest du dich z
 | Claude zeigt einen Hinweis zu „SSO“ | Die Organisation verlangt eine zusätzliche Freigabe. Auf GitHub **Settings → Applications** öffnen, beim Eintrag **Claude** die Organisation freigeben. Trennen und neu verbinden in Claude hilft hier nicht |
 | Claude kennt die neuesten Änderungen nicht | Beim Repo in Claude auf **Sync now** klicken |
 
-**Nächster Schritt:** Änderungen speichern und zu GitHub schicken (eigene Anleitung).
+**Nächster Schritt:** [VS Code installieren und mit GitHub und Claude verbinden](vs-code-einrichten.md). Danach: Änderungen speichern und zu GitHub schicken (eigene Anleitung).
 
 Weitere Infos zur Verbindung mit Claude: <https://support.claude.com/en/articles/10167454-using-the-github-integration>
