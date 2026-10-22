@@ -58,7 +58,7 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 
 | Datei | Inhalt |
 |---|---|
-| `anleitungen/uebersicht.md` | Reihenfolge aller Anleitungen und wie die Bausteine zusammenhängen (bei neuen Anleitungen ergänzen) |
+| `anleitungen/uebersicht.md` | Nutzen und Use Cases, Reihenfolge aller Anleitungen und wie die Bausteine zusammenhängen (bei neuen Anleitungen ergänzen) |
 | `anleitungen/github-account-einrichten.md` | GitHub-Account anlegen, 2FA einrichten, Organisation beitreten |
 | `anleitungen/git-und-claude-mit-github-verbinden.md` | Git installieren, Repo klonen, Claude mit GitHub verbinden |
 | `anleitungen/vs-code-einrichten.md` | VS Code installieren, mit GitHub anmelden, Erweiterung Claude Code einrichten |
