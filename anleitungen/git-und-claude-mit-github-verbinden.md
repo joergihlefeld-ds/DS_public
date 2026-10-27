@@ -1,5 +1,7 @@
 # Kurzanleitung: GitHub mit Git auf dem Rechner und mit Claude verbinden
 
+> **Hinweis:** Diese Anleitung wurde mit Unterstützung von Claude erarbeitet. Claude ist ein KI-Assistent (ein Programm mit künstlicher Intelligenz) der Firma Anthropic.
+
 **Dauer:** ca. 20 Minuten
 **Was du brauchst:** deinen GitHub-Account mit 2FA (siehe [GitHub-Account einrichten](github-account-einrichten.md)), Zugang zur GitHub-Organisation, einen Rechner mit Windows oder Mac, einen Claude-Account
 

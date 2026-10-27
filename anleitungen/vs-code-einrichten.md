@@ -1,5 +1,7 @@
 # Kurzanleitung: VS Code installieren und mit GitHub und Claude verbinden
 
+> **Hinweis:** Diese Anleitung wurde mit Unterstützung von Claude erarbeitet. Claude ist ein KI-Assistent (ein Programm mit künstlicher Intelligenz) der Firma Anthropic.
+
 **Dauer:** ca. 20 Minuten
 **Was du brauchst:** deinen GitHub-Account mit 2FA (siehe [GitHub-Account einrichten](github-account-einrichten.md)), Git auf deinem Rechner (siehe [GitHub mit Git und Claude verbinden](git-und-claude-mit-github-verbinden.md), Teil 1 und 2), einen Claude-Account mit Bezahl-Plan (z. B. Team oder Enterprise), einen Rechner mit Windows oder Mac
 
@@ -131,6 +133,6 @@ Eine **Erweiterung** ist ein Zusatzprogramm für VS Code.
 | Claude sieht die Dateien nicht | In VS Code über **Datei → Ordner öffnen** einen Ordner öffnen. Einzelne Dateien ohne Ordner reichen nicht |
 | VS Code ist nach dem Neustart wieder Englisch | Teil 1, „Auf Deutsch umstellen“, wiederholen und **Deutsch** auswählen |
 
-**Nächster Schritt:** Änderungen speichern und zu GitHub schicken (eigene Anleitung).
+**Nächster Schritt:** [CLAUDE.md einrichten](claude-md-einrichten.md): Claude dauerhafte Regeln für dein Projekt mitgeben.
 
 Weitere Infos zu Claude in VS Code: <https://code.claude.com/docs/en/vs-code>

@@ -1,10 +1,10 @@
-# CLAUDE.md – Repo DS-Privat
+# CLAUDE.md – Repo DS_public
 
 Diese Datei beschreibt, wie in diesem Repository gearbeitet wird. Claude liest sie zu Beginn jeder Sitzung.
 
 ## Zweck des Repos
 
-`DS-Privat` ist ein **privates** Repository. Es enthält Anleitungen für Kolleg:innen **ohne technischen Hintergrund**. Ziel: Jede Person soll eine Aufgabe allein und ohne Rückfragen erledigen können.
+`DS_public` ist ein **öffentliches** Repository und wird als Webseite veröffentlicht. Es enthält Anleitungen für Kolleg:innen **ohne technischen Hintergrund**. Ziel: Jede Person soll eine Aufgabe allein und ohne Rückfragen erledigen können.
 
 ## Ablage
 
@@ -32,6 +32,8 @@ Diese Datei beschreibt, wie in diesem Repository gearbeitet wird. Claude liest s
 Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt diesem Muster:
 
 1. **Titel** als `# Kurzanleitung: …`
+   Direkt darunter der KI-Hinweis:
+   `> **Hinweis:** Diese Anleitung wurde mit Unterstützung von Claude erarbeitet. Claude ist ein KI-Assistent (ein Programm mit künstlicher Intelligenz) der Firma Anthropic.`
 2. **Dauer** und **Was du brauchst** direkt unter dem Titel
 3. **Teile** (`## Teil 1 – …`) mit nummerierten Schritten
 4. **Checkliste** zum Abhaken (`- [ ] …`)
@@ -67,6 +69,7 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 - Bestehende Anleitungen mit „Nächster Schritt“ verlinken, wenn eine neue Anleitung daran anschließt.
 - Fakten zu Programmen und Webseiten (Menünamen, Abläufe) im Zweifel aktuell prüfen, da sich Oberflächen ändern.
 - Keine Passwörter, Tokens, Recovery Codes oder persönliche Daten in Dateien schreiben – auch nicht als Beispiel.
+- Das Repo ist öffentlich: keine Namen von Kolleg:innen, keine Links auf interne Entwürfe oder Slack-Kanäle und keine Abläufe nur für Admins aufnehmen.
 - Text vor dem Speichern noch einmal lesen: Versteht das jemand, der zum ersten Mal davon hört?
 
 ## Vorhandene Anleitungen

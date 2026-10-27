@@ -1,9 +1,8 @@
-# Übersicht: Welche Anleitung kommt wann?
+# Übersicht: Warum, Use Cases und Reihenfolge
 
 > **Vorher:** Lies die [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md). Dort steht, welche Daten und Tools du mit Claude nutzen darfst und wie du eine Lizenz bekommst.
 
-Die Anleitungen bauen aufeinander auf. Arbeite sie am besten in dieser Reihenfolge durch.
-Klicke auf einen Kasten oder auf einen Link in der Liste darunter, um die Anleitung zu öffnen.
+Hier erfährst du, was dir die Verbindung von GitHub, VS Code und Claude bringt, was du damit machen kannst und in welcher Reihenfolge du die Anleitungen durcharbeitest.
 
 ## Warum das Ganze?
 
@@ -55,6 +54,11 @@ Diese Beispiele brauchen wenig oder gar keine Programmierkenntnisse. Die Spalte 
 
 > **Hinweis:** Keine vertraulichen oder personenbezogenen Daten in Claude oder ins Repository geben. Im Zweifel vorher das Team fragen.
 
+## Die Reihenfolge
+
+Die Anleitungen bauen aufeinander auf. Arbeite sie am besten in dieser Reihenfolge durch.
+Klicke auf einen Kasten oder auf einen Link in der Tabelle darunter, um die Anleitung zu öffnen.
+
 ```mermaid
 flowchart TD
     A["1 · GitHub-Account einrichten<br/>Account, 2FA, Organisation"]
@@ -73,9 +77,7 @@ flowchart TD
     style E stroke-dasharray: 5 5
 ```
 
-> **Hinweis:** Nicht jede Ansicht unterstützt Klicks im Bild (GitHub zum Beispiel nicht). Nutze dann die Liste.
-
-## Die Reihenfolge
+> **Hinweis:** Nicht jede Ansicht unterstützt Klicks im Bild (GitHub zum Beispiel nicht). Nutze dann die Tabelle.
 
 | Schritt | Anleitung | Darum geht es | Dauer |
 |---|---|---|---|

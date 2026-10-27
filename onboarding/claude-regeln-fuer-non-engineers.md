@@ -1,4 +1,4 @@
-# WIP Claude Regeln for non Engineers
+# Claude-Regeln für Non-Engineers
 
 ## 1. Rechtlicher Rahmen & Datenverarbeitung
 
@@ -56,43 +56,28 @@ Alle durch KI generierten Ergebnisse (Outputs) müssen vor der Weiterverwendung 
 | **GitHub** | ⚠️ **Bedingt** | Erlaubnis der Anbindung hängt vom jeweiligen Projekt ab. |
 | **Jira** | ⚠️ **Bedingt** | Nur erlaubt, wenn zwingend ein **Backup existiert** und Claude nichts zerstören kann (*Human in control*). |
 | **Google Drive** | ⚠️ **Bedingt** | Anbindung nur über einen **einzelnen, dedizierten Ordner** auf dem Computer The Google workspace - MCP connection would be done by the platform if necessary. This is due to the Platform team are admins for the Google Cloud projects. |
-| **Miro** | ⚠️ **Bedingt** | Nur in einer extra gesicherten Umgebung als Teil des MCP-Test-Accounts. (Set Up erfolgt durch Anna R.) |
+| **Miro** | ⚠️ **Bedingt** | Nur in einer extra gesicherten Umgebung als Teil des MCP-Test-Accounts. Der Zugriff auf ein über Claude erstelltes Miro-Board erfolgt über den Account, mit dem das Board erstellt wurde. |
 | **Slack** | ❌ **Verboten** | Darf nicht angebunden / verbunden werden. |
 | **GMail** | ❌ **Verboten** | Darf nicht angebunden / verbunden werden. |
 | **Google Kalender** | ❌ **Verboten** | Darf nicht angebunden / verbunden werden. |
-| **Claude Code mit Chrome verwenden** | ❌ **Verboten** | Darf nicht angebunden / verbunden werden.Der Zugriff auf ein über Claude erstelltes Miro erfolgt mit dem ersten erstellten Miro |
+| **Claude Code mit Chrome verwenden** | ❌ **Verboten** | Darf nicht angebunden / verbunden werden. |
 | **Confluence (via Atlassian-Connector)** | ❌ **Verboten** | Darf nicht angebunden / verbunden werden. |
-| Confluence via Custom MCP | ⚠️ Bedingt | Fragt Leander |
+| Confluence via Custom MCP | ⚠️ Bedingt | |
 
  
 
 
 ## 5. Onboarding for non Engineers
 
-Das Onboarding besteht aus 2 Teilen: Compliance Schulung & inhaltliche Onboarding. Wenn alle 2 erledigt sind & das Budget erfolgreich beantragt wurde läd der\*die Admin den\*die User\*in zu Claude ein.
+Das Onboarding besteht aus 2 Teilen: Compliance Schulung & inhaltliche Onboarding. Wenn alle 2 erledigt sind & das Budget erfolgreich beantragt wurde lädt der:die Admin den:die Nutzer:in zu Claude ein.
 
-### Onbaording:
+### Onboarding:
 
 Schritt 1: Compliance Schulung durchlaufen und Test bestehen:
 
 → Wird aktuell noch erstellt 
 
-Schritt 2: Disziplin/ Projektspezifisches Onboarding durchlaufen & bei für dich verantwortlichem Lizenz anfragen. Schau dir zudem<https://digitalservicebund.atlassian.net/wiki/pages/resumedraft.action?draftId=3374841956&draftShareId=dd0517e3-98eb-4827-b0ed-1f90112ec402> an.
-
-| **Disziplin/ Projekt** | **Verantwortlich** | **Link:** |
-| --- | --- | --- |
-| Produkt | Anna Ritter & Leander Huth | xx |
-
- 
-
-### Lizenz ausgeben (durch Admin)
-
-1. Check, ob Person Compliance Test bestanden & Onboarding durchlaufen hat.
-2. Check ob Budget vorhanden.
-3. Account erstellen & zu <https://digitalservicebund.slack.com/archives/C0C3BHJAT40>hinzufügen
-4. Ggf: Account wieder löschen/deaktivieren
-
- 
+Schritt 2: Disziplin- bzw. projektspezifisches Onboarding durchlaufen und bei der für dich verantwortlichen Person eine Lizenz anfragen.
 
 ## 6. Regelmäßige Aktualisierung
 
@@ -106,7 +91,7 @@ Der Erste soll im September 2026 stattfinden, um die Guidelines aufzusetzen.
 
 Sämtliche Sicherheitseinstellungen bezüglich der Freigabe von Inhalten (z. B. Teilen von Chats, Prompts oder Artefacts) werden zentral durch die IT-Administration für den gesamten Organisation-Account gesteuert.
 
-**Dokumentation der IT-Konfiguration:** Eine detaillierte Übersicht aller aktuell eingestellten Sicherheits- und Teilen-Optionen im Claude-Account findest du in der IT-Dokumentation. <https://digitalservicebund.atlassian.net/wiki/pages/resumedraft.action?draftId=3375923253&draftShareId=d02c32df-1160-45b6-b75f-e36cfe337e38>
+**Dokumentation der IT-Konfiguration:** Eine detaillierte Übersicht aller aktuell eingestellten Sicherheits- und Teilen-Optionen im Claude-Account findest du in der IT-Dokumentation.
 
 **Änderungsanfragen:** Sollte eine Einstellung deine Arbeit blockieren oder angepasst werden müssen, damit du eine bestimmte Aufgabe durchführen kannst, darf diese Änderung **ausschließlich in Abstimmung mit Legal** und **Durchführung durch die IT** erfolgen.
 
