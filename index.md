@@ -35,8 +35,3 @@ Bevor du loslegst: Diese Regeln gelten für alle, die bei DigitalService mit Cla
 
 Nach etwa einer Stunde kannst du Claude Fragen zu deinem Produkt stellen und mit Claude an den Dateien arbeiten.
 
-## Gut mit Claude arbeiten
-
-Alles ist eingerichtet? Hier geht es darum, wie du Claude im Alltag gut nutzt: Grundregeln, dein eigenes Setup und wie du Kontext pflegst.
-
-- [Gut mit Claude arbeiten als PM](gut-mit-claude-arbeiten/gut-mit-claude-arbeiten-als-pm.md)

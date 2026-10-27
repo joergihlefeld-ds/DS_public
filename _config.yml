@@ -13,8 +13,6 @@ navigation:
     url: /onboarding/claude-regeln-fuer-non-engineers.html
   - title: Übersicht
     url: /anleitungen/uebersicht.html
-  - title: Gut mit Claude arbeiten
-    url: /gut-mit-claude-arbeiten/gut-mit-claude-arbeiten-als-pm.html
 
 markdown: kramdown
 kramdown:

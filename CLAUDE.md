@@ -82,6 +82,6 @@ Vorbild ist `anleitungen/github-account-einrichten.md`. Jede Anleitung folgt die
 | `anleitungen/vs-code-einrichten.md` | VS Code installieren, mit GitHub anmelden, Erweiterung Claude Code einrichten |
 | `anleitungen/claude-md-einrichten.md` | CLAUDE.md anlegen und pflegen |
 | `onboarding/claude-regeln-fuer-non-engineers.md` | Regeln für Non-Engineers: Datenschutz, Datenkategorien, Output-Prüfung, erlaubte Connectors, Weg zur Lizenz (WIP) |
-| `gut-mit-claude-arbeiten/gut-mit-claude-arbeiten-als-pm.md` | Grundregeln, Setup und Kontextpflege für PMs (Basis: Product Discussion Club 22.10.2026) |
+| `gut-mit-claude-arbeiten/gut-mit-claude-arbeiten-als-pm.md` | Grundregeln, Setup und Kontextpflege für PMs (Basis: Product Discussion Club 22.10.2026). Derzeit nicht verlinkt (nicht in Navigation und Startseite) |
 
 Geplant (laut „Nächster Schritt“): Änderungen speichern und zu GitHub schicken.
