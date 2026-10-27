@@ -26,7 +26,7 @@
 
 ### Mac
 
-1. Öffne das Programm **Terminal** (über die Lupe oben rechts „Terminal“ suchen).
+1. Öffne das Programm **Terminal**: Klicke oben rechts auf die Lupe (oder drücke `Cmd + Leertaste`), tippe „Terminal“ und drücke die Eingabetaste.
 2. Tippe folgenden Befehl ein und drücke die Eingabetaste:
 
    ```
@@ -34,18 +34,41 @@
    ```
 
    Der Befehl prüft, ob Git schon installiert ist.
-3. Ist Git noch nicht da, fragt der Mac, ob er die „Befehlszeilenentwickler-Tools“ installieren soll. Klicke auf **Installieren** und warte, bis es fertig ist.
-4. Für die Anmeldung bei GitHub zusätzlich den **Git Credential Manager** installieren: Öffne <https://github.com/git-ecosystem/git-credential-manager/releases>, lade beim neuesten Eintrag die Datei mit der Endung `.pkg` herunter und öffne sie per Doppelklick.
+3. Erscheint eine Zeile wie `git version 2.…`, ist Git schon da. Weiter mit Schritt 4.
+   Ist Git noch nicht da, fragt der Mac, ob er die **Befehlszeilen-Entwicklerwerkzeuge** installieren soll. Klicke auf **Installieren**, dann auf **Akzeptieren** und warte, bis es fertig ist. Das kann einige Minuten dauern.
+4. **Herausfinden, welchen Chip dein Mac hat.** Das brauchst du für den nächsten Schritt.
+   Klicke oben links auf das **Apple-Menü** → **Über diesen Mac**.
+   - Steht dort **Chip** mit **Apple M…** (z. B. M1, M2, M3), hat dein Mac einen Apple-Chip.
+   - Steht dort **Prozessor** mit **Intel**, hat dein Mac einen Intel-Chip.
+5. **Git Credential Manager installieren.** Er kümmert sich um die Anmeldung bei GitHub. Unter Windows ist er schon dabei, auf dem Mac brauchst du ihn extra.
+   - Öffne <https://github.com/git-ecosystem/git-credential-manager/releases>.
+   - Klicke beim obersten Eintrag (**Latest**) auf **Assets**, falls die Dateien nicht angezeigt werden.
+   - Lade die passende Datei mit der Endung `.pkg` herunter:
+     - Apple-Chip: die Datei mit `osx-arm64` im Namen, z. B. `gcm-osx-arm64-….pkg`
+     - Intel-Chip: die Datei mit `osx-x64` im Namen, z. B. `gcm-osx-x64-….pkg`
+   - Öffne die Datei im Ordner **Downloads** per Doppelklick und klicke dich mit **Fortfahren** und **Installieren** durch. Der Mac fragt nach deinem Mac-Passwort. Das ist das Passwort, mit dem du dich am Mac anmeldest.
+
+   *Warum?* Ohne Credential Manager fragt Git beim Klonen nach einem Passwort. Mit 2FA funktioniert das bei GitHub nicht.
 
 ### Prüfen, ob es geklappt hat
 
-Öffne das Terminal (Mac) bzw. das Programm **Git Bash** (Windows, über das Startmenü) und tippe:
+Öffne das Terminal (Mac) bzw. das Programm **Git Bash** (Windows, über das Startmenü). Schließe ein offenes Fenster vorher und öffne es neu.
+
+Tippe diesen Befehl. Er zeigt, ob Git installiert ist:
 
 ```
 git --version
 ```
 
-Erscheint eine Zeile wie `git version 2.…`, ist alles bereit.
+Erscheint eine Zeile wie `git version 2.…`, ist Git bereit.
+
+Tippe dann diesen Befehl. Er zeigt, ob der Git Credential Manager installiert ist:
+
+```
+git credential-manager --version
+```
+
+Erscheint eine Versionsnummer wie `2.…` oder `3.…`, ist alles bereit.
 
 ## Teil 2 – Git sagen, wer du bist
 
@@ -121,7 +144,7 @@ Das Herunterladen eines Repos heißt bei Git **klonen**. Dabei meldest du dich z
 ## Checkliste
 
 - [ ] Git installiert und mit `git --version` geprüft
-- [ ] Git Credential Manager vorhanden (Windows: automatisch, Mac: extra installiert)
+- [ ] Git Credential Manager vorhanden (Windows: automatisch, Mac: passende Datei für deinen Chip installiert) und mit `git credential-manager --version` geprüft
 - [ ] Name und `noreply`-E-Mail in Git eingetragen
 - [ ] Ein Repo geklont und dabei im Browser angemeldet
 - [ ] Claude unter **Connectors** mit GitHub verbunden
@@ -135,7 +158,9 @@ Das Herunterladen eines Repos heißt bei Git **klonen**. Dabei meldest du dich z
 |---|---|
 | `git` wird nicht gefunden | Terminal bzw. Git Bash schließen und neu öffnen. Hilft das nicht, Git erneut installieren |
 | Beim Klonen erscheint `Repository not found` | Adresse prüfen. Bist du schon in der Organisation (Einladung angenommen)? Hast du Zugriff auf dieses Repo? Sonst Plattform-Team fragen |
-| Git fragt nach Benutzername und Passwort | Der Git Credential Manager fehlt. Windows: Git neu installieren. Mac: Teil 1, Schritt 4 wiederholen |
+| Git fragt nach Benutzername und Passwort | Der Git Credential Manager fehlt. Windows: Git neu installieren. Mac: Teil 1, Schritt 5 wiederholen |
+| Mac: `git credential-manager` wird nicht gefunden | Terminal schließen und neu öffnen. Hilft das nicht: Prüfen, ob du die Datei für den richtigen Chip installiert hast (Teil 1, Schritt 4 und 5) |
+| Mac: „… kann nicht geöffnet werden“ beim Doppelklick auf die `.pkg`-Datei | Die Datei mit der rechten Maustaste anklicken → **Öffnen** → noch einmal **Öffnen** |
 | Claude zeigt das Repo nicht an | Auf GitHub unter **Settings → Applications** beim Eintrag **Claude** prüfen, ob das Repo freigegeben ist. Bei Organisations-Repos die Freigabe abwarten |
 | Claude zeigt einen Hinweis zu „SSO“ | Die Organisation verlangt eine zusätzliche Freigabe. Auf GitHub **Settings → Applications** öffnen, beim Eintrag **Claude** die Organisation freigeben. Trennen und neu verbinden in Claude hilft hier nicht |
 | Claude kennt die neuesten Änderungen nicht | Beim Repo in Claude auf **Sync now** klicken |
