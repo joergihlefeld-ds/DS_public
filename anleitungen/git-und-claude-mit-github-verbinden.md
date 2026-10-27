@@ -36,16 +36,12 @@
    Der Befehl prüft, ob Git schon installiert ist.
 3. Erscheint eine Zeile wie `git version 2.…`, ist Git schon da. Weiter mit Schritt 4.
    Ist Git noch nicht da, fragt der Mac, ob er die **Befehlszeilen-Entwicklerwerkzeuge** installieren soll. Klicke auf **Installieren**, dann auf **Akzeptieren** und warte, bis es fertig ist. Das kann einige Minuten dauern.
-4. **Herausfinden, welchen Chip dein Mac hat.** Das brauchst du für den nächsten Schritt.
-   Klicke oben links auf das **Apple-Menü** → **Über diesen Mac**.
-   - Steht dort **Chip** mit **Apple M…** (z. B. M1, M2, M3), hat dein Mac einen Apple-Chip.
-   - Steht dort **Prozessor** mit **Intel**, hat dein Mac einen Intel-Chip.
-5. **Git Credential Manager installieren.** Er kümmert sich um die Anmeldung bei GitHub. Unter Windows ist er schon dabei, auf dem Mac brauchst du ihn extra.
+4. **Git Credential Manager installieren.** Er kümmert sich um die Anmeldung bei GitHub. Unter Windows ist er schon dabei, auf dem Mac brauchst du ihn extra.
    - Öffne <https://github.com/git-ecosystem/git-credential-manager/releases>.
    - Klicke beim obersten Eintrag (**Latest**) auf **Assets**, falls die Dateien nicht angezeigt werden.
    - Lade die passende Datei mit der Endung `.pkg` herunter:
-     - Apple-Chip: die Datei mit `osx-arm64` im Namen, z. B. `gcm-osx-arm64-….pkg`
-     - Intel-Chip: die Datei mit `osx-x64` im Namen, z. B. `gcm-osx-x64-….pkg`
+     - Mac mit Apple-Chip (M1, M2, M3 …): die Datei mit `osx-arm64` im Namen, z. B. `gcm-osx-arm64-….pkg`
+     - Mac mit Intel-Chip: die Datei mit `osx-x64` im Namen, z. B. `gcm-osx-x64-….pkg`
    - Öffne die Datei im Ordner **Downloads** per Doppelklick und klicke dich mit **Fortfahren** und **Installieren** durch. Der Mac fragt nach deinem Mac-Passwort. Das ist das Passwort, mit dem du dich am Mac anmeldest.
 
    *Warum?* Ohne Credential Manager fragt Git beim Klonen nach einem Passwort. Mit 2FA funktioniert das bei GitHub nicht.
@@ -89,6 +85,13 @@ Git schreibt bei jeder Änderung dazu, wer sie gemacht hat. Dafür braucht es de
 
 Das Herunterladen eines Repos heißt bei Git **klonen**. Dabei meldest du dich zum ersten Mal bei GitHub an.
 
+Du hast zwei Möglichkeiten:
+
+- **Variante A:** Du holst ein Repo, das es schon gibt, zum Beispiel das Repo deines Teams.
+- **Variante B:** Du legst ein eigenes Repo an, zum Beispiel zum Ausprobieren oder für deine eigenen Notizen. Danach holst du es wie in Variante A auf deinen Rechner.
+
+### Variante A: Ein vorhandenes Repo klonen
+
 1. Öffne auf GitHub das Repo, mit dem du arbeiten willst.
 2. Klicke auf den grünen Button **Code** und dann auf **HTTPS**. Kopiere die Adresse (sie endet auf `.git`).
 3. Wechsle im Terminal bzw. in Git Bash in den Ordner, in dem das Repo liegen soll, z. B. „Dokumente“:
@@ -107,6 +110,22 @@ Das Herunterladen eines Repos heißt bei Git **klonen**. Dabei meldest du dich z
 6. Fertig: Im Ordner „Dokumente“ gibt es jetzt einen neuen Ordner mit den Dateien des Repos.
 
 > **Gut zu wissen:** Die Anmeldung merkt sich der Git Credential Manager. Du musst dich also nicht jedes Mal neu anmelden. Ein Passwort oder einen Code in Git einzutippen ist nicht nötig.
+
+### Variante B: Ein eigenes Repo anlegen
+
+1. Öffne <https://github.com> und melde dich an.
+2. Klicke oben rechts auf das **+** und dann auf **New repository**.
+3. **Owner:** Wähle deinen eigenen Account.
+   *Warum?* Repos in der Organisation legt in der Regel das Plattform-Team an.
+4. **Repository name:** Gib einen kurzen Namen ein, klein und mit Bindestrich, z. B. `meine-notizen`.
+5. **Sichtbarkeit:** Wähle **Private**.
+   *Warum?* Dann sehen nur du und die Personen, die du einlädst, die Dateien. Ein öffentliches Repo (**Public**) kann jede Person im Internet lesen.
+6. Schalte **Add README** ein (bzw. setze den Haken bei **Add a README file**).
+   *Warum?* Dann ist das Repo nicht leer, und du kannst es direkt klonen.
+7. Klicke auf **Create repository**.
+8. Hole das neue Repo jetzt wie in **Variante A** auf deinen Rechner. Fang bei Schritt 2 an, denn du bist schon auf der Seite des Repos.
+
+> **Hinweis:** Auch in ein privates Repo gehören keine vertraulichen oder personenbezogenen Daten. Siehe [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md).
 
 ## Teil 4 – Claude mit GitHub verbinden
 
@@ -146,7 +165,7 @@ Das Herunterladen eines Repos heißt bei Git **klonen**. Dabei meldest du dich z
 - [ ] Git installiert und mit `git --version` geprüft
 - [ ] Git Credential Manager vorhanden (Windows: automatisch, Mac: passende Datei für deinen Chip installiert) und mit `git credential-manager --version` geprüft
 - [ ] Name und `noreply`-E-Mail in Git eingetragen
-- [ ] Ein Repo geklont und dabei im Browser angemeldet
+- [ ] Ein vorhandenes Repo geklont oder ein eigenes angelegt und geklont, dabei im Browser angemeldet
 - [ ] Claude unter **Connectors** mit GitHub verbunden
 - [ ] Nur die benötigten Repos für Claude freigegeben
 - [ ] Freigabe für Organisations-Repos beim Plattform-Team angefragt
@@ -158,8 +177,8 @@ Das Herunterladen eines Repos heißt bei Git **klonen**. Dabei meldest du dich z
 |---|---|
 | `git` wird nicht gefunden | Terminal bzw. Git Bash schließen und neu öffnen. Hilft das nicht, Git erneut installieren |
 | Beim Klonen erscheint `Repository not found` | Adresse prüfen. Bist du schon in der Organisation (Einladung angenommen)? Hast du Zugriff auf dieses Repo? Sonst Plattform-Team fragen |
-| Git fragt nach Benutzername und Passwort | Der Git Credential Manager fehlt. Windows: Git neu installieren. Mac: Teil 1, Schritt 5 wiederholen |
-| Mac: `git credential-manager` wird nicht gefunden | Terminal schließen und neu öffnen. Hilft das nicht: Prüfen, ob du die Datei für den richtigen Chip installiert hast (Teil 1, Schritt 4 und 5) |
+| Git fragt nach Benutzername und Passwort | Der Git Credential Manager fehlt. Windows: Git neu installieren. Mac: Teil 1, Schritt 4 wiederholen |
+| Mac: `git credential-manager` wird nicht gefunden | Terminal schließen und neu öffnen. Hilft das nicht: Prüfen, ob du die Datei für den richtigen Chip installiert hast (Teil 1, Schritt 4). Welchen Chip dein Mac hat, steht unter **Apple-Menü → Über diesen Mac** |
 | Mac: „… kann nicht geöffnet werden“ beim Doppelklick auf die `.pkg`-Datei | Die Datei mit der rechten Maustaste anklicken → **Öffnen** → noch einmal **Öffnen** |
 | Claude zeigt das Repo nicht an | Auf GitHub unter **Settings → Applications** beim Eintrag **Claude** prüfen, ob das Repo freigegeben ist. Bei Organisations-Repos die Freigabe abwarten |
 | Claude zeigt einen Hinweis zu „SSO“ | Die Organisation verlangt eine zusätzliche Freigabe. Auf GitHub **Settings → Applications** öffnen, beim Eintrag **Claude** die Organisation freigeben. Trennen und neu verbinden in Claude hilft hier nicht |
