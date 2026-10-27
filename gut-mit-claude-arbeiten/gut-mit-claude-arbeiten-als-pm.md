@@ -25,7 +25,7 @@
 | 1 | **CLAUDE.md** | Anweisungen, die jede Session von Claude benutzt wird | Rolle, Ziele, Ordner-Index, Regeln. Kurz halten. |
 | 2 | **Arbeitsordner** | Dein zentraler lokaler Ort für Kontext, navigiere da hin wo Claude lesen soll | `KPIs/ · Projekte/ · Wissen/ · Vorlagen/`, pro Projekt ein README mit Datum / Status |
 | 3 | **Skills** | Wiederholbare Workflows | Dritte Wiederholung? Einmal durchspielen, dann „Claude Mach daraus einen Skill“. |
-| 4 | **Connectors (MCP)** | Zugriff auf andere Tools | Können nur Kontext holen oder etwas ausführen. Welche bei DS erlaubt sind, steht in den [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md), Abschnitt 4. |
+| 4 | **Connectors (MCP)** | Zugriff auf andere Tools | Können nur Kontext holen oder etwas ausführen. Welche bei DS erlaubt sind, regeln die Claude-Regeln für Non-Engineers. |
 
 ## 5 Regeln für die Arbeit mit Claude:
 

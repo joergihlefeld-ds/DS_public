@@ -127,7 +127,7 @@ Werkzeuge im Team: [z. B. Jira, Figma, PostHog, GitHub]
 - Oben in jeder Datei eine Zeile „Zuletzt bearbeitet: [Datum]“ pflegen.
 ```
 
-> **Wichtig:** Trag bei **Verbundene Tools** nur ein, was die [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md) erlauben. Slack, Gmail, Google Kalender und Confluence über den Atlassian-Connector sind bei DigitalService zum Beispiel verboten. Interviews und Meeting-Notizen kommen nur anonymisiert in den Ordner `recherche/`.
+> **Wichtig:** Trag bei **Verbundene Tools** nur ein, was die Claude-Regeln deiner Organisation erlauben. Slack, Gmail, Google Kalender und Confluence über den Atlassian-Connector sind bei DigitalService zum Beispiel verboten. Interviews und Meeting-Notizen kommen nur anonymisiert in den Ordner `recherche/`.
 
 *Quelle:* Übersetzt und angepasst nach [Claude Code for Product Managers](https://www.prodmgmt.world/resources/claude-code#getting-started) von Prodmgmt World. Dort gibt es auch fertige Prompts für typische PM-Aufgaben, zum Beispiel die Auswertung von Interviews oder Release Notes. Die Seite ist auf Englisch und wirbt am Ende für ein Bezahlprodukt. Das brauchst du nicht.
 

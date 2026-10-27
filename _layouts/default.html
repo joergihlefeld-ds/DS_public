@@ -47,6 +47,7 @@
           {%- for item in site.navigation %}
           <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
           {%- endfor %}
+          <li><a href="{{ '/impressum.html' | relative_url }}"{% if page.url == "/impressum.html" %} aria-current="page"{% endif %}>Impressum</a></li>
         </ul>
       </nav>
     </div>

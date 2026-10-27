@@ -1,6 +1,6 @@
 # Übersicht: Warum, Use Cases und Reihenfolge
 
-> **Vorher:** Lies die [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md). Dort steht, welche Daten und Tools du mit Claude nutzen darfst und wie du eine Lizenz bekommst.
+> **Vorher:** Kläre, welche Daten und Tools du mit Claude nutzen darfst. Vertrauliche und personenbezogene Daten gehören nicht in Claude.
 
 Hier erfährst du, was dir die Verbindung von GitHub, VS Code und Claude bringt, was du damit machen kannst und in welcher Reihenfolge du die Anleitungen durcharbeitest.
 

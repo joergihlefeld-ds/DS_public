@@ -125,11 +125,11 @@ Du hast zwei Möglichkeiten:
 7. Klicke auf **Create repository**.
 8. Hole das neue Repo jetzt wie in **Variante A** auf deinen Rechner. Fang bei Schritt 2 an, denn du bist schon auf der Seite des Repos.
 
-> **Hinweis:** Auch in ein privates Repo gehören keine vertraulichen oder personenbezogenen Daten. Siehe [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md).
+> **Hinweis:** Auch in ein privates Repo gehören keine vertraulichen oder personenbezogenen Daten.
 
 ## Teil 4 – Claude mit GitHub verbinden
 
-> **Hinweis:** Ob du GitHub mit Claude verbinden darfst, hängt vom Projekt ab. Kläre das vorher mit deinem Projekt. Siehe [Claude-Regeln für Non-Engineers](../onboarding/claude-regeln-fuer-non-engineers.md), Abschnitt 4.
+> **Hinweis:** Ob du GitHub mit Claude verbinden darfst, hängt vom Projekt ab. Kläre das vorher mit deinem Projekt.
 
 1. Öffne <https://claude.ai> und melde dich an.
 2. Unten links auf deinen Namen → **Einstellungen** (bzw. **Settings**) → **Connectors**.

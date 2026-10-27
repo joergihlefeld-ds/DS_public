@@ -14,17 +14,9 @@ Du brauchst dafür keine Programmierkenntnisse. Die Anleitungen führen dich Sch
 
 - **Warum sich das lohnt:** was GitHub, VS Code und Claude zusammen für deine Arbeit bringen
 - **Konkrete Use Cases:** Beispielfragen für Produktmanager:innen, vom Verstehen eines Features bis zu Release Notes
-- **Onboarding:** welche Regeln gelten und wie du eine Lizenz bekommst
 - **Anleitungen zum Einrichten:** in der richtigen Reihenfolge, jede in 10 bis 20 Minuten machbar
-- **Gut mit Claude arbeiten:** Regeln und Tipps für den Alltag als PM
 
 > **Hier starten:** [Übersicht: Warum, Use Cases und Reihenfolge](anleitungen/uebersicht.md)
-
-## Onboarding
-
-Bevor du loslegst: Diese Regeln gelten für alle, die bei DigitalService mit Claude arbeiten. Hier steht auch, wie du eine Lizenz bekommst.
-
-- [Claude-Regeln für Non-Engineers](onboarding/claude-regeln-fuer-non-engineers.md): Datenschutz, erlaubte Daten und Tools, Prüfung von Ergebnissen, Weg zur Lizenz
 
 ## Einrichten
 

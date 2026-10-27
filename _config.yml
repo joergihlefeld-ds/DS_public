@@ -9,8 +9,6 @@ wip: true
 navigation:
   - title: Start
     url: /
-  - title: Onboarding
-    url: /onboarding/claude-regeln-fuer-non-engineers.html
   - title: Übersicht
     url: /anleitungen/uebersicht.html
 
