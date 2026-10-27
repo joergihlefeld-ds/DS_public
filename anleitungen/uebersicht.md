@@ -21,6 +21,24 @@ Diese Beispiele brauchen wenig oder gar keine Programmierkenntnisse. Die Spalte 
 - **Browser** heißt Claude auf <https://claude.ai> mit GitHub-Connector (ab Schritt 2).
 - **VS Code** heißt Claude Code in VS Code (ab Schritt 3).
 
+### Warum manches nur mit VS Code geht
+
+Beide Wege haben Zugriff auf das Repo. Sie sehen aber nicht dasselbe:
+
+| | Browser | VS Code |
+|---|---|---|
+| Welche Dateien sieht Claude? | Nur die Dateien und Ordner, die du im Connector **auswählst**. Alles muss gleichzeitig in Claudes Arbeitsspeicher passen. Bei großen Repos geht das nicht. | Das **ganze Repo** auf deinem Rechner. Claude sucht selbst und liest nur, was es gerade braucht. |
+| Wie aktuell ist der Stand? | Der Stand vom letzten **Sync**. Den startest du selbst. | Der Stand vom letzten Holen der Änderungen (`git pull`). |
+| Sieht Claude den Verlauf? | Nein. Nur den aktuellen Inhalt der Dateien, ohne Änderungsverlauf. | Ja. Claude sieht, wer wann was geändert hat. |
+| Kann Claude Dateien ändern? | Nein. Claude liest nur. | Ja. Claude fragt vorher. |
+
+Daraus folgt:
+
+- **Aufwand einschätzen** und **Anforderung mit dem Ist-Stand abgleichen** gehen nur mit VS Code. Claude muss dafür alle Stellen finden, die mit einem Thema zu tun haben. Diese Stellen verteilen sich oft über viele Dateien, die aufeinander verweisen. Im Browser findet Claude nur, was du vorher ausgewählt hast. Was du nicht ausgewählt hast, fehlt in der Antwort, ohne dass Claude es merkt.
+- **Release Notes** brauchen den Änderungsverlauf. Den gibt der Browser-Connector nicht weiter.
+- **Selbst Änderungen machen** geht nur mit VS Code, weil Claude im Browser keine Dateien ändern kann.
+- Für Fragen zu **einzelnen Features** reicht der Browser, wenn du die passenden Dateien auswählst.
+
 ### Verstehen und nachfragen
 
 | Use Case | So kannst du fragen | Womit |
@@ -28,7 +46,7 @@ Diese Beispiele brauchen wenig oder gar keine Programmierkenntnisse. Die Spalte 
 | Ein Feature verstehen | „Erkläre mir ohne Fachbegriffe, wie die Anmeldung funktioniert.“ | Browser oder VS Code |
 | Regeln im Produkt finden | „Welche Pflichtfelder hat das Antragsformular und welche Prüfungen gibt es?“ | Browser oder VS Code |
 | Neu im Team einsteigen | „Gib mir einen Überblick über dieses Repo: Was liegt wo, was ist wichtig?“ | Browser oder VS Code |
-| Aufwand besser einschätzen | „Welche Teile des Produkts wären betroffen, wenn wir ein drittes Login-Verfahren einführen?“ | VS Code |
+| Aufwand besser einschätzen | „Welche Teile des Produkts wären betroffen, wenn wir ein drittes Login-Verfahren einführen?“ | VS Code: durchsucht das ganze Repo |
 | Gespräche mit der Entwicklung vorbereiten | „Welche offenen Fragen sollte ich zu diesem Feature stellen?“ | Browser oder VS Code |
 
 ### Anforderungen und Planung
@@ -36,8 +54,8 @@ Diese Beispiele brauchen wenig oder gar keine Programmierkenntnisse. Die Spalte 
 | Use Case | So kannst du fragen | Womit |
 |---|---|---|
 | User Storys schreiben | „Schreibe eine User Story mit Akzeptanzkriterien für den Export als PDF. Berücksichtige, wie der Export heute gebaut ist.“ | Browser oder VS Code |
-| Anforderung mit dem Ist-Stand abgleichen | „Prüfe, ob diese Anforderung schon umgesetzt ist und was noch fehlt.“ | VS Code |
-| Release Notes erstellen | „Fasse die Änderungen der letzten zwei Wochen für Nutzer:innen in einfacher Sprache zusammen.“ | VS Code |
+| Anforderung mit dem Ist-Stand abgleichen | „Prüfe, ob diese Anforderung schon umgesetzt ist und was noch fehlt.“ | VS Code: durchsucht das ganze Repo |
+| Release Notes erstellen | „Fasse die Änderungen der letzten zwei Wochen für Nutzer:innen in einfacher Sprache zusammen.“ | VS Code: braucht den Änderungsverlauf |
 | Issues vorbereiten | „Formuliere aus meinen Notizen drei Issues mit Beschreibung und Akzeptanzkriterien.“ | Browser oder VS Code |
 
 ### Selbst kleine Änderungen machen
