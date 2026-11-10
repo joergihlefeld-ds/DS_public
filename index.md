@@ -16,14 +16,14 @@ Du brauchst dafür keine Programmierkenntnisse. Die Anleitungen führen dich Sch
 - **Konkrete Use Cases:** Beispielfragen für Produktmanager:innen, vom Verstehen eines Features bis zu Release Notes
 - **Anleitungen zum Einrichten:** in der richtigen Reihenfolge, jede in 10 bis 20 Minuten machbar
 
-> **Hier starten:** [Übersicht: Warum, Use Cases und Reihenfolge](anleitungen/uebersicht.md)
+> **Hier starten:** [Übersicht: Warum, Use Cases und Reihenfolge](gettingstarted/uebersicht.md)
 
 ## Einrichten
 
-1. [GitHub-Account einrichten](anleitungen/github-account-einrichten.md) · ca. 15 Min.
-2. [Git und Claude mit GitHub verbinden](anleitungen/git-und-claude-mit-github-verbinden.md) · ca. 20 Min.
-3. [VS Code einrichten und mit Claude verbinden](anleitungen/vs-code-einrichten.md) · ca. 20 Min.
-4. [CLAUDE.md einrichten](anleitungen/claude-md-einrichten.md) · ca. 10 Min.
+1. [GitHub-Account einrichten](gettingstarted/github-account-einrichten.md) · ca. 15 Min.
+2. [Git und Claude mit GitHub verbinden](gettingstarted/git-und-claude-mit-github-verbinden.md) · ca. 20 Min.
+3. [VS Code einrichten und mit Claude verbinden](gettingstarted/vs-code-einrichten.md) · ca. 20 Min.
+4. [CLAUDE.md einrichten](knowledge/claude-md-einrichten.md) · ca. 10 Min.
 
 Nach etwa einer Stunde kannst du Claude Fragen zu deinem Produkt stellen und mit Claude an den Dateien arbeiten.
 

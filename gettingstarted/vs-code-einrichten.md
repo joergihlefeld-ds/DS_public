@@ -107,7 +107,7 @@ Eine **Erweiterung** ist ein Zusatzprogramm für VS Code.
 
 > **Wichtig:** Will Claude eine Datei ändern oder einen Befehl ausführen, fragt es dich vorher. Lies die Anfrage und klicke erst dann auf **Ja** bzw. **Yes**. So behältst du die Kontrolle über deine Dateien.
 
-> **Tipp:** Liegt im Projektordner eine `CLAUDE.md`, liest Claude sie zu Beginn automatisch. Wie du sie anlegst, steht in [CLAUDE.md einrichten](claude-md-einrichten.md).
+> **Tipp:** Liegt im Projektordner eine `CLAUDE.md`, liest Claude sie zu Beginn automatisch. Wie du sie anlegst, steht in [CLAUDE.md einrichten](../knowledge/claude-md-einrichten.md).
 
 ---
 
@@ -133,6 +133,6 @@ Eine **Erweiterung** ist ein Zusatzprogramm für VS Code.
 | Claude sieht die Dateien nicht | In VS Code über **Datei → Ordner öffnen** einen Ordner öffnen. Einzelne Dateien ohne Ordner reichen nicht |
 | VS Code ist nach dem Neustart wieder Englisch | Teil 1, „Auf Deutsch umstellen“, wiederholen und **Deutsch** auswählen |
 
-**Nächster Schritt:** [CLAUDE.md einrichten](claude-md-einrichten.md): Claude dauerhafte Regeln für dein Projekt mitgeben.
+**Nächster Schritt:** [CLAUDE.md einrichten](../knowledge/claude-md-einrichten.md): Claude dauerhafte Regeln für dein Projekt mitgeben.
 
 Weitere Infos zu Claude in VS Code: <https://code.claude.com/docs/en/vs-code>

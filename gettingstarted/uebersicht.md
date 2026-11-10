@@ -90,7 +90,7 @@ flowchart TD
     click A "github-account-einrichten.md"
     click B "git-und-claude-mit-github-verbinden.md"
     click C "vs-code-einrichten.md"
-    click D "claude-md-einrichten.md"
+    click D "../knowledge/claude-md-einrichten.md"
 
     style E stroke-dasharray: 5 5
 ```
@@ -102,7 +102,7 @@ flowchart TD
 | 1 | [GitHub-Account einrichten](github-account-einrichten.md) | Account anlegen, Zwei-Faktor-Authentifizierung (2FA) einrichten, der Organisation beitreten | ca. 15 Min. |
 | 2 | [Git und Claude mit GitHub verbinden](git-und-claude-mit-github-verbinden.md) | Git installieren, ein Repository auf den Rechner holen, Claude im Browser mit GitHub verbinden | ca. 20 Min. |
 | 3 | [VS Code einrichten](vs-code-einrichten.md) | VS Code installieren, mit GitHub anmelden, Erweiterung Claude Code einrichten | ca. 20 Min. |
-| 4 | [CLAUDE.md einrichten](claude-md-einrichten.md) | Claude dauerhafte Regeln für ein Projekt mitgeben | ca. 10 Min. |
+| 4 | [CLAUDE.md einrichten](../knowledge/claude-md-einrichten.md) | Claude dauerhafte Regeln für ein Projekt mitgeben | ca. 10 Min. |
 | 5 | Änderungen zu GitHub schicken | *geplant* | |
 
 *Warum diese Reihenfolge?* Jeder Schritt braucht den vorherigen. Ohne GitHub-Account kein Zugriff auf Repositories. Ohne Git kann VS Code keine Repositories holen. Und die CLAUDE.md wirkt erst, wenn Claude in deinem Projektordner arbeitet.

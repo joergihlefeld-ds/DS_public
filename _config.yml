@@ -10,7 +10,7 @@ navigation:
   - title: Start
     url: /
   - title: Übersicht
-    url: /anleitungen/uebersicht.html
+    url: /gettingstarted/uebersicht.html
 
 markdown: kramdown
 kramdown:
