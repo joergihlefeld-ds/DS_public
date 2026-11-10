@@ -74,7 +74,7 @@ Stand: November 2026 – Funktionen und Namen ändern sich häufig. Details: <ht
 > **Kernidee:** Alles, was **auf deinem Rechner** liegt, braucht Desktop-App, Terminal oder VS Code.
 > Alles, was **online** liegt (GitHub, Gmail, Drive, Web), geht von überall.
 
-> <sup>3</sup> **Achtung:** Eine einmal hergestellte Verbindung von Claude-Desoktop-App zu einem Ordner auf Deinem Rechner, wirkt auch, wenn Du Claude im Browser aufrufst
+> <sup>3</sup> **Achtung:** Eine einmal hergestellte Verbindung von Claude-Desktop-App zu einem Ordner auf Deinem Rechner, wirkt auch, wenn Du Claude im Browser aufrufst
 
 
 
