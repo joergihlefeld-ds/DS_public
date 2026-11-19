@@ -4,42 +4,31 @@ title: "Warum KI im Produktmanagement? Nutzen, Use Cases und Reihenfolge"
 
 > **Vorher:** Kläre, welche Daten und Tools du mit Claude nutzen darfst. Vertrauliche und personenbezogene Daten gehören nicht in Claude.
 
-Hier erfährst du, was dir die Verbindung von GitHub, VS Code und Claude bringt, was du damit machen kannst und in welcher Reihenfolge du die Anleitungen durcharbeitest.
 
-## Warum das Ganze?
+## Warum das Ganze? Wie verändert sich die Arbeit der Produktmanager:innen
 
-Du musst keinen Code schreiben, damit sich die Verbindung lohnt. Sie bringt dir vor allem vier Dinge:
+Ein paar Thesen: 
 
-1. **Claude sieht die echten Dateien.** Du musst nichts kopieren und einfügen. Claude arbeitet mit dem aktuellen Stand des Projekts, nicht mit einer alten Kopie.
-2. **Du kannst selbst nachsehen.** Fragen zum Produkt beantwortest du direkt aus den Dateien. Du musst dafür nicht immer Entwickler:innen unterbrechen.
-3. **Nichts geht verloren.** GitHub speichert jede Änderung mit Datum und Namen. Du kannst jederzeit zu einem früheren Stand zurück.
-4. **Alle arbeiten am selben Ort.** Konzepte, Anleitungen und Code liegen zusammen im Repository. Das Team findet alles an einer Stelle.
+1. Prototypen ersetzen Spezifikationen. Diskutiert wird am funktionierenden Artefakt, nicht am Dokument. Das verkürzt Feedbackschleifen mit Nutzenden und Auftraggebern deutlich.
 
-> **Wichtig:** Du behältst die Kontrolle. Claude fragt, bevor es etwas ändert. Und Änderungen am Produkt schickst du als **Pull Request** (ein Änderungsvorschlag auf GitHub). Das Entwicklungsteam prüft den Vorschlag, bevor er übernommen wird.
+2. Die Rollengrenzen verschwimmen. PMs werden technischer: Sie lesen Code, verstehen Architekturentscheidungen besser. Entwickler werden produktnäher: Sie bewerten Nutzerprobleme mit, weil sie schneller Varianten testen können. Die Diziplinen wachsen zusammen.
+
+34. Kontext und Randfälle sind nicht mehr nur für Menschen, sondern auch für Agenten das Arbeitsmaterial. „Prompt-fähige“ Anforderungen werden ein Qualitätsmerkmal von Produktarbeit.
+
+5. Qualitätssicherung und Verantwortung gewinnen an Gewicht. Mehr generierter Code bedeutet mehr Bedarf an Review, Tests, Sicherheit und Wartbarkeit. PMs müssen verstehen, dass „schnell gebaut“ nicht „schnell betriebsreif“ heißt. AI kann helfen das Dilemma zu lösen.
+
+Speziell im öffentlichen Sektor kommen Besonderheiten hinzu: Vergabe- und Datenschutzvorgaben, Barrierefreiheit (BITV), Betriebsverantwortung und die Frage, welche KI-Werkzeuge überhaupt zulässig sind. 
+
+Dort könnte die größte Veränderung sein, dass PM und Entwicklung früher gemeinsam mit Fachreferaten an Prototypen arbeiten und so Anforderungen in der Verwaltung schneller validieren.
+
+Kurz gesagt: weniger Übergabe, mehr gemeinsames Gestalten. Wer als PM Probleme glasklar formulieren und Prototypen selbst anfassen kann, wird wertvoller. Das gilt ebenso für Entwickler, die Produktverständnis mitbringen und generierten Code kritisch prüfen.
+
 
 ## Use Cases für Produktmanager:innen
 
 Diese Beispiele brauchen wenig oder gar keine Programmierkenntnisse. Die Spalte **Womit** zeigt, was du dafür brauchst:
 - **Browser** heißt Claude auf <https://claude.ai> mit GitHub-Connector (ab Schritt 2).
 - **VS Code** heißt Claude Code in VS Code (ab Schritt 3).
-
-### Warum manches nur mit VS Code geht
-
-Beide Wege haben Zugriff auf das Repo. Sie sehen aber nicht dasselbe:
-
-| | Browser | VS Code |
-|---|---|---|
-| Welche Dateien sieht Claude? | Nur die Dateien und Ordner, die du im Connector **auswählst**. Alles muss gleichzeitig in Claudes Arbeitsspeicher passen. Bei großen Repos geht das nicht. | Das **ganze Repo** auf deinem Rechner. Claude sucht selbst und liest nur, was es gerade braucht. |
-| Wie aktuell ist der Stand? | Der Stand vom letzten **Sync**. Den startest du selbst. | Der Stand vom letzten Holen der Änderungen (`git pull`). |
-| Sieht Claude den Verlauf? | Nein. Nur den aktuellen Inhalt der Dateien, ohne Änderungsverlauf. | Ja. Claude sieht, wer wann was geändert hat. |
-| Kann Claude Dateien ändern? | Nein. Claude liest nur. | Ja. Claude fragt vorher. |
-
-Daraus folgt:
-
-- **Aufwand einschätzen** und **Anforderung mit dem Ist-Stand abgleichen** gehen nur mit VS Code. Claude muss dafür alle Stellen finden, die mit einem Thema zu tun haben. Diese Stellen verteilen sich oft über viele Dateien, die aufeinander verweisen. Im Browser findet Claude nur, was du vorher ausgewählt hast. Was du nicht ausgewählt hast, fehlt in der Antwort, ohne dass Claude es merkt.
-- **Release Notes** brauchen den Änderungsverlauf. Den gibt der Browser-Connector nicht weiter.
-- **Selbst Änderungen machen** geht nur mit VS Code, weil Claude im Browser keine Dateien ändern kann.
-- Für Fragen zu **einzelnen Features** reicht der Browser, wenn du die passenden Dateien auswählst.
 
 ### Verstehen und nachfragen
 
