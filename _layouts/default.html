@@ -35,9 +35,36 @@
     </div>
   </header>
 
-  <main id="inhalt" class="container content">
-    {{ content }}
-  </main>
+  <div class="container page-layout">
+    <details class="sidebar" id="sidebar">
+      <summary>Inhaltsverzeichnis</summary>
+      <nav aria-label="Inhaltsverzeichnis">
+        <ul class="sidebar-list">
+          {%- for entry in site.data.sidebar %}
+          {%- if entry.items %}
+          <li class="sidebar-group">
+            <span class="sidebar-group-title">{{ entry.title }}</span>
+            <ul>
+              {%- for item in entry.items %}
+              <li><a href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a></li>
+              {%- endfor %}
+            </ul>
+          </li>
+          {%- else %}
+          <li><a href="{{ entry.url | relative_url }}"{% if page.url == entry.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
+          {%- endif %}
+          {%- endfor %}
+        </ul>
+      </nav>
+    </details>
+
+    <main id="inhalt" class="content">
+      {%- unless content contains '<h1' %}
+      <h1>{{ page.title }}</h1>
+      {%- endunless %}
+      {{ content }}
+    </main>
+  </div>
 
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -52,6 +79,17 @@
       </nav>
     </div>
   </footer>
+
+  <script>
+    // Inhaltsverzeichnis auf großen Bildschirmen immer offen, auf kleinen zugeklappt
+    (function () {
+      var sidebar = document.getElementById('sidebar');
+      var wide = window.matchMedia('(min-width: 901px)');
+      function update() { sidebar.open = wide.matches; }
+      update();
+      wide.addEventListener('change', update);
+    })();
+  </script>
 
   <script type="module">
     // Mermaid-Codeblöcke als Diagramme darstellen

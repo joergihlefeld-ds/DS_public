@@ -1,0 +1,53 @@
+# Seitenleiste (Inhaltsverzeichnis) links auf jeder Seite.
+# Aufbau wie im Repo ai4ds (astro.config.mjs → sidebar).
+# url = Adresse der fertigen Webseite: Pfad ohne /DS_public, Endung .html,
+#       bei index.md nur der Ordner mit / am Ende (z. B. /compliance/).
+# Neue Seite: unter dem passenden Fokusbereich bei items ergänzen.
+
+- title: Startseite
+  url: /
+
+- title: Basics
+  items:
+    - title: Warum KI?
+      url: /why.html
+    - title: Claude-Zugangswege
+      url: /basics/Claude-Zugangswege-Uebersicht.html
+
+- title: Getting Started
+  items:
+    - title: GitHub-Account
+      url: /getting-started/github-account-einrichten.html
+    - title: Git und Claude
+      url: /getting-started/git-und-claude-mit-github-verbinden.html
+    - title: VS Code
+      url: /getting-started/vs-code-einrichten.html
+    - title: Claude Jira
+      url: /getting-started/claude-mit-jira-verbinden.html
+
+- title: Compliance
+  items:
+    - title: Im Aufbau
+      url: /compliance/
+
+- title: Share
+  items:
+    - title: Im Aufbau
+      url: /share/
+
+- title: Knowledge
+  items:
+    - title: Chat vs. Cowork
+      url: /knowledge/claude-chat-vs-cowork.html
+    - title: CLAUDE.md einrichten
+      url: /knowledge/claude-md-einrichten.html
+
+- title: Experience
+  items:
+    - title: Im Aufbau
+      url: /experience/
+
+- title: Gemini
+  items:
+    - title: Im Aufbau
+      url: /gemini/

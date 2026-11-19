@@ -172,6 +172,72 @@ summary:focus-visible {
   border-bottom-color: var(--brand);
 }
 
+/* Seitenaufbau: Inhaltsverzeichnis links, Inhalt rechts */
+.page-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: var(--space-50);
+  align-items: start;
+}
+
+/* Inhaltsverzeichnis (Seitenleiste) */
+.sidebar {
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: var(--space-50) 0 var(--space-40);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+.sidebar > summary {
+  display: none;
+}
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sidebar li::before {
+  content: none;
+}
+.sidebar li + li {
+  margin-top: 0;
+}
+.sidebar-list > li + li {
+  margin-top: var(--space-20);
+}
+.sidebar-group-title {
+  display: block;
+  font-weight: 500;
+  padding-bottom: var(--space-8);
+}
+.sidebar-group ul {
+  border-left: var(--border-width-light) solid var(--border-chrome);
+}
+.sidebar a {
+  display: block;
+  color: var(--ink);
+  border-bottom: 0;
+  padding: var(--space-5) 0;
+}
+.sidebar-group a {
+  padding-left: var(--space-18);
+  margin-left: calc(-1 * var(--border-width-light));
+  border-left: var(--border-width-bar) solid transparent;
+}
+.sidebar a:hover {
+  color: var(--brand);
+}
+.sidebar a[aria-current="page"] {
+  color: var(--brand);
+  font-weight: 500;
+}
+.sidebar-group a[aria-current="page"] {
+  border-left-color: var(--brand);
+}
+
 /* Inhalt */
 .content {
   padding-top: var(--space-50);
@@ -408,6 +474,32 @@ pre.mermaid a {
 @media (max-width: 900px) {
   .home h1 {
     font-size: 44px;
+  }
+
+  /* Auf kleinen Bildschirmen: Inhaltsverzeichnis zum Aufklappen über dem Inhalt */
+  .page-layout {
+    display: block;
+  }
+  .sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    margin-top: var(--space-20);
+    border: var(--border-width-light) solid var(--border-chrome);
+  }
+  .sidebar > summary {
+    display: block;
+    cursor: pointer;
+    padding: var(--space-10) var(--space-20);
+    font-weight: 500;
+    color: var(--brand);
+  }
+  .sidebar > nav {
+    padding: var(--space-10) var(--space-20) var(--space-20);
+  }
+  .content {
+    padding-top: var(--space-30);
   }
 }
 
