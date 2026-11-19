@@ -1,9 +1,11 @@
-# Kurzanleitung: GitHub mit Git auf dem Rechner und mit Claude verbinden
+---
+title: "Kurzanleitung: GitHub mit Git auf dem Rechner und mit Claude verbinden"
+---
 
 > **Hinweis:** Diese Anleitung wurde mit Unterstützung von Claude erarbeitet. Claude ist ein KI-Assistent (ein Programm mit künstlicher Intelligenz) der Firma Anthropic.
 
 **Dauer:** ca. 20 Minuten
-**Was du brauchst:** deinen GitHub-Account mit 2FA (siehe [GitHub-Account einrichten](github-account-einrichten.md)), Zugang zur GitHub-Organisation, einen Rechner mit Windows oder Mac, einen Claude-Account
+**Was du brauchst:** deinen GitHub-Account mit 2FA (siehe [GitHub-Account einrichten](/getting-started/github-account-einrichten/)), Zugang zur GitHub-Organisation, einen Rechner mit Windows oder Mac, einen Claude-Account
 
 > **Worum geht es?**
 > **GitHub** ist eine Webseite, auf der Dateien gemeinsam gespeichert werden. Ein Projektordner auf GitHub heißt **Repository** (kurz: Repo).
@@ -184,6 +186,6 @@ Du hast zwei Möglichkeiten:
 | Claude zeigt einen Hinweis zu „SSO“ | Die Organisation verlangt eine zusätzliche Freigabe. Auf GitHub **Settings → Applications** öffnen, beim Eintrag **Claude** die Organisation freigeben. Trennen und neu verbinden in Claude hilft hier nicht |
 | Claude kennt die neuesten Änderungen nicht | Beim Repo in Claude auf **Sync now** klicken |
 
-**Nächster Schritt:** [VS Code installieren und mit GitHub und Claude verbinden](vs-code-einrichten.md). Danach: Änderungen speichern und zu GitHub schicken (eigene Anleitung).
+**Nächster Schritt:** [VS Code installieren und mit GitHub und Claude verbinden](/getting-started/vs-code-einrichten/). Danach: Änderungen speichern und zu GitHub schicken (eigene Anleitung).
 
 Weitere Infos zur Verbindung mit Claude: <https://support.claude.com/en/articles/10167454-using-the-github-integration>

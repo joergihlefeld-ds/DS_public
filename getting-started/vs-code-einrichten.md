@@ -1,9 +1,11 @@
-# Kurzanleitung: VS Code installieren und mit GitHub und Claude verbinden
+---
+title: "Kurzanleitung: VS Code installieren und mit GitHub und Claude verbinden"
+---
 
 > **Hinweis:** Diese Anleitung wurde mit Unterstützung von Claude erarbeitet. Claude ist ein KI-Assistent (ein Programm mit künstlicher Intelligenz) der Firma Anthropic.
 
 **Dauer:** ca. 20 Minuten
-**Was du brauchst:** deinen GitHub-Account mit 2FA (siehe [GitHub-Account einrichten](github-account-einrichten.md)), Git auf deinem Rechner (siehe [GitHub mit Git und Claude verbinden](git-und-claude-mit-github-verbinden.md), Teil 1 und 2), einen Claude-Account mit Bezahl-Plan (z. B. Team oder Enterprise), einen Rechner mit Windows oder Mac
+**Was du brauchst:** deinen GitHub-Account mit 2FA (siehe [GitHub-Account einrichten](/getting-started/github-account-einrichten/)), Git auf deinem Rechner (siehe [GitHub mit Git und Claude verbinden](/getting-started/git-und-claude-mit-github-verbinden/), Teil 1 und 2), einen Claude-Account mit Bezahl-Plan (z. B. Team oder Enterprise), einen Rechner mit Windows oder Mac
 
 > **Worum geht es?**
 > **VS Code** (Visual Studio Code) ist ein kostenloses Programm von Microsoft zum Bearbeiten von Dateien. Du siehst darin alle Dateien eines Projektordners auf einen Blick.
@@ -107,7 +109,7 @@ Eine **Erweiterung** ist ein Zusatzprogramm für VS Code.
 
 > **Wichtig:** Will Claude eine Datei ändern oder einen Befehl ausführen, fragt es dich vorher. Lies die Anfrage und klicke erst dann auf **Ja** bzw. **Yes**. So behältst du die Kontrolle über deine Dateien.
 
-> **Tipp:** Liegt im Projektordner eine `CLAUDE.md`, liest Claude sie zu Beginn automatisch. Wie du sie anlegst, steht in [CLAUDE.md einrichten](../knowledge/claude-md-einrichten.md).
+> **Tipp:** Liegt im Projektordner eine `CLAUDE.md`, liest Claude sie zu Beginn automatisch. Wie du sie anlegst, steht in [CLAUDE.md einrichten](/knowledge/claude-md-einrichten/).
 
 ---
 
@@ -125,7 +127,7 @@ Eine **Erweiterung** ist ein Zusatzprogramm für VS Code.
 
 | Problem | Lösung |
 |---|---|
-| **Repository klonen** fehlt oder VS Code meldet „Git nicht gefunden“ | Git ist nicht installiert. Teil 1 der [Git-Anleitung](git-und-claude-mit-github-verbinden.md) erledigen und VS Code neu starten |
+| **Repository klonen** fehlt oder VS Code meldet „Git nicht gefunden“ | Git ist nicht installiert. Teil 1 der [Git-Anleitung](/getting-started/git-und-claude-mit-github-verbinden/) erledigen und VS Code neu starten |
 | Nach der Anmeldung im Browser passiert in VS Code nichts | Im Browser erneut auf **Öffnen** klicken. Hilft das nicht, VS Code schließen, neu öffnen und die Anmeldung wiederholen |
 | Das Repo erscheint nicht in der Liste | Bist du schon in der Organisation (Einladung angenommen)? Hast du Zugriff auf das Repo? Sonst Plattform-Team fragen |
 | Das Claude-Symbol fehlt | Eine Datei im Editor öffnen, dann erscheint es oben rechts. Sonst VS Code neu starten. Prüfen, ob die Erweiterung unter **Erweiterungen** installiert und aktiviert ist |
@@ -133,6 +135,6 @@ Eine **Erweiterung** ist ein Zusatzprogramm für VS Code.
 | Claude sieht die Dateien nicht | In VS Code über **Datei → Ordner öffnen** einen Ordner öffnen. Einzelne Dateien ohne Ordner reichen nicht |
 | VS Code ist nach dem Neustart wieder Englisch | Teil 1, „Auf Deutsch umstellen“, wiederholen und **Deutsch** auswählen |
 
-**Nächster Schritt:** [CLAUDE.md einrichten](../knowledge/claude-md-einrichten.md): Claude dauerhafte Regeln für dein Projekt mitgeben.
+**Nächster Schritt:** [CLAUDE.md einrichten](/knowledge/claude-md-einrichten/): Claude dauerhafte Regeln für dein Projekt mitgeben.
 
 Weitere Infos zu Claude in VS Code: <https://code.claude.com/docs/en/vs-code>

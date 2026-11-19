@@ -1,4 +1,6 @@
-# Claude Chat vs. Claude Cowork – Unterschiede und Anleitung
+---
+title: "Claude Chat vs. Claude Cowork – Unterschiede und Anleitung"
+---
 
 Oct 30, 2026 · @Jörg
 

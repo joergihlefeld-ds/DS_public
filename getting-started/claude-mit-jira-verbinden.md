@@ -1,4 +1,6 @@
-# Kurzanleitung: Claude Desktop mit Jira verbinden
+---
+title: "Kurzanleitung: Claude Desktop mit Jira verbinden"
+---
 
 > **Hinweis:** Diese Anleitung wurde mit Unterstützung von Claude erarbeitet. Claude ist ein KI-Assistent (ein Programm mit künstlicher Intelligenz) der Firma Anthropic.
 
@@ -82,4 +84,4 @@ Atlassian zeigt jetzt die Seite **Claude is requesting access to your Atlassian 
 | Claude findet ein Ticket nicht | Claude sieht nur Projekte, die du selbst in Jira sehen darfst. Prüfe in Jira, ob du Zugriff auf das Projekt hast. |
 | Browser öffnet sich nicht | In Claude Desktop erneut auf **Connect** klicken. Prüfe, ob ein Pop-up-Blocker die Seite verhindert. |
 
-**Nächster Schritt:** Zurück zur [Übersicht](uebersicht.md).
+**Nächster Schritt:** Zurück zur [Übersicht](/).

@@ -1,4 +1,6 @@
-# Claude – Zugangswege und Ressourcen im Überblick
+---
+title: "Claude – Zugangswege und Ressourcen im Überblick"
+---
 
 Stand: November 2026 – Funktionen und Namen ändern sich häufig. Details: <https://support.claude.com>
 

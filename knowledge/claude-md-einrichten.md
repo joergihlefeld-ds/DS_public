@@ -1,9 +1,11 @@
-# Kurzanleitung: CLAUDE.md einrichten und pflegen
+---
+title: "Kurzanleitung: CLAUDE.md einrichten und pflegen"
+---
 
 > **Hinweis:** Diese Anleitung wurde mit Unterstützung von Claude erarbeitet. Claude ist ein KI-Assistent (ein Programm mit künstlicher Intelligenz) der Firma Anthropic.
 
 **Dauer:** ca. 10 Minuten
-**Was du brauchst:** Claude Code in VS Code (siehe [VS Code einrichten](../gettingstarted/vs-code-einrichten.md)) **oder** Claude Desktop mit dem Code-Tab, einen Projektordner
+**Was du brauchst:** Claude Code in VS Code (siehe [VS Code einrichten](/getting-started/vs-code-einrichten/)) **oder** Claude Desktop mit dem Code-Tab, einen Projektordner
 
 ---
 
@@ -13,7 +15,7 @@ Die **CLAUDE.md** ist eine Textdatei im Markdown-Format. Claude liest sie zu Beg
 
 Das klappt auf zwei Wegen. Die Datei ist bei beiden dieselbe:
 
-- **In VS Code** mit der Erweiterung **Claude Code**: Das hast du in der Anleitung [VS Code einrichten](../gettingstarted/vs-code-einrichten.md) eingerichtet.
+- **In VS Code** mit der Erweiterung **Claude Code**: Das hast du in der Anleitung [VS Code einrichten](/getting-started/vs-code-einrichten/) eingerichtet.
 - **In Claude Desktop** im **Code-Tab**: Claude Desktop ist das Programm von Claude für deinen Rechner. Im Code-Tab arbeitet Claude in einem Ordner auf deinem Rechner.
 
 > **Hinweis:** Claude im Browser (<https://claude.ai>) und die normalen Chats in Claude Desktop lesen die CLAUDE.md nicht. Sie wirkt nur, wenn Claude in einem Ordner auf deinem Rechner arbeitet.
