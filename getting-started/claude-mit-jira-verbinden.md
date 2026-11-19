@@ -84,4 +84,4 @@ Atlassian zeigt jetzt die Seite **Claude is requesting access to your Atlassian 
 | Claude findet ein Ticket nicht | Claude sieht nur Projekte, die du selbst in Jira sehen darfst. Prüfe in Jira, ob du Zugriff auf das Projekt hast. |
 | Browser öffnet sich nicht | In Claude Desktop erneut auf **Connect** klicken. Prüfe, ob ein Pop-up-Blocker die Seite verhindert. |
 
-**Nächster Schritt:** Zurück zur [Übersicht](/).
+**Nächster Schritt:** Zurück zur [Übersicht](../index.md).

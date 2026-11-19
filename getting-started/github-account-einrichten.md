@@ -77,6 +77,6 @@ Wichtig: Erledige zuerst Teil 3 (2FA). Ohne 2FA kannst du der Organisation nicht
 | Code aus der App wird abgelehnt | Uhrzeit auf dem Smartphone auf „automatisch“ stellen, neuen Code abwarten |
 | Smartphone verloren | Mit Recovery Code oder zweiter 2FA-Methode anmelden, dann 2FA neu einrichten |
 | Keine Bestätigungsmail | Spam-Ordner prüfen, unter *Settings → Emails* erneut senden |
-| `git push` verlangt Passwort und schlägt fehl | Mit 2FA funktioniert das Passwort nicht für Git. Stattdessen meldet dich der Git Credential Manager im Browser an, siehe [Git und Claude mit GitHub verbinden](/getting-started/git-und-claude-mit-github-verbinden/), Teil 1 und 3 |
+| `git push` verlangt Passwort und schlägt fehl | Mit 2FA funktioniert das Passwort nicht für Git. Stattdessen meldet dich der Git Credential Manager im Browser an, siehe [Git und Claude mit GitHub verbinden](../getting-started/git-und-claude-mit-github-verbinden.md), Teil 1 und 3 |
 
-**Nächster Schritt:** [GitHub mit Git auf dem Rechner und mit Claude verbinden](/getting-started/git-und-claude-mit-github-verbinden/).
+**Nächster Schritt:** [GitHub mit Git auf dem Rechner und mit Claude verbinden](../getting-started/git-und-claude-mit-github-verbinden.md).
