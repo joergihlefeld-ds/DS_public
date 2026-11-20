@@ -24,6 +24,8 @@
       url: /getting-started/vs-code-einrichten.html
     - title: Claude Jira
       url: /getting-started/claude-mit-jira-verbinden.html
+    - title: Claude Confluence
+      url: /getting-started/claude-mit-confluence-verbinden.html
 
 - title: Compliance
   items:
