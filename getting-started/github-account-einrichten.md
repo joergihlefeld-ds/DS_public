@@ -53,6 +53,9 @@ Wichtig: Erledige zuerst Teil 3 (2FA). Ohne 2FA kannst du der Organisation nicht
 1. **Plattform-Team ansprechen:** Melde dich beim Plattform-Team und bitte um Aufnahme in die GitHub-Organisation.
 2. **GitHub-Benutzernamen mitteilen:** Nenne deinen Benutzernamen aus Teil 1 (z. B. `vorname-nachname`). Du findest ihn oben rechts, wenn du auf dein Profilbild klickst.
 3. **Team mitteilen:** Sag dazu, in welchem Team du arbeitest. So bekommst du gleich Zugriff auf die richtigen Repositories.
+```link
+https://github.com/digitalservicebund/ai4ds
+```
 4. **Einladung abwarten:** Das Plattform-Team lädt dich ein. Du bekommst eine E-Mail von GitHub.
 5. **Einladung annehmen:** Klicke in der E-Mail auf den Link oder öffne <https://github.com/settings/organizations> und bestätige dort.
 
