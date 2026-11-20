@@ -43,7 +43,8 @@ Schritt-für-Schritt-Anleitungen für alles, was du brauchst. Jede Anleitung sch
 - [Git und Claude mit GitHub verbinden](getting-started/git-und-claude-mit-github-verbinden.md) · ca. 20 Min.
 - [VS Code einrichten und mit Claude verbinden](getting-started/vs-code-einrichten.md) · ca. 20 Min.
 - [Claude mit Jira verbinden](getting-started/claude-mit-jira-verbinden.md) · ca. 10 Min.
-- *Bald:* Claude mit Miro und Confluence verbinden
+- [Claude mit Confluence verbinden (PII-gefiltert)](getting-started/claude-mit-confluence-verbinden.md) · ca. 20 Min.
+- *Bald:* Claude mit Miro verbinden
 
 ### 3 · Compliance: Was darf ich?
 
